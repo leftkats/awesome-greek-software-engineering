@@ -2204,13 +2204,6 @@
     - Athens
   linkedin_company_id: douleutaras
   work_policy: hybrid
-- name: VODA.ai
-  url: https://www.voda.ai/
-  sectors:
-    - Asset Management
-  careers_url: https://careers.voda.ai/
-  linkedin_company_id: voda-ai
-  work_policy: remote
 - name: FlexCar
   url: https://flexcar.gr/el-gr/
   sectors:
