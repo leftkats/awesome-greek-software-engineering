@@ -1,11 +1,13 @@
 queries:
-  - name: "Wellfound: Tech Jobs in Athens, Greece"
-    url: https://wellfound.com/location/athens-greece
-  - name: "LinkedIn: Software Engineer in Greece"
-    url: https://www.linkedin.com/jobs/search/?keywords=Software%20Engineer&location=Greece
-  - name: "LinkedIn: Data Engineer in Greece"
-    url: https://www.linkedin.com/jobs/search/?keywords=Data%20Engineer&location=Greece
+  - name: "Jobs by Workable: Software Engineer in Greece"
+    url: https://jobs.workable.com/search?location=Greece&query=Software+Engineer
   - name: "Kariera.gr: Tech Jobs"
     url: https://www.kariera.gr/en/jobs/it-telecoms
+  - name: "LinkedIn: Data Engineer in Greece"
+    url: https://www.linkedin.com/jobs/search/?keywords=Data%20Engineer&location=Greece
+  - name: "LinkedIn: Software Engineer in Greece"
+    url: https://www.linkedin.com/jobs/search/?keywords=Software%20Engineer&location=Greece
   - name: "Startup Pirate: Learn what matters in Greek tech and startups"
     url: https://startuppirate.gr/
+  - name: "Wellfound: Tech Jobs in Athens, Greece"
+    url: https://wellfound.com/location/athens-greece

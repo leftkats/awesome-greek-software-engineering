@@ -250,11 +250,12 @@ This a comprehensive map of companies that hire for tech jobs in Greece. It high
 
 ---
 ## Useful Search Queries
-* [Wellfound: Tech Jobs in Athens, Greece](https://wellfound.com/location/athens-greece)
-* [LinkedIn: Software Engineer in Greece](https://www.linkedin.com/jobs/search/?keywords=Software%20Engineer&location=Greece)
-* [LinkedIn: Data Engineer in Greece](https://www.linkedin.com/jobs/search/?keywords=Data%20Engineer&location=Greece)
+* [Jobs by Workable: Software Engineer in Greece](https://jobs.workable.com/search?location=Greece&query=Software+Engineer)
 * [Kariera.gr: Tech Jobs](https://www.kariera.gr/en/jobs/it-telecoms)
+* [LinkedIn: Data Engineer in Greece](https://www.linkedin.com/jobs/search/?keywords=Data%20Engineer&location=Greece)
+* [LinkedIn: Software Engineer in Greece](https://www.linkedin.com/jobs/search/?keywords=Software%20Engineer&location=Greece)
 * [Startup Pirate: Learn what matters in Greek tech and startups](https://startuppirate.gr/)
+* [Wellfound: Tech Jobs in Athens, Greece](https://wellfound.com/location/athens-greece)
 
 ---
 ## Useful Notes
