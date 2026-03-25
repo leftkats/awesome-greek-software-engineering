@@ -1,0 +1,101 @@
+name: Release on main
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-main
+  cancel-in-progress: false
+
+jobs:
+  release:
+    # Skip automated doc-sync commits (avoid a release on every bot push).
+    if: >
+      ${{ !contains(github.event.head_commit.message, '[skip ci]') &&
+          !contains(github.event.head_commit.message, '[no release]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install git-cliff
+        env:
+          GIT_CLIFF_VERSION: "2.7.0"
+        run: |
+          set -euo pipefail
+          curl -sL "https://github.com/orhun/git-cliff/releases/download/v${GIT_CLIFF_VERSION}/git-cliff-${GIT_CLIFF_VERSION}-x86_64-unknown-linux-gnu.tar.gz" | tar xz
+          sudo install -m755 "git-cliff-${GIT_CLIFF_VERSION}/git-cliff" /usr/local/bin/git-cliff
+          git-cliff --version
+
+      - name: Build release notes
+        env:
+          REPO: ${{ github.repository }}
+          SITE: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
+        run: |
+          set -euo pipefail
+          PREV="$(git describe --tags --match 'v*' --abbrev=0 2>/dev/null || true)"
+
+          {
+            echo "## Live directory"
+            echo ""
+            echo "**[Browse the curated list](${SITE})**"
+            echo ""
+            echo "---"
+            echo ""
+          } > release_notes.md
+
+          if [ -n "${PREV}" ]; then
+            echo "### Highlights (git-cliff)" >> release_notes.md
+            echo "" >> release_notes.md
+            git-cliff "${PREV}..HEAD" --strip header --config cliff.toml >> release_notes.md || true
+            echo "" >> release_notes.md
+          else
+            echo "### Highlights (git-cliff)" >> release_notes.md
+            echo "" >> release_notes.md
+            git-cliff --strip header --config cliff.toml >> release_notes.md || true
+            echo "" >> release_notes.md
+          fi
+
+          echo "---" >> release_notes.md
+          echo "" >> release_notes.md
+          echo "### All commits in this release" >> release_notes.md
+          echo "" >> release_notes.md
+          echo "Every commit included in this tag (newest first):" >> release_notes.md
+          echo "" >> release_notes.md
+
+          if [ -n "${PREV}" ]; then
+            git log "${PREV}..HEAD" --pretty=format:'- %s ([`%h`](https://github.com/'"${REPO}"'/commit/%H))' >> release_notes.md
+          else
+            git log --pretty=format:'- %s ([`%h`](https://github.com/'"${REPO}"'/commit/%H))' >> release_notes.md
+          fi
+          echo "" >> release_notes.md
+
+      - name: Random release title
+        id: title
+        run: |
+          A=(Swift Calm Bold Bright Cedar Clever Coral Cosmic Crystal Curious Daring Ember Golden Ivory Jade Lunar Marble Noble Olive Pearl Quiet Rapid Ruby Silent Silver Solar Steady Swift Velvet Violet)
+          N=(Badger Beaver Brook Canyon Comet Delta Dolphin Eagle Falcon Harbor Heron Island Lighthouse Maple Meadow Otter Pine River Sage Summit Valley Willow)
+          i=$((RANDOM % ${#A[@]}))
+          j=$((RANDOM % ${#N[@]}))
+          echo "name=${A[i]} ${N[j]}" >> "$GITHUB_OUTPUT"
+
+      - name: Next version tag
+        id: ver
+        run: |
+          TAG="v$(date -u +%Y.%m.%d).${GITHUB_RUN_NUMBER}"
+          echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${{ steps.ver.outputs.tag }}" \
+            --title "${{ steps.title.outputs.name }}" \
+            --notes-file release_notes.md

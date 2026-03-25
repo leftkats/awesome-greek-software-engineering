@@ -1,0 +1,19 @@
+# https://git-cliff.org/docs/configuration
+# Release notes are generated for GitHub Releases via git-cliff in CI.
+
+[changelog]
+header = "## What's changed\n\n"
+trim = true
+# render = ...
+
+[git]
+conventional_commits = true
+filter_unconventional = false
+
+commit_parsers = [
+    { message = "^feat", group = "Features" },
+    { message = "^fix", group = "Bug Fixes" },
+    { message = "^doc", group = "Documentation" },
+    { message = "^chore", group = "Chores" },
+    { message = ".*", group = "Other" },
+]

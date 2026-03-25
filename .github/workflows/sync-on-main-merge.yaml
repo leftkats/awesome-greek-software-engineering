@@ -16,18 +16,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v5
 
-      - name: Install dependencies
-        run: pip install pyyaml jinja2
+      - name: Install Python and dependencies
+        run: uv sync --frozen
 
       - name: Sync Content
         run: |
-          python -m scripts.generate_readme
-          python -m scripts.generate_index
+          uv run python -m scripts.generate_readme
+          uv run python -m scripts.generate_index
 
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
