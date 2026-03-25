@@ -42,38 +42,64 @@ jobs:
           set -euo pipefail
           PREV="$(git describe --tags --match 'v*' --abbrev=0 2>/dev/null || true)"
 
+          emoji_for() {
+            local s="$1"
+            case "$s" in
+              feat:*|feat(*)*) printf '%s' '✨' ;;
+              fix:*|fix(*)*) printf '%s' '🐛' ;;
+              perf:*|perf(*)*) printf '%s' '⚡' ;;
+              refactor:*|refactor(*)*) printf '%s' '♻️' ;;
+              doc:*|doc(*)*) printf '%s' '📚' ;;
+              docs:*|docs(*)*) printf '%s' '📚' ;;
+              test:*|test(*)*) printf '%s' '🧪' ;;
+              build:*|build(*)*) printf '%s' '📦' ;;
+              ci:*|ci(*)*) printf '%s' '👷' ;;
+              style:*|style(*)*) printf '%s' '💄' ;;
+              chore:*|chore(*)*) printf '%s' '🔧' ;;
+              *) printf '%s' '📌' ;;
+            esac
+          }
+
           {
-            echo "## Live directory"
-            echo ""
-            echo "**[Browse the curated list](${SITE})**"
-            echo ""
-            echo "---"
+            echo "🌐 **[Live directory](${SITE})**"
             echo ""
           } > release_notes.md
 
+          RANGE=""
           if [ -n "${PREV}" ]; then
-            echo "### Highlights (git-cliff)" >> release_notes.md
-            echo "" >> release_notes.md
-            git-cliff "${PREV}..HEAD" --strip header --config cliff.toml >> release_notes.md || true
-            echo "" >> release_notes.md
+            RANGE="${PREV}..HEAD"
           else
-            echo "### Highlights (git-cliff)" >> release_notes.md
-            echo "" >> release_notes.md
-            git-cliff --strip header --config cliff.toml >> release_notes.md || true
-            echo "" >> release_notes.md
+            ROOT="$(git rev-list --max-parents=0 HEAD 2>/dev/null | tail -n1)"
+            if [ -n "${ROOT}" ]; then
+              RANGE="${ROOT}..HEAD"
+            fi
           fi
 
-          echo "---" >> release_notes.md
+          if [ -n "${RANGE}" ]; then
+            git-cliff "${RANGE}" --strip all --config cliff.toml >> release_notes.md || true
+          else
+            git-cliff HEAD --strip all --config cliff.toml >> release_notes.md || true
+          fi
+
+          # Drop standalone "Unreleased" headings some tooling emits.
+          sed -i -E '/^##[[:space:]]+\[?[Uu]nreleased\]?[[:space:]]*$/d' release_notes.md 2>/dev/null || true
+
           echo "" >> release_notes.md
-          echo "### All commits in this release" >> release_notes.md
-          echo "" >> release_notes.md
-          echo "Every commit included in this tag (newest first):" >> release_notes.md
+          echo "**📋 Commits**" >> release_notes.md
           echo "" >> release_notes.md
 
           if [ -n "${PREV}" ]; then
-            git log "${PREV}..HEAD" --pretty=format:'- %s ([`%h`](https://github.com/'"${REPO}"'/commit/%H))' >> release_notes.md
+            git log "${PREV}..HEAD" --pretty=format:'%H%x09%h%x09%s' |
+              while IFS="$(printf '\t')" read -r full short subj; do
+                em="$(emoji_for "$subj")"
+                echo "- ${em} ${subj} ([\`${short}\`](https://github.com/${REPO}/commit/${full}))"
+              done >> release_notes.md
           else
-            git log --pretty=format:'- %s ([`%h`](https://github.com/'"${REPO}"'/commit/%H))' >> release_notes.md
+            git log --pretty=format:'%H%x09%h%x09%s' |
+              while IFS="$(printf '\t')" read -r full short subj; do
+                em="$(emoji_for "$subj")"
+                echo "- ${em} ${subj} ([\`${short}\`](https://github.com/${REPO}/commit/${full}))"
+              done >> release_notes.md
           fi
           echo "" >> release_notes.md
 
