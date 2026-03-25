@@ -24,6 +24,7 @@ The full directory is in **[engineering-hubs.md](engineering-hubs.md)** (markdow
 ---
 ## Useful Search Queries
 * [Jobs by Workable: Software Engineer in Greece](https://jobs.workable.com/search?location=Greece&query=Software+Engineer)
+* [Data Engineer Jobs near Athens | Jobs By Innovative Greeks](https://www.igwork.gr/search?location=Athens&query=Data+Engineer)
 * [Kariera.gr: Tech Jobs](https://www.kariera.gr/en/jobs/it-telecoms)
 * [LinkedIn: Data Engineer in Greece](https://www.linkedin.com/jobs/search/?keywords=Data%20Engineer&location=Greece)
 * [LinkedIn: Software Engineer in Greece](https://www.linkedin.com/jobs/search/?keywords=Software%20Engineer&location=Greece)
