@@ -1,16 +1,16 @@
 """Fetch open-job counts from Workable (server-side; avoids browser CORS).
 
-Uses ``requests`` with retries, ``Retry-After`` handling, and pacing to reduce
-rate limits / blocks on CI and local runs.
+Uses ``POST /api/v1/accounts/{slug}/jobs`` to list all jobs, then counts those
+whose ``location.country == "Greece"``.  This is IP-independent (unlike the
+``/count`` endpoint whose ``incountry`` field is based on requester geolocation).
 
-Writes ``data/workable_counts.yaml`` (Greece ``incountry`` per apply.workable slug).
+Writes ``data/workable_counts.yaml`` (Greece count per apply.workable slug).
 """
 
 from __future__ import annotations
 
 import sys
 import time
-import urllib.parse
 from pathlib import Path
 
 import requests
@@ -25,17 +25,13 @@ OUTPUT_PATH = Path("data/workable_counts.yaml")
 
 DELAY_BETWEEN_SLUGS_SEC = 1.25
 TIMEOUT_SEC = (12, 30)
+TARGET_COUNTRY = "Greece"
 
 _RETRY_TOTAL = 5
 _RETRY_BACKOFF_FACTOR = 1.5
 _RETRY_STATUS_FORCELIST = (429, 500, 502, 503, 504)
 
-_JOBS_COUNT_QUERY = urllib.parse.urlencode({
-    "location": "Greece",
-    "country": "GR",
-    "location_country_code": "GR",
-})
-_BASE = "https://apply.workable.com/api/v1/accounts/{slug}/jobs/count"
+_JOBS_URL = "https://apply.workable.com/api/v1/accounts/{slug}/jobs"
 
 _USER_AGENT = (
     "awesome-greek-tech-jobs/1.0 "
@@ -59,7 +55,7 @@ def _build_session() -> requests.Session:
         read=_RETRY_TOTAL,
         backoff_factor=_RETRY_BACKOFF_FACTOR,
         status_forcelist=_RETRY_STATUS_FORCELIST,
-        allowed_methods=frozenset(["GET"]),
+        allowed_methods=frozenset(["GET", "POST"]),
         raise_on_status=False,
         respect_retry_after_header=True,
     )
@@ -69,41 +65,47 @@ def _build_session() -> requests.Session:
     return session
 
 
-def _coerce_incountry(value: object) -> int | None:
-    if isinstance(value, bool):
-        return None
-    if isinstance(value, int) and value >= 0:
-        return value
-    if isinstance(value, float) and value >= 0 and value == int(value):
-        return int(value)
-    return None
-
-
 def fetch_count(session: requests.Session, slug: str, idx: int = 0, total: int = 0) -> int | None:
-    path = urllib.parse.quote(slug, safe="")
-    url = f"{_BASE.format(slug=path)}?{_JOBS_COUNT_QUERY}"
+    """Paginate POST /jobs, count entries where location.country == Greece."""
+    url = _JOBS_URL.format(slug=slug)
     prefix = f"[{idx}/{total}] {slug}"
     headers = {
         "Origin": "https://apply.workable.com",
-        "Referer": f"https://apply.workable.com/{path}/",
+        "Referer": f"https://apply.workable.com/{slug}/",
     }
+    greece_count = 0
+    total_jobs = 0
+    token: str | None = None
+
     try:
-        resp = session.get(url, headers=headers, timeout=TIMEOUT_SEC)
-        if resp.status_code == 200:
+        while True:
+            body: dict = {"query": ""}
+            if token:
+                body["token"] = token
+
+            resp = session.post(url, json=body, headers=headers, timeout=TIMEOUT_SEC)
+            if resp.status_code != 200:
+                print(
+                    f"{prefix}: HTTP {resp.status_code} {resp.reason or ''} → {resp.text[:200]}".strip(),
+                    file=sys.stderr,
+                )
+                return None
+
             data = resp.json()
-            print(f"{prefix}: HTTP 200 → {data}")
-            if isinstance(data, dict):
-                return _coerce_incountry(data.get("incountry"))
-            print(
-                f"warn: {slug}: expected JSON object, got {type(data).__name__}",
-                file=sys.stderr,
-            )
-            return None
-        print(
-            f"{prefix}: HTTP {resp.status_code} {resp.reason or ''} → {resp.text[:200]}".strip(),
-            file=sys.stderr,
-        )
-        return None
+            results = data.get("results", [])
+            for job in results:
+                total_jobs += 1
+                country = (job.get("location") or {}).get("country", "")
+                if country == TARGET_COUNTRY:
+                    greece_count += 1
+
+            token = data.get("nextPage")
+            if not token or not results:
+                break
+
+        print(f"{prefix}: {greece_count}/{total_jobs} jobs in {TARGET_COUNTRY}")
+        return greece_count
+
     except requests.RequestException as e:
         print(f"{prefix}: FAILED → {e}", file=sys.stderr)
         return None
@@ -133,7 +135,7 @@ def main() -> int:
     total_open = sum(n for n in accounts.values() if isinstance(n, int))
     out = {
         "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-        "metric": "incountry_greece",
+        "metric": "greece_by_job_location",
         "accounts": accounts,
         "total_open": total_open,
     }
@@ -141,7 +143,7 @@ def main() -> int:
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     with OUTPUT_PATH.open("w", encoding="utf-8") as f:
         f.write(
-            "# Workable Greece incountry open-role counts (generated by "
+            "# Workable Greece job counts by location.country (generated by "
             "scripts/fetch_workable_counts)\n"
         )
         yaml.dump(
