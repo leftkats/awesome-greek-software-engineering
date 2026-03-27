@@ -1,8 +1,13 @@
-import yaml
+"""Generate ``readme.md`` and ``engineering-hubs.md`` from YAML sources."""
+
+from __future__ import annotations
+
 from collections import Counter
 
+import yaml
 
-def generate():
+
+def generate() -> None:
     with open("data/companies.yaml", "r", encoding="utf-8") as f:
         companies_data = yaml.safe_load(f)
 
@@ -12,129 +17,217 @@ def generate():
     with open("data/queries.yaml", "r", encoding="utf-8") as f:
         queries_data = yaml.safe_load(f)
 
-    # Logic: Sort and clean data
-    all_companies = sorted(companies_data, key=lambda x: x["name"].lower())
+    all_companies = sorted(
+        companies_data, key=lambda x: x["name"].lower()
+    )
 
-    # Check for duplicate company names
-    seen = set()
+    seen: set[str] = set()
     duplicates = [
-        c["name"] for c in all_companies if c["name"] in seen or seen.add(c["name"])
+        c["name"]
+        for c in all_companies
+        if c["name"] in seen or seen.add(c["name"])
     ]
     if duplicates:
-        raise ValueError(f"Duplicate company names found: {', '.join(set(duplicates))}")
+        names = ", ".join(set(duplicates))
+        raise ValueError(f"Duplicate company names: {names}")
 
-    # Statistics Calculation
-    total_companies = len(all_companies)
+    total = len(all_companies)
     loc_counts = Counter(
-        [loc.strip().title() for c in all_companies for loc in c.get("locations", [])]
+        loc.strip().title()
+        for c in all_companies
+        for loc in c.get("locations", [])
     )
-    top_loc, top_count = loc_counts.most_common(1)[0] if loc_counts else ("N/A", 0)
+    top_loc, top_n = (
+        loc_counts.most_common(1)[0] if loc_counts else ("N/A", 0)
+    )
 
     policy_counts = Counter(
-        [c.get("work_policy", "N/A").strip().title() for c in all_companies]
+        c.get("work_policy", "N/A").strip().title()
+        for c in all_companies
     )
-    remote_count = policy_counts.get("Remote", 0)
-    hybrid_count = policy_counts.get("Hybrid", 0)
-
-    # 1. Header & Dynamic Badges
-    content = f"# {readme_data['title']}\n\n"
-    content += f"![Companies](https://img.shields.io/badge/Companies-{total_companies}-blue?style=for-the-badge) "
-    content += f"![Primary Hub](https://img.shields.io/badge/Main_Hub-{top_loc}-red?style=for-the-badge) "
-    content += f"![Remote Friendly](https://img.shields.io/badge/Remote_Teams-{remote_count}-green?style=for-the-badge)\n\n"
-
-    content += f"## Overview\n{readme_data['description']}\n\n"
-
-    # 2. Professional Statistics Dashboard
-    content += "### Insights\n"
-    content += "| Metric | Data Point |\n| :--- | :--- |\n"
-    content += (
-        f"| **Total Organizations** | **{total_companies}** curated tech teams |\n"
+    remote = policy_counts.get("Remote", 0)
+    hybrid = policy_counts.get("Hybrid", 0)
+    onsite = (
+        policy_counts.get("On-Site", 0)
+        + policy_counts.get("Onsite", 0)
     )
-    content += f"| **Top Tech Hub** | **{top_loc}** ({top_count} offices) |\n"
-    content += f"| **Work Flexibility** | **{remote_count}** Remote · **{hybrid_count}** Hybrid |\n\n"
 
-    content += "---\n\n"
+    sector_counts = Counter(
+        s.strip()
+        for c in all_companies
+        for s in c.get("sectors", [])
+    )
+    top_sectors = sector_counts.most_common(5)
 
-    # 3. Company directory: full table in a separate file, link from README
-    hubs_filename = "engineering-hubs.md"
-    hubs_lines = [
+    repo = readme_data.get(
+        "repo", "leftkats/awesome-greek-tech-jobs"
+    )
+    live_url = readme_data.get("live_url", "")
+
+    # ── Build README ────────────────────────────────────────
+    lines: list[str] = []
+
+    lines.append(f"# {readme_data['title']}\n")
+    tagline = readme_data.get("tagline", "")
+    lines.append(f"> {tagline}\n")
+    lines.append("")
+
+    badge = (
+        "![Companies]"
+        f"(https://img.shields.io/badge/Companies-{total}"
+        "-blue?style=for-the-badge) "
+        "![Hub]"
+        f"(https://img.shields.io/badge/Hub-{top_loc}"
+        "-red?style=for-the-badge) "
+        "![Remote]"
+        f"(https://img.shields.io/badge/Remote-{remote}"
+        "-green?style=for-the-badge) "
+        "![Hybrid]"
+        f"(https://img.shields.io/badge/Hybrid-{hybrid}"
+        "-yellow?style=for-the-badge)"
+    )
+    lines.append(badge)
+    lines.append("")
+
+    if live_url:
+        lines.append(
+            f"[**Explore the Live Directory**]({live_url})\n"
+        )
+        lines.append("")
+
+    lines.append("## Overview\n")
+    lines.append(f"{readme_data['description'].strip()}\n")
+    lines.append("")
+
+    lines.append("## At a Glance\n")
+    lines.append("| Metric | |")
+    lines.append("| :--- | :--- |")
+    lines.append(f"| **Companies** | {total} curated teams |")
+    lines.append(
+        f"| **Top Hub** | {top_loc} ({top_n} offices) |"
+    )
+    lines.append(
+        "| **Remote / Hybrid / On-site** "
+        f"| {remote} / {hybrid} / {onsite} |"
+    )
+    if top_sectors:
+        sec = " · ".join(f"{s} ({n})" for s, n in top_sectors)
+        lines.append(f"| **Top Sectors** | {sec} |")
+    lines.append("")
+
+    lines.append("---\n")
+    lines.append("## Company Directory\n")
+    lines.append(
+        "The full table lives in "
+        "**[engineering-hubs.md](engineering-hubs.md)** "
+        "— sortable by sector, policy, and talent portals.\n"
+    )
+    lines.append("")
+
+    if queries_data and "queries" in queries_data:
+        lines.append("---\n")
+        lines.append("## Useful Search Queries\n")
+        for q in queries_data["queries"]:
+            lines.append(f"- [{q['name']}]({q['url']})")
+        lines.append("")
+
+    footer = readme_data.get("footer", {})
+    notes = footer.get("notes", [])
+    if notes:
+        lines.append("---\n")
+        lines.append("## Tips & Notes\n")
+        for n in notes:
+            title = n["title"]
+            body = n["content"].strip()
+            lines.append(f"- **{title}:** {body}")
+        lines.append("")
+
+    lines.append("---\n")
+    lines.append("## Contributors\n")
+    lines.append(
+        f"[![Contributors]"
+        f"(https://contrib.rocks/image?repo={repo})]"
+        f"(https://github.com/{repo}/graphs/contributors)\n"
+    )
+    if footer.get("description"):
+        lines.append(f"{footer['description']}\n")
+    lines.append("")
+
+    lines.append("---\n")
+    lines.append("## Disclaimer\n")
+    if readme_data.get("disclaimer"):
+        lines.append(
+            f"{readme_data['disclaimer'].strip()}\n"
+        )
+
+    with open("readme.md", "w", encoding="utf-8") as f:
+        f.write("\n".join(lines) + "\n")
+
+    # ── Build engineering-hubs.md ───────────────────────────
+    hubs: list[str] = [
         "# Engineering Hubs & Career Portals\n",
         "\n",
-        "Curated organizations, focus sectors, work policy, and talent links.\n",
+        "Curated organizations, focus sectors, "
+        "work policy, and talent links.\n",
         "\n",
-        "| # | Organization | Focus Sectors | Policy | Talent Portals |\n",
+        "| # | Organization | Focus Sectors "
+        "| Policy | Talent Portals |\n",
         "| :--- | :--- | :--- | :--- | :--- |\n",
     ]
 
+    p_colors = {
+        "remote": "brightgreen",
+        "hybrid": "blue",
+        "onsite": "orange",
+        "on-site": "orange",
+    }
+
     for idx, c in enumerate(all_companies, start=1):
-        company_name_md = f"[{c['name']}]({c['url']})" if c.get("url") else c["name"]
-
-        policy = c.get("work_policy", "N/A").strip().lower().replace("-", "")
-
-        p_color = {
-            "remote": "brightgreen",
-            "hybrid": "blue",
-            "onsite": "orange",
-        }.get(policy, "lightgrey")
-        policy_badge = (
-            f"![](https://img.shields.io/badge/-{policy}-{p_color}?style=flat-square)"
+        name_md = (
+            f"[{c['name']}]({c['url']})"
+            if c.get("url")
+            else c["name"]
         )
 
-        careers = f"[Careers]({c['careers_url']})" if c.get("careers_url") else "—"
-        linkedin_id = c.get("linkedin_company_id", "")
-        linkedin = (
-            f"[LinkedIn](https://www.linkedin.com/company/{linkedin_id})"
-            if linkedin_id
+        raw = (
+            c.get("work_policy", "N/A")
+            .strip()
+            .lower()
+            .replace("-", "")
+        )
+        color = p_colors.get(raw, "lightgrey")
+        pbadge = (
+            "![](https://img.shields.io/badge/"
+            f"-{raw}-{color}?style=flat-square)"
+        )
+
+        careers = (
+            f"[Careers]({c['careers_url']})"
+            if c.get("careers_url")
+            else "—"
+        )
+        lid = c.get("linkedin_company_id", "")
+        li = (
+            "[LinkedIn]"
+            f"(https://www.linkedin.com/company/{lid})"
+            if lid
             else "—"
         )
 
-        sectors = ", ".join([f"`{s}`" for s in c.get("sectors", [])])
-
-        hubs_lines.append(
-            f"| {idx:02} | **{company_name_md}** | {sectors} | {policy_badge} | {careers} • {linkedin} |\n"
+        sectors = ", ".join(
+            f"`{s}`" for s in c.get("sectors", [])
         )
 
-    with open(hubs_filename, "w", encoding="utf-8") as f:
-        f.writelines(hubs_lines)
+        hubs.append(
+            f"| {idx:02} | **{name_md}** "
+            f"| {sectors} | {pbadge} "
+            f"| {careers} · {li} |\n"
+        )
 
-    content += "## Engineering Hubs & Career Portals\n\n"
-    content += f"The full directory is in **[{hubs_filename}]({hubs_filename})** (markdown table).\n\n---\n"
-
-    # 4. Search Queries (As before)
-    if "queries" in queries_data:
-        content += "## Useful Search Queries\n"
-        for query in queries_data["queries"]:
-            content += f"* [{query['name']}]({query['url']})\n"
-        content += "\n---\n"
-
-    # 5. Footer: Notes & Contributors
-    if "footer" in readme_data:
-        content += "## Useful Notes\n"
-        if "notes" in readme_data["footer"]:
-            content += "\n".join(
-                [
-                    f"- **{n['title']}:** {n['content']}"
-                    for n in readme_data["footer"]["notes"]
-                ]
-            )
-            content += "\n"
-
-        content += "\n---\n"
-        content += "### Contributors\n"
-        if "description" in readme_data["footer"]:
-            repo_path = "leftkats/awesome-greek-tech-jobs"
-            content += f"[![Contributors](https://contrib.rocks/image?repo={repo_path})](https://github.com/{repo_path}/graphs/contributors)\n\n"
-            content += f"\n{readme_data['footer']['description']}\n"
-
-    # 6. Disclaimer & Mission
-    content += "\n---\n"
-    content += "### Disclaimer & Mission\n"
-    if readme_data.get("disclaimer"):
-        content += f"\n{readme_data['disclaimer']}\n"
-
-    # Write to file
-    with open("readme.md", "w", encoding="utf-8") as f:
-        f.write(content)
+    with open(
+        "engineering-hubs.md", "w", encoding="utf-8"
+    ) as f:
+        f.writelines(hubs)
 
 
 if __name__ == "__main__":
