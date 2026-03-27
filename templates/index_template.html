@@ -237,6 +237,7 @@
         <span class="material-symbols-outlined text-sm mt-0.5">warning</span>
         <div class="text-[11px] leading-tight uppercase font-bold tracking-tight">
             NOTICE: This is a statically generated site. Data accuracy is dependent on source repository updates.
+            Embedded Workable job counts are snapshots and can be inaccurate versus live listings.
             <span class="text-yellow-400 underline underline-offset-2">Remote/Location policies are currently under
                 construction</span> and may not reflect real-time changes.
         </div>
@@ -295,7 +296,8 @@
             <p class="text-[10px] leading-relaxed text-neutral-400 dark:text-neutral-500 font-normal normal-case tracking-tight"
                 id="workableLiveSummary" role="status" aria-live="polite">
                 <span id="workableLiveExplainer">These numbers use Workable’s public job-count API when the site is
-                    generated (CI), then are embedded in this HTML — your browser does not call Workable.</span><span
+                    generated (CI), then are embedded in this HTML — your browser does not call Workable. Counts can be
+                    inaccurate (timing, geography filters, API behavior).</span><span
                     id="workableLiveSubline" class="text-neutral-500 dark:text-neutral-400"></span>
             </p>
             {% endif %}

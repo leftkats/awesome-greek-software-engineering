@@ -1,94 +1,133 @@
-"""Fetch open-job counts from Workable (server-side; avoids browser CORS)."""
+"""Fetch open-job counts from Workable (server-side; avoids browser CORS).
+
+Uses ``requests`` with retries, ``Retry-After`` handling, and pacing to reduce
+rate limits / blocks on CI and local runs.
+
+Writes ``data/workable_counts.yaml`` (Greece ``incountry`` per apply.workable slug).
+"""
 
 from __future__ import annotations
 
-import json
 import sys
 import time
-import urllib.error
 import urllib.parse
-import urllib.request
 from pathlib import Path
 
+import requests
 import yaml
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 from scripts.workable_apply_slug import extract_workable_apply_slug
 
 YAML_PATH = Path("data/companies.yaml")
 OUTPUT_PATH = Path("data/workable_counts.yaml")
 
-# PLAN 1: Anti-Blocking Measures
-DELAY_SEC = 9  # Slow and steady to avoid IP-based rate limiting
-TIMEOUT_SEC = 25
-BROWSER_UA = (
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-    "(KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
+DELAY_BETWEEN_SLUGS_SEC = 1.25
+TIMEOUT_SEC = (12, 30)
+
+_RETRY_TOTAL = 5
+_RETRY_BACKOFF_FACTOR = 1.5
+_RETRY_STATUS_FORCELIST = (429, 500, 502, 503, 504)
+
+_JOBS_COUNT_QUERY = urllib.parse.urlencode({"location": "Greece"})
+_BASE = "https://apply.workable.com/api/v1/accounts/{slug}/jobs/count"
+
+_USER_AGENT = (
+    "awesome-greek-tech-jobs/1.0 "
+    "(+https://github.com/leftkats/awesome-greek-tech-jobs; "
+    "python-requests; Greece job board snapshot)"
 )
 
-# The exact endpoint you confirmed
-BASE_URL = "https://apply.workable.com/api/v1/accounts/{slug}/jobs/count"
-QUERY = urllib.parse.urlencode({"location": "Greece"})
+
+def _build_session() -> requests.Session:
+    session = requests.Session()
+    session.headers.update(
+        {
+            "User-Agent": _USER_AGENT,
+            "Accept": "application/json",
+            "Accept-Language": "en-GB,en;q=0.9,el;q=0.8",
+        }
+    )
+    retry = Retry(
+        total=_RETRY_TOTAL,
+        connect=_RETRY_TOTAL,
+        read=_RETRY_TOTAL,
+        backoff_factor=_RETRY_BACKOFF_FACTOR,
+        status_forcelist=_RETRY_STATUS_FORCELIST,
+        allowed_methods=frozenset(["GET"]),
+        raise_on_status=False,
+        respect_retry_after_header=True,
+    )
+    adapter = HTTPAdapter(max_retries=retry, pool_connections=4, pool_maxsize=4)
+    session.mount("https://", adapter)
+    session.mount("http://", adapter)
+    return session
 
 
-def fetch_count(slug: str) -> int | None:
-    """Fetch the 'incountry' count for Greece from the verified endpoint."""
-    url = f"{BASE_URL.format(slug=slug)}?{QUERY}"
-
-    # Headers designed to look like a browser session
-    headers = {
-        "User-Agent": BROWSER_UA,
-        "Accept": "application/json, text/plain, */*",
-        "Accept-Language": "en-US,en;q=0.9,el;q=0.8",
-        "Origin": "https://apply.workable.com",
-        "Referer": f"https://apply.workable.com/{slug}/",
-        "Sec-Fetch-Dest": "empty",
-        "Sec-Fetch-Mode": "cors",
-        "Sec-Fetch-Site": "same-origin",
-    }
-
-    req = urllib.request.Request(url, headers=headers, method="GET")
-    try:
-        with urllib.request.urlopen(req, timeout=TIMEOUT_SEC) as resp:
-            data = json.load(resp)
-            # The 'incountry' key represents jobs matching our 'location=Greece' query
-            count = data.get("incountry")
-            if isinstance(count, (int, float)):
-                return int(count)
-    except Exception as e:
-        print(f"warn: {slug} failed: {e}", file=sys.stderr)
-
+def _coerce_incountry(value: object) -> int | None:
+    if isinstance(value, bool):
+        return None
+    if isinstance(value, int) and value >= 0:
+        return value
+    if isinstance(value, float) and value >= 0 and value == int(value):
+        return int(value)
     return None
+
+
+def fetch_count(session: requests.Session, slug: str, idx: int = 0, total: int = 0) -> int | None:
+    path = urllib.parse.quote(slug, safe="")
+    url = f"{_BASE.format(slug=path)}?{_JOBS_COUNT_QUERY}"
+    prefix = f"[{idx}/{total}] {slug}"
+    headers = {
+        "Origin": "https://apply.workable.com",
+        "Referer": f"https://apply.workable.com/{path}/",
+    }
+    try:
+        resp = session.get(url, headers=headers, timeout=TIMEOUT_SEC)
+        if resp.status_code == 200:
+            data = resp.json()
+            print(f"{prefix}: HTTP 200 → {data}")
+            if isinstance(data, dict):
+                return _coerce_incountry(data.get("incountry"))
+            print(
+                f"warn: {slug}: expected JSON object, got {type(data).__name__}",
+                file=sys.stderr,
+            )
+            return None
+        print(
+            f"{prefix}: HTTP {resp.status_code} {resp.reason or ''} → {resp.text[:200]}".strip(),
+            file=sys.stderr,
+        )
+        return None
+    except requests.RequestException as e:
+        print(f"{prefix}: FAILED → {e}", file=sys.stderr)
+        return None
 
 
 def main() -> int:
     with YAML_PATH.open(encoding="utf-8") as f:
         companies = yaml.safe_load(f)
 
-    # Extract unique slugs
-    slugs = []
-    seen = set()
+    slugs: list[str] = []
+    seen: set[str] = set()
     for c in companies or []:
         slug = extract_workable_apply_slug(c.get("careers_url"))
         if slug and slug not in seen:
             seen.add(slug)
             slugs.append(slug)
 
-    print(f"Updating {len(slugs)} Workable accounts...")
+    session = _build_session()
     accounts: dict[str, int | None] = {}
 
-    for i, slug in enumerate(slugs):
-        if i > 0:
-            time.sleep(DELAY_SEC)
+    print(f"Fetching {len(slugs)} Workable accounts…")
+    for i, slug in enumerate(slugs, 1):
+        if i > 1:
+            time.sleep(DELAY_BETWEEN_SLUGS_SEC)
+        accounts[slug] = fetch_count(session, slug, idx=i, total=len(slugs))
 
-        count = fetch_count(slug)
-        accounts[slug] = count
-        print(
-            f"[{i + 1}/{len(slugs)}] {slug}: {count if count is not None else 'FAILED'}"
-        )
-
-    # Prepare YAML output
-    total_open = sum(n for n in accounts.values() if n is not None)
-    output_data = {
+    total_open = sum(n for n in accounts.values() if isinstance(n, int))
+    out = {
         "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "metric": "incountry_greece",
         "accounts": accounts,
@@ -97,12 +136,21 @@ def main() -> int:
 
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     with OUTPUT_PATH.open("w", encoding="utf-8") as f:
-        f.write("# Generated Workable Counts\n")
-        yaml.dump(output_data, f, default_flow_style=False, sort_keys=False)
-
-    print(f"\nDone! Total Greece Open Roles: {total_open}")
+        f.write(
+            "# Workable Greece incountry open-role counts (generated by "
+            "scripts/fetch_workable_counts)\n"
+        )
+        yaml.dump(
+            out,
+            f,
+            default_flow_style=False,
+            allow_unicode=True,
+            sort_keys=False,
+            width=100,
+        )
+    print(f"Wrote {OUTPUT_PATH} ({len(slugs)} accounts, total_open={total_open})")
     return 0
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    raise SystemExit(main())
