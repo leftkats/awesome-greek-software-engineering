@@ -172,13 +172,16 @@
         .location-filter-inline {
             border: none;
             background: transparent;
-            padding: 0;
+            padding: 0.25rem 0.15rem;
             margin: 0;
             font: inherit;
             text-transform: inherit;
             letter-spacing: inherit;
             cursor: pointer;
             text-underline-offset: 2px;
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
         }
 
         .location-filter-inline:hover {
@@ -189,7 +192,7 @@
         .stat-workable-hiring {
             border: none;
             background: transparent;
-            padding: 0;
+            padding: 0.35rem 0.25rem;
             margin: 0;
             font: inherit;
             text-transform: inherit;
@@ -197,6 +200,9 @@
             cursor: pointer;
             text-underline-offset: 2px;
             transition: color 120ms ease, opacity 120ms ease;
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
         }
 
         .stat-header-policy:disabled,
@@ -235,7 +241,7 @@
     <div
         class="bg-black text-white px-4 py-3 brutalist-border border-x-0 border-t-0 flex items-start gap-3 relative z-[60]">
         <span class="material-symbols-outlined text-sm mt-0.5">warning</span>
-        <div class="text-[11px] leading-tight uppercase font-bold tracking-tight">
+        <div class="text-xs sm:text-[11px] leading-tight uppercase font-bold tracking-tight">
             NOTICE: This is a statically generated site. Data accuracy is dependent on source repository updates.
             Embedded Workable job counts are snapshots and can be inaccurate versus live listings.
             <span class="text-yellow-400 underline underline-offset-2">Remote/Location policies are currently under
@@ -249,23 +255,25 @@
             <span class="material-symbols-outlined text-xl">database</span>
             <span class="font-bold text-xs mono-text">AGTJ</span>
         </div>
-        <div class="flex items-center gap-4">
+        <div class="flex items-center gap-2">
             <button onclick="document.documentElement.classList.toggle('dark')"
-                class="flex items-center justify-center">
+                class="min-w-[44px] min-h-[44px] inline-flex items-center justify-center">
                 <span class="material-symbols-outlined text-xl">contrast</span>
             </button>
-            <a href="https://github.com/leftkats/awesome-greek-tech-jobs"><span
-                    class="material-symbols-outlined">terminal</span></a>
+            <a href="https://github.com/leftkats/awesome-greek-tech-jobs"
+                class="min-w-[44px] min-h-[44px] inline-flex items-center justify-center">
+                <span class="material-symbols-outlined">terminal</span>
+            </a>
         </div>
     </nav>
 
     <header class="px-4 pt-8 pb-6 border-b brutalist-border border-x-0 border-t-0">
         <h1 class="text-4xl font-extrabold tracking-tighter uppercase mb-4">Awesome Greek<br>Tech Jobs</h1>
-        <p class="text-xs font-bold mono-text max-w-xs">[A curated list of companies that hire for tech jobs in Greece]
+        <p class="text-xs sm:text-xs font-bold mono-text max-w-sm">[A curated list of companies that hire for tech jobs in Greece]
         </p>
         <div class="mt-3 space-y-2 max-w-2xl" role="region" aria-label="Site statistics">
             <p
-                class="text-[10px] mono-text uppercase font-bold text-neutral-600 dark:text-neutral-400 leading-relaxed flex flex-wrap gap-x-1.5 gap-y-1 items-baseline">
+                class="text-xs sm:text-[10px] mono-text uppercase font-bold text-neutral-600 dark:text-neutral-400 leading-relaxed flex flex-wrap gap-x-1.5 gap-y-1 items-baseline">
                 <span>Companies {{ stats.total_companies }}</span><span class="text-neutral-400 dark:text-neutral-600 select-none"
                     aria-hidden="true">·</span>
                 <button type="button" class="stat-header-policy text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100"
@@ -293,7 +301,7 @@
                 {% endif %}
             </p>
             {% if stats.workable_companies_count %}
-            <p class="text-[10px] leading-relaxed text-neutral-400 dark:text-neutral-500 font-normal normal-case tracking-tight"
+            <p class="text-xs sm:text-[10px] leading-relaxed text-neutral-400 dark:text-neutral-500 font-normal normal-case tracking-tight"
                 id="workableLiveSummary" role="status" aria-live="polite">
                 <span id="workableLiveExplainer">These numbers use Workable’s public job-count API when the site is
                     generated (CI), then are embedded in this HTML — your browser does not call Workable. Counts can be
@@ -316,7 +324,7 @@
 
     <main class="flex flex-col flex-grow relative z-10" id="companyList">
         {% for company in companies %}
-        <div class="company-row flex p-4 brutalist-border border-t-0 border-l-0 border-r-0 bg-white dark:bg-background-dark"
+        <div class="company-row flex flex-col sm:flex-row p-4 gap-3 sm:gap-4 brutalist-border border-t-0 border-l-0 border-r-0 bg-white dark:bg-background-dark"
             data-name="{{ company.name }}" data-policy="{{ company.work_policy }}"
             data-sectors="{{ company.sectors|join(' ') }}"
             data-sectors-list="{{ company.sectors|join('||') }}"
@@ -324,13 +332,13 @@
             data-locations-list="{{ company.locations|join('||') }}"
             data-linkedin="{{ company.linkedin_company_id or '' }}"
             {% if company.workable_slug %}data-workable-slug="{{ company.workable_slug }}"{% endif %}>
-            <div class="flex-1 space-y-2">
-                <div class="flex items-center gap-2">
+            <div class="flex-1 min-w-0 space-y-2">
+                <div class="flex flex-wrap items-center gap-2">
                     <a href="{{ company.site_url }}" target="_blank" rel="noopener noreferrer" class="company-link">
-                        <h2 class="text-xl font-extrabold uppercase leading-none">{{ company.name }}</h2>
+                        <h2 class="text-lg sm:text-xl font-extrabold uppercase leading-none break-words">{{ company.name }}</h2>
                     </a>
                     <span
-                        class="text-[10px] brutalist-border px-1 font-bold uppercase {{ get_style(company.work_policy) }}">
+                        class="text-[10px] sm:text-[10px] brutalist-border px-1 font-bold uppercase shrink-0 {{ get_style(company.work_policy) }}">
                         {{ company.work_policy }}
                     </span>
                 </div>
@@ -338,7 +346,7 @@
                     <div class="flex flex-wrap gap-1 items-center">
                         {% for sector in company.sectors %}
                         <button type="button"
-                            class="sector-filter text-[10px] mono-text uppercase border border-gray-300 dark:border-gray-700 px-1.5 py-0.5"
+                            class="sector-filter text-xs sm:text-[10px] mono-text uppercase border border-gray-300 dark:border-gray-700 px-2 py-1.5 min-h-[44px] inline-flex items-center"
                             data-sector="{{ sector }}" aria-pressed="false" title="Filter by {{ sector }}">
                             {{ sector }}
                         </button>
@@ -347,13 +355,13 @@
                     {% if company.locations %}
                     <span class="hidden sm:block self-stretch w-px min-h-[1rem] bg-gray-300 dark:bg-gray-600 shrink-0 opacity-80"
                         aria-hidden="true"></span>
-                    <div class="location-group-box inline-flex items-baseline gap-1.5 max-w-full border border-gray-300 dark:border-gray-700 px-2 py-1"
+                    <div class="location-group-box inline-flex items-baseline gap-1.5 max-w-full border border-gray-300 dark:border-gray-700 px-2 py-1.5"
                         role="group" aria-label="Office locations">
                         <svg class="location-icon-svg translate-y-px" width="12" height="12" aria-hidden="true"
                             focusable="false">
                             <use href="#loc-pin" />
                         </svg>
-                        <span class="inline-flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5 text-[10px] mono-text uppercase leading-snug">
+                        <span class="inline-flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5 text-xs sm:text-[10px] mono-text uppercase leading-snug">
                             {% for loc in company.locations %}
                             {% if not loop.first %}<span class="text-gray-400 dark:text-gray-500 select-none"
                                 aria-hidden="true">·</span>{% endif %}
@@ -368,18 +376,18 @@
                     {% endif %}
                 </div>
             </div>
-            <div class="flex items-center justify-end">
-                <div class="flex items-center gap-2">
+            <div class="flex items-center sm:justify-end">
+                <div class="flex flex-wrap items-center gap-2">
                     {% if company.workable_slug %}
-                    <span class="workable-job-badge brutalist-border px-2 py-2 min-w-[7rem] flex items-center justify-center text-center"
+                    <span class="workable-job-badge brutalist-border px-2 py-2 min-w-0 sm:min-w-[7rem] flex items-center justify-center text-center"
                         role="status" aria-live="polite">
-                        <span class="workable-job-badge-text text-[9px] font-bold mono-text uppercase opacity-50">…</span>
+                        <span class="workable-job-badge-text text-xs sm:text-[9px] font-bold mono-text uppercase opacity-50">…</span>
                     </span>
                     {% endif %}
                     <a class="company-career-link brutalist-border px-3 py-3 flex items-center justify-center gap-2 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
                         href="{{ company.career_url }}" target="_blank" rel="noopener noreferrer">
                         <span class="material-symbols-outlined">arrow_outward</span>
-                        <span class="career-btn-label text-[10px] font-bold mono-text uppercase">Career</span>
+                        <span class="career-btn-label text-xs sm:text-[10px] font-bold mono-text uppercase">Career</span>
                     </a>
 
                     {% if company.linkedin_company_id %}
@@ -413,15 +421,16 @@
                 VIEW ON GITHUB
             </a>
             <div class="text-center">
-                <p class="text-[9px] font-bold mono-text opacity-40 uppercase tracking-tighter">Deployed via GitHub
+                <p class="text-[10px] sm:text-[9px] font-bold mono-text opacity-40 uppercase tracking-tighter">Deployed via GitHub
                     Pages</p>
-                <p class="text-[9px] font-bold mono-text opacity-40 uppercase tracking-tighter">Maintained by the
+                <p class="text-[10px] sm:text-[9px] font-bold mono-text opacity-40 uppercase tracking-tighter">Maintained by the
                     Community</p>
             </div>
         </div>
     </footer>
 
-    <div class="fixed bottom-6 right-6 z-[100]">
+    <div class="h-20 sm:h-0" aria-hidden="true"></div>
+    <div class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[100]">
         <a href="https://github.com/leftkats/awesome-greek-tech-jobs/blob/main/CONTRIBUTING.MD" target="_blank"
             class="bg-black text-white dark:bg-white dark:text-black w-14 h-14 brutalist-border flex items-center justify-center active:translate-x-0.5 active:translate-y-0.5 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]">
             <span class="material-symbols-outlined text-2xl">add</span>
