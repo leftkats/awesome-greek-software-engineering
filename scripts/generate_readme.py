@@ -74,39 +74,103 @@ def generate() -> None:
         "repo", "leftkats/awesome-greek-tech-jobs"
     )
     live_url = readme_data.get("live_url", "")
+    branding = readme_data.get("branding", {}) or {}
+    logo_cfg = branding.get("logo", {}) or {}
+    logo_alt = logo_cfg.get("alt", "AWGJ")
+    logo_light = logo_cfg.get("src_light", "assets/awgj.svg")
+    logo_dark = logo_cfg.get("src_dark", logo_light)
+    logo_width = int(logo_cfg.get("width", 180))
+    intro_line_2 = branding.get(
+        "intro_line_2",
+        "Community-curated directory with weekly open roles count updates.",
+    )
+    badges_cfg = readme_data.get("badges", {}) or {}
+    stats_cfg = badges_cfg.get("stats", {}) or {}
+    stats_style = stats_cfg.get("style", "for-the-badge")
+    companies_color = stats_cfg.get("companies_color", "2563eb")
+    open_roles_color = stats_cfg.get("open_roles_color", "f59e0b")
+    remote_color = stats_cfg.get("remote_color", "16a34a")
+    hybrid_color = stats_cfg.get("hybrid_color", "ca8a04")
+    meta_cfg = badges_cfg.get("meta", {}) or {}
+    show_ci = bool(meta_cfg.get("show_ci", False))
+    ci_workflow = meta_cfg.get("ci_workflow", "pr-validation.yaml")
+    show_license = bool(meta_cfg.get("show_license", True))
+    show_last_commit = bool(meta_cfg.get("show_last_commit", True))
 
     # ── Build README ────────────────────────────────────────
     lines: list[str] = []
 
-    lines.append(f"# {readme_data['title']}\n")
-    tagline = readme_data.get("tagline", "")
-    lines.append(f"> {tagline}\n")
+    lines.append('<p align="center">')
+    lines.append("  <br>")
+    lines.append(
+        f"  <img alt=\"{logo_alt}\" src=\"{logo_light}\" width=\"{logo_width}\" />"
+    )
+    lines.append("  <br>")
+    lines.append("  <br>")
+    lines.append("</p>")
     lines.append("")
 
-    badge = (
-        "![Companies]"
-        f"(https://img.shields.io/badge/Companies-{total}"
-        "-blue?style=for-the-badge) "
-        "![Hub]"
-        f"(https://img.shields.io/badge/Hub-{top_loc}"
-        "-red?style=for-the-badge) "
-        "![Remote]"
-        f"(https://img.shields.io/badge/Remote-{remote}"
-        "-green?style=for-the-badge) "
-        "![Hybrid]"
-        f"(https://img.shields.io/badge/Hybrid-{hybrid}"
-        "-yellow?style=for-the-badge) "
-        "![Open Roles]"
-        f"(https://img.shields.io/badge/Open%20Roles-{open_roles}"
-        "-orange?style=for-the-badge)"
-    )
-    lines.append(badge)
+    tagline = readme_data.get("tagline", "")
+    lines.append('<p align="center">')
+    lines.append(f"  {tagline}<br>")
+    lines.append(f"  {intro_line_2}")
+    lines.append("  <br>")
+    lines.append("  <br>")
+    lines.append("</p>")
     lines.append("")
+
+    lines.append('<p align="center">')
+    companies_href = live_url or f"https://github.com/{repo}"
+    open_roles_href = f"{live_url}?hire=1" if live_url else companies_href
+    remote_href = f"{live_url}?pol=remote" if live_url else companies_href
+    hybrid_href = f"{live_url}?pol=hybrid" if live_url else companies_href
+    lines.append(
+        "  "
+        f"<a href=\"{companies_href}\">"
+        f"<img src=\"https://img.shields.io/badge/Companies-{total}-{companies_color}?style={stats_style}\" alt=\"Companies\" /></a>"
+    )
+    lines.append(
+        "  "
+        f"<a href=\"{open_roles_href}\">"
+        f"<img src=\"https://img.shields.io/badge/Open%20Roles-{open_roles}-{open_roles_color}?style={stats_style}\" alt=\"Open Roles\" /></a>"
+    )
+    lines.append(
+        "  "
+        f"<a href=\"{remote_href}\">"
+        f"<img src=\"https://img.shields.io/badge/Remote-{remote}-{remote_color}?style={stats_style}\" alt=\"Remote\" /></a>"
+    )
+    lines.append(
+        "  "
+        f"<a href=\"{hybrid_href}\">"
+        f"<img src=\"https://img.shields.io/badge/Hybrid-{hybrid}-{hybrid_color}?style={stats_style}\" alt=\"Hybrid\" /></a>"
+    )
+    lines.append("</p>")
+    lines.append("")
+
+    meta_badges: list[str] = []
+    if show_ci:
+        meta_badges.append(
+            f"<a href=\"https://github.com/{repo}/actions/workflows/{ci_workflow}\">"
+            f"<img src=\"https://img.shields.io/github/actions/workflow/status/{repo}/{ci_workflow}?branch=main&logo=githubactions&label=CI\" alt=\"CI\" /></a>"
+        )
+    if show_license:
+        meta_badges.append(
+            f"<a href=\"https://github.com/{repo}/blob/main/LICENSE\">"
+            f"<img src=\"https://img.shields.io/github/license/{repo}?logo=github&label=License\" alt=\"License\" /></a>"
+        )
+    if show_last_commit:
+        meta_badges.append(
+            f"<img src=\"https://img.shields.io/github/last-commit/{repo}?logo=github&label=Last%20Commit\" alt=\"Last Commit\" />"
+        )
+    if meta_badges:
+        lines.append('<p align="center">')
+        for badge in meta_badges:
+            lines.append(f"  {badge}")
+        lines.append("</p>")
+        lines.append("")
 
     if live_url:
-        lines.append(
-            f"[**Explore the Live Directory**]({live_url})\n"
-        )
+        lines.append(f"[**Explore the Live Directory**]({live_url})\n")
         lines.append("")
 
     lines.append("## Overview\n")
@@ -174,9 +238,7 @@ def generate() -> None:
     lines.append("---\n")
     lines.append("## Disclaimer\n")
     if readme_data.get("disclaimer"):
-        lines.append(
-            f"{readme_data['disclaimer'].strip()}\n"
-        )
+        lines.append(f"{readme_data['disclaimer'].strip()}\n")
 
     with open("readme.md", "w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")

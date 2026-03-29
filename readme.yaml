@@ -8,6 +8,27 @@ description: >
 live_url: "https://leftkats.github.io/awesome-greek-tech-jobs/"
 repo: "leftkats/awesome-greek-tech-jobs"
 
+branding:
+  logo:
+    alt: "AWGJ"
+    src_light: "assets/vectorized.svg"
+    src_dark: "assets/vectorized.svg"
+    width: 180
+  intro_line_2: "Community-curated directory with weekly open roles count updates."
+
+badges:
+  stats:
+    style: "for-the-badge"
+    companies_color: "2563eb"
+    open_roles_color: "f59e0b"
+    remote_color: "16a34a"
+    hybrid_color: "ca8a04"
+  meta:
+    show_ci: false
+    ci_workflow: "pr-validation.yaml"
+    show_license: true
+    show_last_commit: true
+
 disclaimer: >
   This project is for **community and educational purposes only**.
   All data is aggregated from publicly available sources (company
