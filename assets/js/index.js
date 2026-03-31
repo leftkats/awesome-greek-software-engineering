@@ -453,7 +453,7 @@ function initWorkableJobCounts() {
     const sublineEl = document.getElementById("workableLiveSubline");
     const explainerEl = document.getElementById("workableLiveExplainer");
     const WORKABLE_EXPLAINER_DEFAULT =
-        "These numbers use Workable's public API at build time and are embedded into this HTML.";
+        "Job counts are fetched from Workable's public API at build time and are embedded into this HTML.";
 
     let aggregateOpen = 0;
     let numericRows = 0;
