@@ -25,6 +25,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 import yaml
@@ -37,10 +38,127 @@ from scripts.workable_apply_slug import extract_workable_apply_slug
 # --- Configuration (aligned with scripts/fetch_workable_counts.py) ---
 YAML_PATH = "data/companies.yaml"
 OUTPUT_PATH = "index.html"
+SITEMAP_PATH = "sitemap.xml"
+ROBOTS_PATH = "robots.txt"
 ITEMS_PER_PAGE = 50
 WORKABLE_SNAPSHOT_PATH = Path("data/workable_counts.yaml")
 
 env = Environment(loader=FileSystemLoader("templates"))
+
+_README_YAML = Path("readme.yaml")
+
+
+def load_site_meta() -> dict:
+    """SEO, Open Graph / Twitter, canonical URL (aligned with readme.yaml)."""
+    origin = "https://leftkats.github.io/awesome-greek-tech-jobs"
+    title = "Awesome Greek Tech Jobs"
+    desc = (
+        "Curated directory of tech companies hiring in Greece — sectors, "
+        "work policies, career links, and hiring insights."
+    )
+    repo_slug = "leftkats/awesome-greek-tech-jobs"
+    if _README_YAML.is_file():
+        try:
+            with _README_YAML.open(encoding="utf-8") as f:
+                rd = yaml.safe_load(f) or {}
+        except (yaml.YAMLError, OSError):
+            rd = {}
+        else:
+            live = rd.get("live_url")
+            if isinstance(live, str) and live.strip():
+                origin = live.strip().rstrip("/")
+            long_desc = rd.get("description")
+            if isinstance(long_desc, str) and long_desc.strip():
+                desc = " ".join(long_desc.split())
+            rs = rd.get("repo")
+            if isinstance(rs, str) and rs.strip():
+                repo_slug = rs.strip()
+    if len(desc) > 200:
+        desc = desc[:197].rstrip() + "…"
+    og_image_url = f"{origin}/assets/og-image.png"
+    canonical_url = f"{origin}/"
+    github_repo_url = f"https://github.com/{repo_slug}"
+    document_title = f"{title} | Greece tech companies, jobs & careers"
+    if len(document_title) > 60:
+        document_title = f"{title} | Greece tech jobs & careers"
+    seo_keywords = (
+        "Greece tech jobs, software engineer Greece, IT careers Athens, "
+        "remote work Greece, tech startups Greece, developer jobs Greece, "
+        "engineering jobs Thessaloniki, tech hiring Greece"
+    )
+    return {
+        "canonical_url": canonical_url,
+        "site_origin": origin,
+        "document_title": document_title,
+        "og_description": desc,
+        "og_image_url": og_image_url,
+        "og_image_alt": f"{title} — preview image",
+        "og_site_name": title,
+        "github_repo_url": github_repo_url,
+        "seo_keywords": seo_keywords,
+    }
+
+
+def build_schema_json_ld(
+    *,
+    canonical_url: str,
+    origin: str,
+    name: str,
+    description: str,
+    document_title: str,
+    total_companies: int,
+    github_repo_url: str,
+) -> str:
+    """JSON-LD graph: WebSite, Organization, WebPage, CollectionPage."""
+    website_id = f"{origin}/#website"
+    org_id = f"{origin}/#organization"
+    graph: list[dict] = [
+        {
+            "@type": "WebSite",
+            "@id": website_id,
+            "url": canonical_url,
+            "name": name,
+            "description": description,
+            "inLanguage": "en-GB",
+            "publisher": {"@id": org_id},
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": {
+                    "@type": "EntryPoint",
+                    "urlTemplate": f"{origin}/?q={{search_term_string}}",
+                },
+                "query-input": "required name=search_term_string",
+            },
+        },
+        {
+            "@type": "Organization",
+            "@id": org_id,
+            "name": name,
+            "url": canonical_url,
+            "sameAs": [github_repo_url],
+        },
+        {
+            "@type": "WebPage",
+            "@id": canonical_url,
+            "url": canonical_url,
+            "name": document_title,
+            "description": description,
+            "isPartOf": {"@id": website_id},
+            "about": {
+                "@type": "Thing",
+                "name": "Technology employment and hiring in Greece",
+            },
+        },
+        {
+            "@type": "CollectionPage",
+            "@id": f"{origin}/#directory",
+            "name": "Tech companies hiring in Greece",
+            "isPartOf": {"@id": canonical_url},
+            "numberOfItems": total_companies,
+        },
+    ]
+    payload = {"@context": "https://schema.org", "@graph": graph}
+    return json.dumps(payload, ensure_ascii=False)
 
 
 # --- Helper Functions ---
@@ -237,6 +355,16 @@ def run_generate_index() -> None:
     template = env.get_template("index_template.html")
 
     _workable_snapshot = load_workable_snapshot()
+    _meta = load_site_meta()
+    _schema = build_schema_json_ld(
+        canonical_url=_meta["canonical_url"],
+        origin=_meta["site_origin"],
+        name=_meta["og_site_name"],
+        description=_meta["og_description"],
+        document_title=_meta["document_title"],
+        total_companies=stats["total_companies"],
+        github_repo_url=_meta["github_repo_url"],
+    )
     final_html = template.render(
         companies=companies_data,
         sectors=sorted_sectors,
@@ -246,10 +374,34 @@ def run_generate_index() -> None:
         stats=stats,
         workable_snapshot=_workable_snapshot,
         workable_snapshot_json=json.dumps(_workable_snapshot, ensure_ascii=False),
+        schema_json_ld=_schema,
+        **_meta,
     )
 
     with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
         f.write(final_html)
+
+    lastmod = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    sitemap_xml = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        "  <url>\n"
+        f"    <loc>{_meta['canonical_url']}</loc>\n"
+        f"    <lastmod>{lastmod}</lastmod>\n"
+        "    <changefreq>daily</changefreq>\n"
+        "    <priority>1.0</priority>\n"
+        "  </url>\n"
+        "</urlset>\n"
+    )
+    with open(SITEMAP_PATH, "w", encoding="utf-8") as f:
+        f.write(sitemap_xml)
+
+    robots_body = (
+        "User-agent: *\nAllow: /\n\n"
+        f"Sitemap: {_meta['site_origin']}/sitemap.xml\n"
+    )
+    with open(ROBOTS_PATH, "w", encoding="utf-8") as f:
+        f.write(robots_body)
 
     print("Website updated with modernized UI template and refreshed styles.")
 

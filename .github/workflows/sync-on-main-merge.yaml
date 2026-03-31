@@ -54,7 +54,7 @@ jobs:
 
             git config --local user.email "github-actions[bot]@users.noreply.github.com"
             git config --local user.name "github-actions[bot]"
-            git add readme.md engineering-hubs.md index.html
+            git add readme.md engineering-hubs.md index.html sitemap.xml robots.txt
 
             if git diff --staged --quiet; then
               echo "No changes to commit."
@@ -71,7 +71,7 @@ jobs:
 
             git config --local user.email "github-actions[bot]@users.noreply.github.com"
             git config --local user.name "github-actions[bot]"
-            git add readme.md engineering-hubs.md index.html data/workable_counts.yaml
+            git add readme.md engineering-hubs.md index.html sitemap.xml robots.txt data/workable_counts.yaml
 
             if git diff --staged --quiet; then
               echo "No changes to commit."

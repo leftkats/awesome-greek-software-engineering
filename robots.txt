@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://leftkats.github.io/awesome-greek-tech-jobs/sitemap.xml
