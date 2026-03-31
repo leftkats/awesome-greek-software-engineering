@@ -1,3 +1,12 @@
+# Regenerates readme / index (and weekly Workable counts) and commits when needed.
+#
+# Skips the whole workflow when the triggering push was the bot’s follow-up commit
+# (`[skip ci]` in the message). That avoids a second run right after we push, but it
+# does **not** stop GitHub from cancelling an in-flight *separate* Pages deployment
+# when this job pushes a new commit. For a clean green check on every commit, use
+# **Settings → Pages → Deploy from a branch** (main, /) instead of “GitHub Actions”.
+# See contributing.md (“GitHub Pages and green checks”).
+
 name: Update Docs and README on Merge
 
 on:
@@ -18,7 +27,10 @@ concurrency:
 
 jobs:
   deploy:
-    if: github.repository == 'leftkats/awesome-greek-tech-jobs'
+    if: >
+      github.repository == 'leftkats/awesome-greek-tech-jobs' &&
+      (github.event_name != 'push' ||
+       !contains(github.event.head_commit.message, '[skip ci]'))
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
