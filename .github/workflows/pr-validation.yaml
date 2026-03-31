@@ -19,12 +19,15 @@ jobs:
       - name: Set up uv
         uses: astral-sh/setup-uv@v5
 
+      - name: Set up just
+        uses: extractions/setup-just@v3
+        with:
+          just-version: "1.40.0"
+
       - name: Install Python and dependencies
-        run: uv sync --frozen
+        run: just sync --frozen
 
       - name: Run Scripts
         id: run_scripts
         continue-on-error: true
-        run: |
-          uv run python -m scripts.generate_readme
-          uv run python -m scripts.generate_index
+        run: just check

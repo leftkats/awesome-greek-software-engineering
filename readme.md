@@ -89,6 +89,19 @@ Built with ❤️ by the community. PRs welcome!
 
 ---
 
+## Development
+
+Use [uv](https://github.com/astral-sh/uv) for Python and [just](https://github.com/casey/just) for short commands:
+
+- `just setup` or `just sync` — install dependencies (`just sync --frozen` in CI)
+- `just generate` — regenerate `readme.md`, `engineering-hubs.md`, and `index.html`
+- `just all` — fetch Workable counts, then regenerate everything
+
+See [contributing.md](contributing.md) for the full workflow. You can still run `uv run python -m scripts.…` directly.
+
+
+---
+
 ## Disclaimer
 
 This project is for **community and educational purposes only**. All data is aggregated from publicly available sources (company websites, LinkedIn, Workable's public API).  Job counts shown are **cached snapshots** generated weekly and **do not represent a real-time official database**.

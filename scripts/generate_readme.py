@@ -266,6 +266,13 @@ def generate() -> None:
         lines.append(f"{footer['description']}\n")
     lines.append("")
 
+    dev_md = readme_data.get("development")
+    if dev_md:
+        lines.append("---\n")
+        lines.append("## Development\n")
+        lines.append(f"{str(dev_md).strip()}\n")
+        lines.append("")
+
     lines.append("---\n")
     lines.append("## Disclaimer\n")
     if readme_data.get("disclaimer"):

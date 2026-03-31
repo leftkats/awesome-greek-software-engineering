@@ -41,8 +41,13 @@ jobs:
       - name: Set up uv
         uses: astral-sh/setup-uv@v5
 
+      - name: Set up just
+        uses: extractions/setup-just@v3
+        with:
+          just-version: "1.40.0"
+
       - name: Install Python and dependencies
-        run: uv sync --frozen
+        run: just sync --frozen
 
       - name: Set up Ruby (Jekyll for sitemap.xml and robots.txt)
         uses: ruby/setup-ruby@v1
@@ -60,7 +65,7 @@ jobs:
           set -euo pipefail
 
           run_gen_index() {
-            uv run python -m scripts.generate_index
+            just index
           }
 
           # Jekyll build → _site/ (sitemap.xml, robots.txt, index.html, assets).
@@ -96,7 +101,7 @@ jobs:
           }
 
           if [ "$EVENT_NAME" = "push" ]; then
-            uv run python -m scripts.generate_readme
+            just readme
             run_gen_index
 
             git config --local user.email "github-actions[bot]@users.noreply.github.com"
@@ -119,8 +124,8 @@ jobs:
           fi
 
           if [ "$EVENT_NAME" = "schedule" ] || [ "$EVENT_NAME" = "workflow_dispatch" ]; then
-            uv run python -m scripts.fetch_workable_counts
-            uv run python -m scripts.generate_readme
+            just fetch
+            just readme
             run_gen_index
 
             git config --local user.email "github-actions[bot]@users.noreply.github.com"
