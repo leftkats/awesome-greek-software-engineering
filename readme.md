@@ -6,8 +6,8 @@
 </p>
 
 <p align="center">
-  The open-source map of tech hiring in Greece<br>
-  Community-curated directory with weekly open roles count updates.
+  The open-source pulse on who hires in technology across Greece<br>
+  Search, filter, and explore — weekly Workable counts included.
   <br>
   <br>
 </p>
@@ -29,7 +29,7 @@
 
 ## Overview
 
-A curated, community-maintained directory of companies hiring for tech roles in Greece — with sectors, work policies, career pages, and live Workable job-count snapshots.
+A vibrant, community-maintained map of employers hiring for technology roles in Greece — sectors, work policies, career portals, and weekly Workable hiring snapshots so you can explore with confidence.
 
 
 Currently tracking **250** companies, with **Athens** as the leading hub (168 offices). **50** teams are fully remote, **122** hybrid, and **32** on-site. The most common sectors are **IT Services** (50), **AI** (34), **Software Development** (29), **Consulting** (23), **IT Consulting** (21).

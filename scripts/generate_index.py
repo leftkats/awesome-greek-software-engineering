@@ -52,8 +52,8 @@ def load_site_meta() -> dict:
     origin = "https://leftkats.github.io/awesome-greek-tech-jobs"
     title = "Awesome Greek Tech Jobs"
     desc = (
-        "Curated directory of tech companies hiring in Greece — sectors, "
-        "work policies, career links, and hiring insights."
+        "A vibrant map of employers hiring for technology roles in Greece — "
+        "sectors, work policies, careers, and weekly Workable snapshots."
     )
     repo_slug = "leftkats/awesome-greek-tech-jobs"
     if _README_YAML.is_file():
@@ -145,13 +145,13 @@ def build_schema_json_ld(
             "isPartOf": {"@id": website_id},
             "about": {
                 "@type": "Thing",
-                "name": "Technology employment and hiring in Greece",
+                "name": "Technology and software hiring in Greece",
             },
         },
         {
             "@type": "CollectionPage",
             "@id": f"{origin}/#directory",
-            "name": "Tech companies hiring in Greece",
+            "name": "Technology employers hiring in Greece",
             "isPartOf": {"@id": canonical_url},
             "numberOfItems": total_companies,
         },

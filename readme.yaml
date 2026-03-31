@@ -1,9 +1,9 @@
 title: "awesome-greek-tech-jobs"
-tagline: "The open-source map of tech hiring in Greece"
+tagline: "The open-source pulse on who hires in technology across Greece"
 description: >
-  A curated, community-maintained directory of companies hiring for
-  tech roles in Greece — with sectors, work policies, career pages,
-  and live Workable job-count snapshots.
+  A vibrant, community-maintained map of employers hiring for technology
+  roles in Greece — sectors, work policies, career portals, and weekly
+  Workable hiring snapshots so you can explore with confidence.
 
 live_url: "https://leftkats.github.io/awesome-greek-tech-jobs/"
 repo: "leftkats/awesome-greek-tech-jobs"
@@ -14,7 +14,7 @@ branding:
     src_light: "assets/vectorized.svg"
     src_dark: "assets/vectorized.svg"
     width: 180
-  intro_line_2: "Community-curated directory with weekly open roles count updates."
+  intro_line_2: "Search, filter, and explore — weekly Workable counts included."
 
 badges:
   stats:
