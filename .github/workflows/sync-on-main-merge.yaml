@@ -78,7 +78,7 @@ jobs:
             cp "${GITHUB_WORKSPACE}/index.html" "${WORK}/"
             mkdir -p "${WORK}/assets/css" "${WORK}/assets/js"
             cp "${GITHUB_WORKSPACE}/assets/css/index.css" "${WORK}/assets/css/"
-            cp "${GITHUB_WORKSPACE}/assets/js/gtag-init.js" "${GITHUB_WORKSPACE}/assets/js/index.js" "${GITHUB_WORKSPACE}/assets/js/tailwind-config.js" "${WORK}/assets/js/"
+            cp "${GITHUB_WORKSPACE}/assets/js/analytics-consent.js" "${GITHUB_WORKSPACE}/assets/js/index.js" "${GITHUB_WORKSPACE}/assets/js/tailwind-config.js" "${WORK}/assets/js/"
             cp "${GITHUB_WORKSPACE}/assets/og-image.png" "${GITHUB_WORKSPACE}/assets/vectorized.svg" "${WORK}/assets/"
             (
               cd "${WORK}"
