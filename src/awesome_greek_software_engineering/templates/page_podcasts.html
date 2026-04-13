@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{# Icons by link kind: spotify, apple, google_podcasts, youtube, site, other #}
+{% macro podcast_link_icon(kind) -%}
+{%- if kind == 'spotify' -%}
+<svg class="w-5 h-5 shrink-0 text-[#1DB954]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path
+        d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.52 17.34c-.24.36-.66.48-1.02.24-2.82-1.74-6.36-2.1-10.56-1.14-.42.12-.78-.18-.9-.54-.12-.42.18-.78.54-.9 4.56-1.02 8.52-.6 11.64 1.32.42.18.48.66.3 1.02zm1.44-3.3c-.3.42-.84.6-1.26.3-3.24-1.98-8.16-2.58-11.94-1.38-.48.12-1.02-.12-1.14-.6-.12-.48.12-1.02.6-1.14C9.6 9.9 15 10.56 18.72 12.84c.36.18.54.78.24 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.3c-.6.18-1.02-.12-1.2-.72-.18-.6.12-1.02.72-1.2 4.26-1.26 11.28-1.02 15.72 1.62.54.3.72 1.02.42 1.56-.3.42-1.02.6-1.56.3z" />
+</svg>
+{%- elif kind == 'apple' -%}
+<span class="material-symbols-outlined w-5 h-5 shrink-0 text-[#9933CC] text-[1.35rem]" aria-hidden="true">podcasts</span>
+{%- elif kind == 'google_podcasts' -%}
+<svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" aria-hidden="true">
+    <path fill="#FAB908" d="M12 4.5c1.5 0 2.7 1.2 2.7 2.7v9.6c0 1.5-1.2 2.7-2.7 2.7s-2.7-1.2-2.7-2.7V7.2c0-1.5 1.2-2.7 2.7-2.7z" />
+    <path fill="#0066DA" d="M5.7 8.1c1.2 0 2.1.9 2.1 2.1v3.6c0 1.2-.9 2.1-2.1 2.1S3.6 15 3.6 13.8v-3.6c0-1.2.9-2.1 2.1-2.1z" />
+    <path fill="#4285F4" d="M18.3 8.1c1.2 0 2.1.9 2.1 2.1v3.6c0 1.2-.9 2.1-2.1 2.1s-2.1-.9-2.1-2.1v-3.6c0-1.2.9-2.1 2.1-2.1z" />
+</svg>
+{%- elif kind == 'youtube' -%}
+<svg class="w-5 h-5 shrink-0 text-red-600 dark:text-red-400" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path
+        d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+</svg>
+{%- elif kind == 'site' -%}
+<span class="material-symbols-outlined w-5 h-5 shrink-0 text-cyan-600 dark:text-cyan-400 text-[1.25rem]"
+    aria-hidden="true">language</span>
+{%- else -%}
+<span class="material-symbols-outlined w-5 h-5 shrink-0 text-slate-500 dark:text-slate-400 text-[1.25rem]"
+    aria-hidden="true">link</span>
+{%- endif -%}
+{%- endmacro %}
+{% block main %}
+<section class="max-w-6xl mx-auto px-4 pt-8 pb-4" aria-labelledby="pod-heading">
+    <div
+        class="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/70 shadow-soft dark:shadow-soft-dark p-6 sm:p-8">
+        <p class="text-[11px] font-mono uppercase tracking-widest text-cyan-700 dark:text-cyan-400">{{ page_kicker }}</p>
+        <h1 id="pod-heading" class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-2">
+            {{ page_title }}</h1>
+        <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-3xl leading-relaxed">{{ page_subtitle }}</p>
+        {% if intro_html %}
+        <div
+            class="podcast-intro page-md-content mt-6 text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed max-w-3xl">
+            {{ intro_html | safe }}</div>
+        {% endif %}
+    </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-4 pb-10" aria-label="Podcast list">
+    {% if podcasts %}
+    <div class="grid gap-4 md:grid-cols-2">
+        {% for show in podcasts %}
+        <article
+            class="group relative rounded-2xl border border-slate-200/90 dark:border-slate-700/90 bg-white/95 dark:bg-slate-900/70 shadow-soft dark:shadow-soft-dark p-4 sm:p-5 flex flex-col gap-4 transition-[box-shadow,border-color] duration-200 hover:shadow-md hover:border-slate-300 dark:hover:border-slate-600">
+            <div class="min-w-0 flex-1">
+                <h2
+                    class="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-50 transition-colors group-hover:text-cyan-700 dark:group-hover:text-cyan-400">
+                    {{ show.title }}</h2>
+                {% if show.description_html %}
+                <div
+                    class="podcast-card-body page-md-content mt-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed [&_a]:text-cyan-700 [&_a]:dark:text-cyan-400 [&_p]:mt-2 [&_p:first-child]:mt-0">
+                    {{ show.description_html | safe }}</div>
+                {% endif %}
+            </div>
+            {% if show.links %}
+            <div class="flex flex-col gap-2">
+                <p
+                    class="text-[10px] font-mono font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 flex items-center gap-1">
+                    <span class="material-symbols-outlined text-sm opacity-80" aria-hidden="true">podcasts</span>
+                    Listen &amp; follow
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    {% for link in show.links %}
+                    <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer"
+                        class="inline-flex items-center gap-2 rounded-xl border border-slate-200 dark:border-slate-600 bg-white/80 dark:bg-slate-900/40 px-3 py-2.5 min-h-[2.75rem] hover:bg-slate-50 dark:hover:bg-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900 transition-colors"
+                        title="{{ link.label }}"
+                        aria-label="{{ link.label }}: {{ link.anchor }}">
+                        {{ podcast_link_icon(link.kind) }}
+                        <span
+                            class="text-[11px] sm:text-xs font-mono uppercase tracking-wide text-slate-700 dark:text-slate-200 max-w-[12rem] truncate">{{ link.anchor }}</span>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </article>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div
+        class="rounded-2xl border border-dashed border-slate-300 dark:border-slate-600 bg-slate-50/50 dark:bg-slate-900/40 p-8 text-center text-sm text-slate-600 dark:text-slate-400">
+        No podcasts are configured. Add entries under <code class="font-mono text-cyan-700 dark:text-cyan-400">podcasts</code> in
+        <code class="font-mono">_data/podcasts.yaml</code>, then run <code class="font-mono">just generate</code>.
+    </div>
+    {% endif %}
+</section>
+
+{% if disclaimer_html %}
+<section class="max-w-6xl mx-auto px-4 pb-12" aria-label="Disclaimer">
+    <div
+        class="rounded-2xl border border-slate-200/90 dark:border-slate-700/90 bg-white/90 dark:bg-slate-900/75 shadow-soft dark:shadow-soft-dark p-5 sm:p-6 podcast-disclaimer page-md-content text-sm text-slate-600 dark:text-slate-400">
+        {{ disclaimer_html | safe }}</div>
+</section>
+{% endif %}
+{% endblock %}

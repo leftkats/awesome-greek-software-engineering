@@ -20,3 +20,4 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 awesome_greek_software_engineering = ["py.typed", "templates/*.html"]
+agse_site = ["py.typed"]

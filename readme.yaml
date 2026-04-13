@@ -57,6 +57,8 @@ badges:
     open_roles_color: "f59e0b"
     remote_color: "16a34a"
     hybrid_color: "ca8a04"
+    # Curated entries in _data/podcasts.yaml (shown on badge; regenerated with `just readme`).
+    podcasts_color: "9333ea"
   meta:
     show_ci: false
     ci_workflow: "pr-validation.yaml"

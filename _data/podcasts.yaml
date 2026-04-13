@@ -1,7 +1,8 @@
-# Greek tech & startup podcasts — source data for greek-tech-podcasts.md and podcasts.html.
+# Greek tech & startup podcasts — source for greek-tech-podcasts.md (markdown) and podcasts.html (card UI).
 # Contributors: add a new entry under `podcasts` with `title`, `description` (markdown), and `links`.
 #
-# Each link is shown as a row in a two-column table. Use `anchor` for the clickable text (optional; defaults to `label`).
+# Each link becomes a button on the site with an icon (Spotify, Apple Podcasts, YouTube, website, etc.).
+# Use `anchor` for the short label on the button (optional; defaults to `label`).
 #
 # Example:
 #   - title: My Show
@@ -16,7 +17,7 @@
 #         anchor: Listen on Spotify
 
 intro: |
-  Hand-picked **video and audio shows** from Greece that often cover **technology, startups, product, and engineering**—useful listening next to the employer directory and job-search links in **[search-queries-and-resources.md](search-queries-and-resources.md)**.
+  Hand-picked **video and audio shows** from Greece that often cover **technology, startups, product, and engineering**—useful listening next to the employer directory and job-search links in **[Job search & resources](search-queries-and-resources.md)**.
 
 disclaimer: |
   **Disclaimer:** This list is community-maintained. Shows and links may change; verify on the official channels above.
@@ -52,3 +53,113 @@ podcasts:
       - label: Spotify
         url: https://open.spotify.com/show/05k6BivafotwATAW0Icggc
         anchor: Hustle Hours on Spotify
+
+  - title: Outliers
+    description: |
+      [**Outliers**](https://outliers.gr/el/) by **Endeavor Greece** spotlights standout founders: weekly conversations with people behind successful startups in Greece and abroad—journeys, lessons, and sector outlooks—with host **Panagiotis Karabinis** (CEO, Endeavor Greece). Episodes and notes also live on [outliers.gr](https://outliers.gr/el/).
+    links:
+      - label: Site
+        url: https://outliers.gr/el/
+        anchor: outliers.gr
+      - label: YouTube
+        url: https://www.youtube.com/playlist?list=PLQS4HLiwaedjymCMGokmBzQYk9bA_NOtt
+        anchor: YouTube playlist
+      - label: Spotify
+        url: https://open.spotify.com/show/6B0xjt9pzbLwhmuELdImah
+        anchor: Spotify
+      - label: Apple Podcasts
+        url: https://podcasts.apple.com/gr/podcast/outliers/id1540997257
+        anchor: Apple Podcasts
+
+  - title: SmartTalks
+    description: |
+      [**SmartTalks**](https://www.smarttalks.gr) from **[Infocom.gr](https://www.infocom.gr/)** and **Smartpress**—interviews on **technology, telecoms, and business**, hosted by journalist **Christos Kotsakas** (*Χρήστος Κοτσακάς*). Episodes are listed on [smarttalks.gr](https://www.smarttalks.gr).
+    links:
+      - label: Site
+        url: https://www.smarttalks.gr
+        anchor: smarttalks.gr
+      - label: Apple Podcasts
+        url: https://podcasts.apple.com/gr/podcast/smarttalks/id1694363227
+        anchor: Apple Podcasts
+
+  - title: "Hack U, με τον Μίλτο Μακρίδη"
+    description: |
+      [**Hack U, με τον Μίλτο Μακρίδη**](https://pod.gr/hack-u/) (*Hack U*) from **[pod.gr](https://pod.gr/)** explores how **digital culture and innovation** shape everyday life—AI, blockchain, and more—with host **Μίλτος Μακρίδης** (*Miltos Makridis*) and Greek researchers, founders, and makers.
+    links:
+      - label: Site
+        url: https://pod.gr/hack-u/
+        anchor: pod.gr
+      - label: Spotify
+        url: https://open.spotify.com/show/38vxk54B0cVcKelSV1ayDh
+        anchor: Spotify
+      - label: Apple Podcasts
+        url: https://podcasts.apple.com/gr/podcast/hack-u/id1686388624
+        anchor: Apple Podcasts
+      - label: Podlist.gr
+        url: https://podlist.gr/p/hack-u-me-ton-milto-makridi-671
+        anchor: podlist.gr
+
+  - title: AUEB Cast
+    description: |
+      [**AUEB Cast**](https://aueb-cast.simplecast.com/) is the **Athens University of Economics and Business** podcast: university life, news, and **science and business** topics (often in English)—from the school’s wider channel on [YouTube](https://www.youtube.com/playlist?list=PLLdBJrqWUK9oxmJ-ThUB0XUU6m6H4qBGQ).
+    links:
+      - label: Simplecast
+        url: https://aueb-cast.simplecast.com/
+        anchor: aueb-cast.simplecast.com
+      - label: Spotify
+        url: https://open.spotify.com/show/00ILSngMTLBHwT5gai6YMf
+        anchor: Spotify
+      - label: YouTube
+        url: https://www.youtube.com/playlist?list=PLLdBJrqWUK9oxmJ-ThUB0XUU6m6H4qBGQ
+        anchor: YouTube playlist
+      - label: Podlist.gr
+        url: https://podlist.gr/p/aueb-cast-660
+        anchor: podlist.gr
+
+  - title: Innovative Greeks Talks
+    description: |
+      [**Innovative Greeks Talks**](https://innovative-greeks-talks.simplecast.com/) is a **monthly** interview show with high-achieving Greeks abroad and at home—hosted by **Μάρκος Βερέμης** (*Markos Veremis*), chair of the **ΣΕΒ** innovation committee—produced with partners including **Eurobank** and **Grant Thornton** (see also the **[Innovative Greeks](https://www.youtube.com/@InnovativeGreeks)** YouTube presence).
+    links:
+      - label: Simplecast
+        url: https://innovative-greeks-talks.simplecast.com/
+        anchor: innovative-greeks-talks.simplecast.com
+      - label: Spotify
+        url: https://open.spotify.com/show/5pvJSeMYd6br7azlu6FOgc
+        anchor: Spotify
+      - label: Apple Podcasts
+        url: https://podcasts.apple.com/gr/podcast/innovative-greeks-talks/id1618931515
+        anchor: Apple Podcasts
+      - label: YouTube
+        url: https://www.youtube.com/playlist?list=PLKuwn5-s7Kfie1o1XyWefneA1Iwmme9R2
+        anchor: YouTube playlist
+      - label: Podlist.gr
+        url: https://podlist.gr/p/innovative-greeks-talks-433
+        anchor: podlist.gr
+
+  - title: Innovation Talks (Greece)
+    description: |
+      [**Innovation Talks (Greece)**](https://innovationtalks.gr/) from **Crowdpolicy** covers **innovation, entrepreneurship, and emerging technologies** in Greek—conversations with colleagues and guests across the local ecosystem.
+    links:
+      - label: Site
+        url: https://innovationtalks.gr/
+        anchor: innovationtalks.gr
+      - label: Spotify
+        url: https://open.spotify.com/show/1fZKl6MNlctSu2UOjPumge
+        anchor: Spotify
+      - label: Apple Podcasts
+        url: https://podcasts.apple.com/gr/podcast/innovation-talks-greece/id1589605573
+        anchor: Apple Podcasts
+      - label: Podlist.gr
+        url: https://podlist.gr/p/innovation-talks-greece-414
+        anchor: podlist.gr
+
+  - title: Tech Leadership Podcast
+    description: |
+      [**Tech Leadership Podcast**](https://mariosfakiolas.com/podcast/)—weekly episodes on **technology through leadership and management**, with host **Μάριος Φακιόλας** (*Marios Fakiolas*). **[Podlist.gr](https://podlist.gr/p/tech-leadership-podcast-410)** lists **Apple Podcasts** and **Spotify** alongside the site.
+    links:
+      - label: Site
+        url: https://mariosfakiolas.com/podcast/
+        anchor: mariosfakiolas.com
+      - label: Podlist.gr
+        url: https://podlist.gr/p/tech-leadership-podcast-410
+        anchor: podlist.gr

@@ -33,7 +33,6 @@ import json
 import sys
 from pathlib import Path
 
-import markdown
 import yaml
 from collections import Counter
 
@@ -48,6 +47,7 @@ from awesome_greek_software_engineering.load_companies import (
     WORKABLE_COUNTS_YAML,
     load_companies,
 )
+from agse_site.markdown_html import markdown_file_to_html, markdown_to_html
 from awesome_greek_software_engineering.workable_apply_slug import extract_workable_apply_slug
 
 _PKG_ROOT = Path(__file__).resolve().parent
@@ -61,7 +61,7 @@ OUTPUT_RESOURCES = "resources.html"
 OUTPUT_PODCASTS = "podcasts.html"
 ITEMS_PER_PAGE = 50
 WORKABLE_SNAPSHOT_PATH = WORKABLE_COUNTS_YAML
-GREEK_PODCASTS_MD = Path("greek-tech-podcasts.md")
+PODCASTS_YAML = Path("_data/podcasts.yaml")
 REMOTE_CAFE_MD = Path("remote-cafe-resources.md")
 
 env = Environment(loader=FileSystemLoader(str(TEMPLATES_DIR)))
@@ -309,13 +309,84 @@ def load_queries_split() -> tuple[list[dict], list[dict]]:
     return job_sections, awesome_queries
 
 
-def markdown_file_to_html(path: Path) -> str:
-    raw = path.read_text(encoding="utf-8")
-    html = markdown.markdown(
-        raw,
-        extensions=["tables", "fenced_code", "nl2br"],
-    )
-    return html.replace('href="readme.md"', 'href="index.html"')
+def podcast_link_kind(label: str) -> str:
+    """Map link label to icon bucket for the podcasts page template."""
+    s = (label or "").casefold().strip()
+    if "spotify" in s:
+        return "spotify"
+    if "apple" in s:
+        return "apple"
+    if "google" in s and "podcast" in s:
+        return "google_podcasts"
+    if "youtube" in s:
+        return "youtube"
+    if s in ("site", "website", "web") or "website" in s:
+        return "site"
+    return "other"
+
+
+def load_podcasts_page_data(github_repo_url: str = "") -> dict:
+    """YAML → structured data for ``page_podcasts.html`` (cards + intro)."""
+    out: dict = {"intro_html": "", "disclaimer_html": "", "podcasts": []}
+    if not PODCASTS_YAML.is_file():
+        return out
+    try:
+        with PODCASTS_YAML.open(encoding="utf-8") as f:
+            data = yaml.safe_load(f)
+    except (yaml.YAMLError, OSError):
+        return out
+    if not isinstance(data, dict):
+        return out
+
+    intro = (data.get("intro") or "").strip()
+    if intro:
+        out["intro_html"] = markdown_to_html(
+            intro, github_repo_url=github_repo_url
+        )
+    disc = (data.get("disclaimer") or "").strip()
+    if disc:
+        out["disclaimer_html"] = markdown_to_html(
+            disc, github_repo_url=github_repo_url
+        )
+
+    shows: list[dict] = []
+    for pod in data.get("podcasts") or []:
+        if not isinstance(pod, dict):
+            continue
+        title = (pod.get("title") or "").strip() or "Podcast"
+        desc_raw = (pod.get("description") or "").strip()
+        desc_html = (
+            markdown_to_html(desc_raw, github_repo_url=github_repo_url)
+            if desc_raw
+            else ""
+        )
+        links_out: list[dict] = []
+        for link in pod.get("links") or []:
+            if not isinstance(link, dict):
+                continue
+            label = (link.get("label") or "").strip()
+            url = (link.get("url") or "").strip()
+            anchor = (link.get("anchor") or label).strip()
+            if not label or not url:
+                continue
+            links_out.append(
+                {
+                    "label": label,
+                    "url": url,
+                    "anchor": anchor,
+                    "kind": podcast_link_kind(label),
+                }
+            )
+        shows.append(
+            {
+                "title": title,
+                "description_html": desc_html,
+                "links": links_out,
+            }
+        )
+
+    out["podcasts"] = shows
+    return out
 
 
 def meta_page(
@@ -665,7 +736,7 @@ def run_generate_index() -> None:
 
     res_desc = (
         "Curated GitHub awesome lists plus remote café and laptop-friendly workspace "
-        "guides—aligned with the repository markdown."
+        "guides—the same content as in the repository."
     )
     res_meta = meta_page(
         _meta,
@@ -681,7 +752,9 @@ def run_generate_index() -> None:
     remote_html = ""
     if REMOTE_CAFE_MD.is_file():
         try:
-            remote_html = markdown_file_to_html(REMOTE_CAFE_MD)
+            remote_html = markdown_file_to_html(
+                REMOTE_CAFE_MD, github_repo_url=_meta["github_repo_url"]
+            )
         except OSError:
             remote_html = ""
     Path(OUTPUT_RESOURCES).write_text(
@@ -699,9 +772,8 @@ def run_generate_index() -> None:
     )
 
     pod_desc = (
-        "Greek tech and startup podcasts—video and audio—from the podcasts list in "
-        "the repository (YAML under _data/; greek-tech-podcasts.md is generated when "
-        "you run just readme)."
+        "Greek tech and startup podcasts in video and audio—curated from the repository "
+        "and shown here as browsable cards with listen links."
     )
     pod_meta = meta_page(
         _meta,
@@ -714,17 +786,18 @@ def run_generate_index() -> None:
         document_title=pod_meta["document_title"],
         description=pod_meta["og_description"],
     )
-    pod_body = ""
-    if GREEK_PODCASTS_MD.is_file():
-        try:
-            pod_body = markdown_file_to_html(GREEK_PODCASTS_MD)
-        except OSError:
-            pod_body = ""
+    pod_page = load_podcasts_page_data(_meta["github_repo_url"])
     Path(OUTPUT_PODCASTS).write_text(
-        env.get_template("page_markdown.html").render(
-            page_body_html=pod_body,
+        env.get_template("page_podcasts.html").render(
             current_page="podcasts",
             schema_json_ld=pod_schema,
+            page_kicker="Podcasts · Greek tech & startups",
+            page_title="Greek tech & startup podcasts",
+            page_subtitle=(
+                "Video and audio from Greece covering technology, startups, product, and "
+                "engineering—the same curated list as on this site’s other pages."
+            ),
+            **pod_page,
             **pod_meta,
         ),
         encoding="utf-8",
@@ -741,7 +814,7 @@ def main(argv: list[str] | None = None) -> int:
         description=(
             "Generate index.html (hub), employers.html (directory), job-search.html, "
             "resources.html, and podcasts.html from _data/companies/*.yaml, "
-            "_data/queries.yaml, and markdown resources."
+            "_data/queries.yaml, _data/podcasts.yaml, and markdown resources."
         ),
     )
     parser.add_argument(

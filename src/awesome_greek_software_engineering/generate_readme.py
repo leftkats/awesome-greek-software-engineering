@@ -293,6 +293,15 @@ def generate() -> None:
             if isinstance(maybe_total, int):
                 open_roles = maybe_total
 
+    podcast_count = 0
+    if PODCASTS_YAML.is_file():
+        with PODCASTS_YAML.open("r", encoding="utf-8") as f:
+            podcasts_data = yaml.safe_load(f) or {}
+        if isinstance(podcasts_data, dict):
+            plist = podcasts_data.get("podcasts")
+            if isinstance(plist, list):
+                podcast_count = len(plist)
+
     all_companies = sorted(
         companies_data, key=lambda x: x["name"].lower()
     )
@@ -363,6 +372,7 @@ def generate() -> None:
     open_roles_color = stats_cfg.get("open_roles_color", "f59e0b")
     remote_color = stats_cfg.get("remote_color", "16a34a")
     hybrid_color = stats_cfg.get("hybrid_color", "ca8a04")
+    podcasts_color = stats_cfg.get("podcasts_color", "9333ea")
     meta_cfg = badges_cfg.get("meta", {}) or {}
     show_ci = bool(meta_cfg.get("show_ci", False))
     ci_workflow = meta_cfg.get("ci_workflow", "pr-validation.yaml")
@@ -405,6 +415,11 @@ def generate() -> None:
     open_roles_href = f"{live_url}?hire=1" if live_url else companies_href
     remote_href = f"{live_url}?pol=remote" if live_url else companies_href
     hybrid_href = f"{live_url}?pol=hybrid" if live_url else companies_href
+    if live_url:
+        base = live_url.rstrip("/")
+        podcasts_href = f"{base}/podcasts.html"
+    else:
+        podcasts_href = f"https://github.com/{repo}/blob/main/{GREEK_TECH_PODCASTS_MD}"
     lines.append(
         "  "
         f"<a href=\"{companies_href}\">"
@@ -424,6 +439,11 @@ def generate() -> None:
         "  "
         f"<a href=\"{hybrid_href}\">"
         f"<img src=\"https://img.shields.io/badge/Hybrid-{hybrid}-{hybrid_color}?style={stats_style}\" alt=\"Hybrid\" /></a>"
+    )
+    lines.append(
+        "  "
+        f"<a href=\"{podcasts_href}\">"
+        f"<img src=\"https://img.shields.io/badge/Podcasts-{podcast_count}-{podcasts_color}?style={stats_style}\" alt=\"Podcasts\" /></a>"
     )
     lines.append("</p>")
     lines.append("")
