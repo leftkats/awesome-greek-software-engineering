@@ -4,27 +4,27 @@ Data flow
 ---------
 1. ``_data/companies/*.yaml`` — one file per company (sectors, locations, careers URLs, policies).
    Coarse **industries** (≤20, for the dropdown) are derived from ``sectors`` via
-   ``awesome_greek_software_engineering.industry_clusters`` at build time. **Locations** are Greece-focused:
+   ``greek_software_ecosystem.industry_clusters`` at build time. **Locations** are Greece-focused:
    known non-Greek place names are dropped (see ``_NON_GREEK_LOCATIONS_CASEFOLD``),
    and common Greek spelling variants are canonicalised in ``normalize_location``.
 2. This module normalises rows and sets ``workable_slug`` for apply.workable.com URLs
-   (see ``awesome_greek_software_engineering.workable_apply_slug``).
+   (see ``greek_software_ecosystem.workable_apply_slug``).
 3. ``_data/workable_counts.yaml`` — Greece ``incountry`` counts per slug, from
-   ``python -m awesome_greek_software_engineering.fetch_workable_counts`` (server-side; avoids browser CORS).
+   ``python -m greek_software_ecosystem.fetch_workable_counts`` (server-side; avoids browser CORS).
    Embedded in the page for badges, header totals, sort, and hiring-only filter.
 4. ``templates/index_template.html`` → ``index.html`` (hub); ``page_job_search_combined.html`` →
    ``job-search.html`` (employer directory + job-board links); ``employers.html`` is a short redirect.
 
 Run
 ---
-* ``uv run python -m awesome_greek_software_engineering.generate_index`` — render (use existing snapshot YAML if any).
-* ``uv run python -m awesome_greek_software_engineering.generate_index --fetch-workable`` — fetch then render.
+* ``uv run python -m greek_software_ecosystem.generate_index`` — render (use existing snapshot YAML if any).
+* ``uv run python -m greek_software_ecosystem.generate_index --fetch-workable`` — fetch then render.
 
 CI: ``.github/workflows/sync-on-main-merge.yaml`` runs on ``main`` (push, weekly,
 manual): refreshes ``_data/workable_counts.yaml`` on schedule, regenerates readme /
 engineering-hubs, runs this script, then **force-pushes** only the static bundle
 (HTML and page assets) to branch ``live``; ``sitemap.xml`` / ``robots.txt`` are built by Jekyll for
-GitHub Pages. Paths align with ``awesome_greek_software_engineering.fetch_workable_counts``.
+GitHub Pages. Paths align with ``greek_software_ecosystem.fetch_workable_counts``.
 """
 
 from __future__ import annotations
@@ -39,18 +39,18 @@ from collections import Counter
 
 from jinja2 import Environment, FileSystemLoader
 
-from awesome_greek_software_engineering.industry_clusters import (
+from greek_software_ecosystem.industry_clusters import (
     industries_for_sectors,
     sort_industries_for_filter,
 )
-from awesome_greek_software_engineering.load_companies import (
+from greek_software_ecosystem.load_companies import (
     QUERIES_YAML,
     WORKABLE_COUNTS_YAML,
     load_companies,
 )
-from agse_site.markdown_html import markdown_file_to_html, markdown_to_html
-from agse_site.sitemap_robots import write_robots_txt, write_sitemap_xml
-from awesome_greek_software_engineering.workable_apply_slug import extract_workable_apply_slug
+from greek_software_site.markdown_html import markdown_file_to_html, markdown_to_html
+from greek_software_site.sitemap_robots import write_robots_txt, write_sitemap_xml
+from greek_software_ecosystem.workable_apply_slug import extract_workable_apply_slug
 
 _PKG_ROOT = Path(__file__).resolve().parent
 _REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -74,13 +74,13 @@ _README_YAML = Path("_data/readme.yaml")
 
 def load_site_meta() -> dict:
     """SEO, Open Graph / Twitter, canonical URL (aligned with ``_data/readme.yaml``)."""
-    origin = "https://leftkats.github.io/awesome-greek-software-engineering"
+    origin = "https://leftkats.github.io/greek-software-ecosystem"
     title = "Awesome Greek Software Engineering"
     desc = (
         "A vibrant map of employers hiring for technology roles in Greece — "
         "sectors, work policies, careers, and weekly Workable snapshots."
     )
-    repo_slug = "leftkats/awesome-greek-software-engineering"
+    repo_slug = "leftkats/greek-software-ecosystem"
     if _README_YAML.is_file():
         try:
             with _README_YAML.open(encoding="utf-8") as f:
@@ -816,7 +816,7 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     if args.fetch_workable:
-        from awesome_greek_software_engineering.fetch_workable_counts import (
+        from greek_software_ecosystem.fetch_workable_counts import (
             main as fetch_workable_main,
         )
 

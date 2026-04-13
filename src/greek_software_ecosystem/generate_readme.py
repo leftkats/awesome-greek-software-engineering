@@ -15,7 +15,7 @@ from pathlib import Path
 
 import yaml
 
-from awesome_greek_software_engineering.load_companies import (
+from greek_software_ecosystem.load_companies import (
     QUERIES_YAML,
     WORKABLE_COUNTS_YAML,
     load_companies,
@@ -439,7 +439,7 @@ def generate() -> None:
     top_sectors = sector_counts.most_common(5)
 
     repo = readme_data.get(
-        "repo", "leftkats/awesome-greek-software-engineering"
+        "repo", "leftkats/greek-software-ecosystem"
     )
     live_url = readme_data.get("live_url", "")
     branding = readme_data.get("branding", {}) or {}

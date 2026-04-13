@@ -3,7 +3,7 @@ requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "awesome-greek-software-engineering"
+name = "greek-software-ecosystem"
 version = "0.0.0"
 description = "Generator tooling for the Awesome Greek Software Engineering directory"
 readme = "README.md"
@@ -19,5 +19,5 @@ dependencies = [
 where = ["src"]
 
 [tool.setuptools.package-data]
-awesome_greek_software_engineering = ["py.typed", "templates/*.html"]
-agse_site = ["py.typed"]
+greek_software_ecosystem = ["py.typed", "templates/*.html"]
+greek_software_site = ["py.typed"]

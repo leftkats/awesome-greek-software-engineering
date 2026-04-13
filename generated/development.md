@@ -36,16 +36,16 @@ just check
 Requires Ruby/Bundler. Run `just index` first, then copy `index.html`, `employers.html`, `job-search.html`, `resources.html`, `podcasts.html`, `sitemap.xml`, `robots.txt`, and `assets/` into `jekyll-pages/` as in CI, then run:
 
 ```sh
-uv run python -m awesome_greek_software_engineering.jekyll_url_config > jekyll-pages/_url.yml
+uv run python -m greek_software_ecosystem.jekyll_url_config > jekyll-pages/_url.yml
 cd jekyll-pages && bundle install && bundle exec jekyll build --config _config.yml,_url.yml
 ```
 
 ## Run script modules directly (equivalent to just recipes)
 
 ```sh
-uv run python -m awesome_greek_software_engineering.generate_readme
-uv run python -m awesome_greek_software_engineering.generate_index
-uv run python -m awesome_greek_software_engineering.fetch_workable_counts
+uv run python -m greek_software_ecosystem.generate_readme
+uv run python -m greek_software_ecosystem.generate_index
+uv run python -m greek_software_ecosystem.fetch_workable_counts
 ```
 
 See [contributing.md](../contributing.md) for the full workflow and repository conventions.
