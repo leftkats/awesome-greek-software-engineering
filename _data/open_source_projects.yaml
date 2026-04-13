@@ -1,4 +1,4 @@
-# Greek-related open source on GitHub — feeds generated/open-source-projects.md (run `just readme`).
+# Greek-related open source on GitHub — feeds docs/open-source-projects.md (run `just readme`).
 # Add a list item under `projects` with `title`, `url`, and optional `description` (markdown).
 
 intro: |

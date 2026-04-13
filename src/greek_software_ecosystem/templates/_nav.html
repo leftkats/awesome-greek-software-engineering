@@ -1,32 +1,17 @@
-{# Primary site navigation. Expects: current_page, github_repo_url #}
-{# Mobile: row1 = title + GitHub/tools; row2 = nav pills. md+: single row [brand | nav | tools]. #}
+{# Primary site navigation. Expects: current_page #}
+{# Mobile: row1 = title + theme; row2 = nav pills. md+: single row [brand | nav | tools]. #}
 <nav aria-label="Primary"
     class="sticky top-0 z-30 backdrop-blur bg-white/85 dark:bg-slate-950/80 border-b border-slate-200 dark:border-slate-800">
     <div
         class="max-w-6xl mx-auto agtj-site-px py-2.5 sm:py-3 flex flex-col gap-3 md:flex-row md:items-center md:justify-between md:gap-3 lg:gap-4">
         <div class="flex items-center justify-between gap-2 min-w-0 md:contents">
             <a href="index.html"
-                class="flex items-center gap-2 min-w-0 flex-1 md:flex-initial md:order-1 md:max-w-[min(100%,18rem)] lg:max-w-xs xl:max-w-md group {% if current_page == 'home' %}text-cyan-700 dark:text-cyan-300{% else %}text-slate-900 dark:text-white{% endif %}">
-                <span
-                    class="material-symbols-outlined text-lg text-cyan-600 dark:text-cyan-400 shrink-0">hub</span>
-                <span
-                    class="font-semibold tracking-tight truncate text-sm sm:text-base leading-snug">Greek Software
-                    Ecosystem</span>
+                class="inline-flex h-11 min-w-[2.75rem] shrink-0 items-center justify-center rounded-xl md:order-1 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950"
+                aria-label="Home — Greek Software Ecosystem">
+                <span class="material-symbols-outlined text-xl text-cyan-600 dark:text-cyan-400"
+                    aria-hidden="true">hub</span>
             </a>
-            <div
-                class="flex items-center gap-0.5 sm:gap-1 flex-shrink-0 md:order-3">
-                <a href="{{ github_repo_url }}"
-                    class="h-11 min-w-[2.75rem] rounded-xl inline-flex items-center justify-center gap-1.5 px-2 sm:px-3 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950 text-xs font-mono uppercase tracking-wide text-slate-700 dark:text-slate-200"
-                    title="View on GitHub" aria-label="View on GitHub">
-                    <span class="material-symbols-outlined text-base" aria-hidden="true">code</span>
-                    <span class="hidden sm:inline">GitHub</span>
-                </a>
-                <a href="{{ github_repo_url }}/contribute" target="_blank" rel="noopener noreferrer"
-                    class="h-11 min-w-[2.75rem] rounded-xl inline-flex items-center justify-center gap-1.5 px-2 sm:px-3 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950 text-xs font-mono uppercase tracking-wide text-slate-700 dark:text-slate-200"
-                    title="How to contribute" aria-label="Contribute">
-                    <span class="material-symbols-outlined text-base" aria-hidden="true">add</span>
-                    <span class="hidden sm:inline">Contribute</span>
-                </a>
+            <div class="flex items-center justify-end flex-shrink-0 md:order-3">
                 <button type="button" id="themeToggleBtn"
                     class="w-11 h-11 shrink-0 rounded-xl inline-flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950"
                     title="Toggle dark mode" aria-label="Toggle dark mode">
@@ -38,16 +23,16 @@
             class="flex flex-wrap items-center justify-center gap-x-1 gap-y-2 md:order-2 md:flex-1 md:min-w-0 md:justify-center lg:gap-x-2 text-[11px] sm:text-xs font-mono uppercase tracking-wide">
             <a href="index.html"
                 class="nav-pill min-h-[2.75rem] inline-flex items-center rounded-lg px-2.5 py-1.5 {% if current_page == 'home' %}bg-cyan-100/80 dark:bg-cyan-950/50 text-cyan-900 dark:text-cyan-200 ring-1 ring-cyan-300/50 dark:ring-cyan-700/50{% else %}text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800{% endif %}"
-                {% if current_page == 'home' %}aria-current="page" {% endif %}>Home</a>
+                {% if current_page=='home' %}aria-current="page" {% endif %}>Home</a>
             <a href="job-search.html"
                 class="nav-pill min-h-[2.75rem] inline-flex items-center rounded-lg px-2.5 py-1.5 {% if current_page == 'job-search' %}bg-cyan-100/80 dark:bg-cyan-950/50 text-cyan-900 dark:text-cyan-200 ring-1 ring-cyan-300/50 dark:ring-cyan-700/50{% else %}text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800{% endif %}"
-                {% if current_page == 'job-search' %}aria-current="page" {% endif %}>Job search</a>
+                {% if current_page=='job-search' %}aria-current="page" {% endif %}>Job search</a>
             <a href="resources.html"
                 class="nav-pill min-h-[2.75rem] inline-flex items-center rounded-lg px-2.5 py-1.5 {% if current_page == 'resources' %}bg-cyan-100/80 dark:bg-cyan-950/50 text-cyan-900 dark:text-cyan-200 ring-1 ring-cyan-300/50 dark:ring-cyan-700/50{% else %}text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800{% endif %}"
-                {% if current_page == 'resources' %}aria-current="page" {% endif %}>Resources</a>
+                {% if current_page=='resources' %}aria-current="page" {% endif %}>Resources</a>
             <a href="podcasts.html"
                 class="nav-pill min-h-[2.75rem] inline-flex items-center rounded-lg px-2.5 py-1.5 {% if current_page == 'podcasts' %}bg-cyan-100/80 dark:bg-cyan-950/50 text-cyan-900 dark:text-cyan-200 ring-1 ring-cyan-300/50 dark:ring-cyan-700/50{% else %}text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800{% endif %}"
-                {% if current_page == 'podcasts' %}aria-current="page" {% endif %}>Podcasts</a>
+                {% if current_page=='podcasts' %}aria-current="page" {% endif %}>Podcasts</a>
         </div>
     </div>
 </nav>

@@ -1,0 +1,113 @@
+<main class="max-w-6xl mx-auto px-4 pb-8 space-y-3" id="companyList" aria-label="Company directory">
+    {% for company in companies %}
+    <article
+        class="company-row group relative rounded-2xl border border-slate-200/90 dark:border-slate-700/90 bg-white/95 dark:bg-slate-900/70 shadow-soft dark:shadow-soft-dark p-4 sm:p-5 flex flex-col gap-4 transition-[box-shadow,border-color] duration-200 hover:shadow-md hover:border-slate-300 dark:hover:border-slate-600"
+        data-name="{{ company.name }}" data-policy="{{ company.work_policy }}"
+        data-sectors="{{ company.sectors|join(' ') }}" data-sectors-list="{{ company.sectors|join('||') }}"
+        data-industries="{{ company.industries|join(' ') }}"
+        data-industries-list="{{ company.industries|join('||') }}"
+        data-locations="{{ company.office_locations|join(' ') }}"
+        data-locations-list="{{ company.office_locations|join('||') }}"
+        data-linkedin="{{ company.linkedin_company_id or '' }}" {% if company.workable_slug
+        %}data-workable-slug="{{ company.workable_slug }}" {% endif %}>
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+            <div class="min-w-0">
+                <div class="flex items-center flex-wrap gap-2">
+                    <a href="{{ company.site_url }}" target="_blank" rel="noopener noreferrer"
+                        class="company-link rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900">
+                        <h2
+                            class="text-xl sm:text-2xl font-bold tracking-tight break-words text-slate-900 dark:text-slate-50 transition-colors group-hover:text-cyan-700 dark:group-hover:text-cyan-400">
+                            {{ company.name }}</h2>
+                    </a>
+                    <span
+                        class="policy-badge-slot text-[11px] font-mono px-2 py-1 rounded-full {{ get_style(company.work_policy) }}">
+                        {{ company.work_policy }}
+                    </span>
+                </div>
+                <div class="mt-4">
+                    <p
+                        class="text-[10px] font-mono font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2">
+                        Sectors</p>
+                    <div class="flex flex-wrap gap-1.5">
+                        {% for sector in company.sectors %}
+                        <button type="button"
+                            class="sector-filter text-[11px] sm:text-xs font-mono uppercase border border-slate-200 dark:border-slate-600 bg-slate-50/50 dark:bg-slate-800/30 rounded-full px-2.5 py-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900"
+                            data-sector="{{ sector }}" aria-pressed="false" title="Filter by {{ sector }}">
+                            {{ sector }}
+                        </button>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% if company.office_locations %}
+                <div class="mt-4 flex flex-wrap items-start gap-2">
+                    <p
+                        class="text-[10px] font-mono font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 shrink-0 pt-0.5 inline-flex items-center gap-1">
+                        <span class="material-symbols-outlined text-sm opacity-80"
+                            aria-hidden="true">location_on</span>
+                        Offices
+                    </p>
+                    <span class="inline-flex flex-wrap gap-1.5 items-center flex-1 min-w-0" role="list">
+                        {% for loc in company.office_locations %}
+                        <button type="button" role="listitem"
+                            class="company-location-tag text-[11px] sm:text-xs font-mono uppercase border border-slate-200 dark:border-slate-600 bg-slate-50/50 dark:bg-slate-800/30 rounded-full px-2.5 py-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900"
+                            data-location="{{ loc }}" aria-pressed="false"
+                            title="Filter directory by {{ loc }}">
+                            {{ loc }}
+                        </button>
+                        {% endfor %}
+                    </span>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2 sm:justify-end sm:pt-0.5">
+                {% if company.workable_slug %}
+                <span
+                    class="workable-job-badge border border-slate-200 dark:border-slate-600 bg-slate-50/50 dark:bg-slate-800/20 rounded-xl px-3 py-2 min-w-[8.25rem] text-center"
+                    role="status" aria-live="polite">
+                    <span
+                        class="workable-job-badge-text text-[11px] sm:text-xs font-mono uppercase opacity-60">...</span>
+                </span>
+                {% endif %}
+                <a class="company-career-link border border-slate-200 dark:border-slate-600 rounded-xl px-3 py-2.5 inline-flex items-center gap-2 bg-white/80 dark:bg-slate-900/40 hover:bg-slate-50 dark:hover:bg-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900"
+                    href="{{ company.career_url }}" target="_blank" rel="noopener noreferrer">
+                    <span class="material-symbols-outlined text-base" aria-hidden="true">arrow_outward</span>
+                    <span
+                        class="career-btn-label text-[11px] sm:text-xs font-mono uppercase tracking-wide">Careers</span>
+                </a>
+                {% if company.linkedin_company_id %}
+                <a class="border border-slate-200 dark:border-slate-600 rounded-xl px-3 py-2.5 inline-flex items-center bg-white/80 dark:bg-slate-900/40 hover:bg-slate-50 dark:hover:bg-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900"
+                    href="https://www.linkedin.com/company/{{ company.linkedin_company_id }}/" target="_blank"
+                    rel="noopener noreferrer" title="Open LinkedIn profile">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
+                        focusable="false">
+                        <path
+                            d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.86-3.04-1.86 0-2.15 1.45-2.15 2.95v5.66H9.33V9h3.41v1.56h.05c.48-.9 1.64-1.86 3.37-1.86 3.6 0 4.27 2.37 4.27 5.45v6.3zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.56V9h3.56v11.45z" />
+                    </svg>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </article>
+    {% endfor %}
+</main>
+
+<footer class="max-w-6xl mx-auto px-4 pb-10 space-y-4">
+    <div
+        class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/70 shadow-soft dark:shadow-soft-dark p-5 sm:p-6 flex flex-col gap-5">
+        <div class="flex items-center justify-center gap-2" id="paginationControls">
+            <button type="button" id="prevBtn"
+                class="min-h-[2.75rem] sm:min-h-0 rounded-xl border border-slate-200 dark:border-slate-600 px-4 py-2 text-xs font-mono uppercase tracking-wide hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-40 disabled:pointer-events-none focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900">
+                Prev
+            </button>
+            <div id="pageIndicator"
+                class="min-h-[2.75rem] sm:min-h-0 inline-flex items-center rounded-xl bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 px-4 py-2 text-xs font-mono uppercase tracking-wide tabular-nums">
+                01
+            </div>
+            <button type="button" id="nextBtn"
+                class="min-h-[2.75rem] sm:min-h-0 rounded-xl border border-slate-200 dark:border-slate-600 px-4 py-2 text-xs font-mono uppercase tracking-wide hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-40 disabled:pointer-events-none focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900">
+                Next
+            </button>
+        </div>
+    </div>
+</footer>

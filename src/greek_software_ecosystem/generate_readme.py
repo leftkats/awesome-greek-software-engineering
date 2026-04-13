@@ -1,10 +1,10 @@
-"""Generate ``generated/readme.md``, ``generated/search-queries-and-resources.md``,
-``generated/greek-tech-podcasts.md``, ``generated/open-source-projects.md``, ``generated/development.md``, and
-``generated/engineering-hubs.md`` from YAML.
+"""Generate ``docs/readme.md``, ``docs/search-queries-and-resources.md``,
+``docs/greek-tech-podcasts.md``, ``docs/open-source-projects.md``, ``docs/remote-cafe-resources.md``,
+``docs/development.md``, and ``docs/engineering-hubs.md`` from YAML.
 
-**Do not edit generated ``*.md`` files by hand.** Change ``_data/readme.yaml``, ``_data/queries.yaml``,
-``_data/podcasts.yaml``, ``_data/open_source_projects.yaml``, company YAML under ``_data/companies/``,
-then run ``just readme`` (or ``just generate``).
+**Do not edit these output ``*.md`` files by hand.** Change ``_data/readme.yaml``, ``_data/queries.yaml``,
+``_data/podcasts.yaml``, ``_data/open_source_projects.yaml``, ``_data/cafe_resources.yaml``,
+company YAML under ``_data/companies/``, then run ``just readme`` (or ``just generate``).
 """
 
 from __future__ import annotations
@@ -12,6 +12,7 @@ from __future__ import annotations
 from collections import Counter
 from html import escape
 from pathlib import Path
+from urllib.parse import urlparse
 
 import yaml
 
@@ -20,9 +21,12 @@ from greek_software_ecosystem.load_companies import (
     WORKABLE_COUNTS_YAML,
     load_companies,
 )
+from greek_software_ecosystem.podcast_urls import (
+    podcast_summary_matrix_markdown_lines,
+)
 
 README_YAML = Path("_data/readme.yaml")
-GENERATED_MD_DIR = Path("generated")
+DOCS_MD_DIR = Path("docs")
 ROOT_README = Path("README.md")
 
 SEARCH_QUERIES_MD = "search-queries-and-resources.md"
@@ -33,6 +37,7 @@ README_MD = "readme.md"
 PODCASTS_YAML = Path("_data/podcasts.yaml")
 OPEN_SOURCE_PROJECTS_YAML = Path("_data/open_source_projects.yaml")
 REMOTE_CAFE_RESOURCES_MD = "remote-cafe-resources.md"
+CAFE_RESOURCES_YAML = Path("_data/cafe_resources.yaml")
 DEVELOPMENT_MD = "development.md"
 
 # Fallbacks when ``_data/readme.yaml`` → ``generated_markdown`` omits a key.
@@ -40,7 +45,7 @@ _DEFAULT_SEARCH_QUERIES_INTRO = (
     "Hand-picked links for Greek (and broader remote) job hunting. "
     "Each entry includes a short note on what you’ll find there. "
     f"For **laptop-friendly cafés and remote workspaces**, see "
-    f"**[{REMOTE_CAFE_RESOURCES_MD}](../{REMOTE_CAFE_RESOURCES_MD})**."
+    f"**[{REMOTE_CAFE_RESOURCES_MD}]({REMOTE_CAFE_RESOURCES_MD})**."
 )
 _DEFAULT_EH_TITLE = "Engineering Hubs & Career Portals"
 _DEFAULT_EH_INTRO = (
@@ -62,7 +67,7 @@ _DEFAULT_README_OVERVIEW_LINKS = (
     "& startup podcasts (video and audio).\n"
     f"- **[{OPEN_SOURCE_PROJECTS_MD}]({OPEN_SOURCE_PROJECTS_MD})** — open source "
     "Greek tech projects on GitHub you can contribute to.\n"
-    f"- **[{REMOTE_CAFE_RESOURCES_MD}](../{REMOTE_CAFE_RESOURCES_MD})** — remote "
+    f"- **[{REMOTE_CAFE_RESOURCES_MD}]({REMOTE_CAFE_RESOURCES_MD})** — remote "
     "café & laptop-friendly workspace guides (e.g. "
     "[Remote Work Café](https://remotework.cafe/))."
 )
@@ -74,14 +79,15 @@ _DEFAULT_README_DEV_BLURB = (
 
 
 def _readme_markdown_for_repository_root(generated_readme_body: str) -> str:
-    """Rewrite links written for ``generated/readme.md`` so they work from the repo root ``README.md``."""
+    """Rewrite links written for ``docs/readme.md`` so they work from the repo root ``README.md``."""
     replacements: tuple[tuple[str, str], ...] = (
-        ("](engineering-hubs.md)", "](generated/engineering-hubs.md)"),
-        ("](search-queries-and-resources.md)", "](generated/search-queries-and-resources.md)"),
-        ("](greek-tech-podcasts.md)", "](generated/greek-tech-podcasts.md)"),
-        ("](open-source-projects.md)", "](generated/open-source-projects.md)"),
-        ("](development.md)", "](generated/development.md)"),
-        ("](../remote-cafe-resources.md)", "](generated/remote-cafe-resources.md)"),
+        ("](engineering-hubs.md)", "](docs/engineering-hubs.md)"),
+        ("](search-queries-and-resources.md)", "](docs/search-queries-and-resources.md)"),
+        ("](greek-tech-podcasts.md)", "](docs/greek-tech-podcasts.md)"),
+        ("](open-source-projects.md)", "](docs/open-source-projects.md)"),
+        ("](development.md)", "](docs/development.md)"),
+        ("](remote-cafe-resources.md)", "](docs/remote-cafe-resources.md)"),
+        ("](../remote-cafe-resources.md)", "](docs/remote-cafe-resources.md)"),
     )
     out = generated_readme_body
     for old, new in replacements:
@@ -194,6 +200,11 @@ def build_greek_tech_podcasts_markdown(podcasts_data: dict | None) -> str:
     disclaimer = (data.get("disclaimer") or "").strip()
     items = data.get("podcasts") or []
 
+    valid_items: list[dict] = []
+    for pod in items:
+        if isinstance(pod, dict) and (pod.get("title") or "").strip():
+            valid_items.append(pod)
+
     body: list[str] = [
         "# Greek tech & startup podcasts",
         "",
@@ -206,36 +217,35 @@ def build_greek_tech_podcasts_markdown(podcasts_data: dict | None) -> str:
         body.append("---")
         body.append("")
 
-    for pod in items:
-        if not isinstance(pod, dict):
-            continue
+    if valid_items:
+        body.append("## All shows at a glance")
+        body.append("")
+        body.append(
+            "Each **●** links to that show on the given platform (empty cells mean "
+            "no URL listed in the data yet)."
+        )
+        body.append("")
+        body.extend(podcast_summary_matrix_markdown_lines(valid_items))
+        body.append("")
+        body.append("---")
+        body.append("")
+
+    for idx, pod in enumerate(valid_items):
         title = (pod.get("title") or "").strip()
         desc = (pod.get("description") or "").strip()
-        links = pod.get("links") or []
-        if not title:
-            continue
         body.append(f"## {title}")
         body.append("")
         if desc:
             body.append(desc.rstrip())
             body.append("")
-        if links and isinstance(links, list):
-            body.append("| | |")
-            body.append("| :--- | :--- |")
-            for link in links:
-                if not isinstance(link, dict):
-                    continue
-                label = (link.get("label") or "").strip()
-                url = (link.get("url") or "").strip()
-                anchor = (link.get("anchor") or label).strip()
-                if not label or not url:
-                    continue
-                body.append(f"| **{label}** | [{anchor}]({url}) |")
+        if idx < len(valid_items) - 1:
+            body.append("---")
             body.append("")
-        body.append("---")
-        body.append("")
 
     if disclaimer:
+        if valid_items:
+            body.append("---")
+            body.append("")
         body.append(disclaimer)
         body.append("")
 
@@ -243,7 +253,7 @@ def build_greek_tech_podcasts_markdown(podcasts_data: dict | None) -> str:
 
 
 def build_open_source_projects_markdown(data: dict | None) -> str:
-    """Markdown for ``generated/open-source-projects.md`` from ``_data/open_source_projects.yaml``."""
+    """Markdown for ``docs/open-source-projects.md`` from ``_data/open_source_projects.yaml``."""
     data = data or {}
     intro = (data.get("intro") or "").strip()
     disclaimer = (data.get("disclaimer") or "").strip()
@@ -298,6 +308,127 @@ def build_open_source_projects_markdown(data: dict | None) -> str:
             lines.append("---")
             lines.append("")
         lines.append(disclaimer.rstrip())
+        lines.append("")
+
+    while lines and lines[-1] == "":
+        lines.pop()
+    lines.append("")
+    return "\n".join(lines)
+
+
+def _cafe_detail_label(key: str) -> str:
+    return str(key).strip().rstrip(":")
+
+
+def _cafe_cell_markdown(value: object) -> str:
+    """Format a table cell: bare http(s) URLs become markdown links."""
+    t = str(value).strip()
+    if t.startswith(("http://", "https://")):
+        parsed = urlparse(t)
+        host = (parsed.netloc or "").lower()
+        if host.startswith("www."):
+            host = host[4:]
+        label = host or t
+        return f"[{label}]({t})"
+    return t
+
+
+def build_remote_cafe_resources_markdown(
+    data: dict | None, *, for_web_embed: bool = False
+) -> str:
+    """Markdown from ``_data/cafe_resources.yaml``.
+
+    Default: full doc for ``docs/remote-cafe-resources.md`` (title + readme link).
+    With ``for_web_embed=True``: body only, for HTML embedded under the Resources page hero
+    (same generator as the docs file; no duplicate hand-maintained copy).
+    """
+    data = data or {}
+    if for_web_embed:
+        lines: list[str] = []
+    else:
+        lines = [
+            "# Remote café & laptop-friendly workspaces",
+            "",
+            "← [readme.md](readme.md)",
+            "",
+        ]
+    intro = (data.get("intro") or "").strip()
+    if intro:
+        lines.append(intro)
+        lines.append("")
+
+    raw_entries = data.get("entries") or []
+    if not isinstance(raw_entries, list):
+        raw_entries = []
+
+    valid_entries: list[dict] = []
+    for ent in raw_entries:
+        if isinstance(ent, dict) and (ent.get("title") or "").strip():
+            valid_entries.append(ent)
+
+    if valid_entries:
+        if lines:
+            lines.append("---")
+            lines.append("")
+
+    for idx, ent in enumerate(valid_entries):
+        title = (ent.get("title") or "").strip()
+        kind = str(ent.get("kind") or "").strip().lower()
+        url = (ent.get("url") or "").strip()
+
+        lines.append(f"## {title}")
+        lines.append("")
+
+        if kind == "cafe" and url:
+            lines.append(f"**Venue:** [{url}]({url})")
+            lines.append("")
+
+        loc = (ent.get("location") or "").strip()
+        if loc:
+            lines.append(f"*Location:* {loc}")
+            lines.append("")
+
+        desc = (ent.get("description") or "").strip()
+        if desc:
+            lines.append(desc)
+            lines.append("")
+
+        details = ent.get("details")
+        if isinstance(details, dict) and details:
+            lines.append("| | |")
+            lines.append("| :--- | :--- |")
+            for k, v in details.items():
+                label = _cafe_detail_label(str(k))
+                lines.append(
+                    f"| **{label}** | {_cafe_cell_markdown(v)} |"
+                )
+            lines.append("")
+        elif isinstance(details, str) and details.strip():
+            lines.append(details.strip())
+            lines.append("")
+
+        note = (ent.get("note") or "").strip()
+        if note:
+            lines.append(note)
+            lines.append("")
+
+        if idx < len(valid_entries) - 1:
+            lines.append("---")
+            lines.append("")
+
+    if not valid_entries:
+        lines.append(
+            "*No café resources yet—add `entries` to `_data/cafe_resources.yaml` "
+            "and run `just readme`.*"
+        )
+        lines.append("")
+
+    disclaimer = (data.get("disclaimer") or "").strip()
+    if disclaimer:
+        if valid_entries:
+            lines.append("---")
+            lines.append("")
+        lines.append(disclaimer)
         lines.append("")
 
     while lines and lines[-1] == "":
@@ -367,7 +498,7 @@ def build_development_markdown(readme_data: dict) -> str:
 def generate() -> None:
     companies_data = load_companies()
 
-    GENERATED_MD_DIR.mkdir(parents=True, exist_ok=True)
+    DOCS_MD_DIR.mkdir(parents=True, exist_ok=True)
 
     with README_YAML.open("r", encoding="utf-8") as f:
         readme_data = yaml.safe_load(f)
@@ -499,7 +630,7 @@ def generate() -> None:
         podcasts_href = f"{base}/podcasts.html"
     else:
         podcasts_href = (
-            f"https://github.com/{repo}/blob/main/generated/{GREEK_TECH_PODCASTS_MD}"
+            f"https://github.com/{repo}/blob/main/docs/{GREEK_TECH_PODCASTS_MD}"
         )
     lines.append(
         "  "
@@ -608,7 +739,7 @@ def generate() -> None:
     if readme_data.get("disclaimer"):
         lines.append(f"{readme_data['disclaimer'].strip()}\n")
 
-    readme_out = GENERATED_MD_DIR / README_MD
+    readme_out = DOCS_MD_DIR / README_MD
     readme_text = "\n".join(lines) + "\n"
     with readme_out.open("w", encoding="utf-8") as f:
         f.write(readme_text)
@@ -617,7 +748,7 @@ def generate() -> None:
         encoding="utf-8",
     )
 
-    with (GENERATED_MD_DIR / SEARCH_QUERIES_MD).open("w", encoding="utf-8") as f:
+    with (DOCS_MD_DIR / SEARCH_QUERIES_MD).open("w", encoding="utf-8") as f:
         f.write(build_search_queries_markdown(queries_data, readme_data))
 
     podcasts_data: dict = {}
@@ -626,7 +757,7 @@ def generate() -> None:
             loaded = yaml.safe_load(f)
             if isinstance(loaded, dict):
                 podcasts_data = loaded
-    with (GENERATED_MD_DIR / GREEK_TECH_PODCASTS_MD).open(
+    with (DOCS_MD_DIR / GREEK_TECH_PODCASTS_MD).open(
         "w", encoding="utf-8"
     ) as f:
         f.write(build_greek_tech_podcasts_markdown(podcasts_data))
@@ -637,13 +768,24 @@ def generate() -> None:
             loaded = yaml.safe_load(f)
             if isinstance(loaded, dict):
                 osp_data = loaded
-    with (GENERATED_MD_DIR / OPEN_SOURCE_PROJECTS_MD).open(
+    with (DOCS_MD_DIR / OPEN_SOURCE_PROJECTS_MD).open(
         "w", encoding="utf-8"
     ) as f:
         f.write(build_open_source_projects_markdown(osp_data))
 
+    cafe_resources_data: dict = {}
+    if CAFE_RESOURCES_YAML.is_file():
+        with CAFE_RESOURCES_YAML.open("r", encoding="utf-8") as f:
+            loaded_cafe = yaml.safe_load(f)
+            if isinstance(loaded_cafe, dict):
+                cafe_resources_data = loaded_cafe
+    with (DOCS_MD_DIR / REMOTE_CAFE_RESOURCES_MD).open(
+        "w", encoding="utf-8"
+    ) as f:
+        f.write(build_remote_cafe_resources_markdown(cafe_resources_data))
+
     if dev_md_body:
-        with (GENERATED_MD_DIR / DEVELOPMENT_MD).open(
+        with (DOCS_MD_DIR / DEVELOPMENT_MD).open(
             "w", encoding="utf-8"
         ) as f:
             f.write(dev_md_body)
@@ -717,7 +859,7 @@ def generate() -> None:
             f"| {careers} · {li} |\n"
         )
 
-    with (GENERATED_MD_DIR / ENGINEERING_HUBS_MD).open(
+    with (DOCS_MD_DIR / ENGINEERING_HUBS_MD).open(
         "w", encoding="utf-8"
     ) as f:
         f.writelines(hubs)
@@ -726,7 +868,8 @@ def generate() -> None:
 if __name__ == "__main__":
     generate()
     print(
-        "README.md (repo root), generated/readme.md, generated/search-queries-and-resources.md, "
-        "generated/greek-tech-podcasts.md, generated/open-source-projects.md, "
-        "generated/development.md, and generated/engineering-hubs.md written successfully!"
+        "README.md (repo root), docs/readme.md, docs/search-queries-and-resources.md, "
+        "docs/greek-tech-podcasts.md, docs/open-source-projects.md, "
+        "docs/remote-cafe-resources.md, docs/development.md, and "
+        "docs/engineering-hubs.md written successfully!"
     )

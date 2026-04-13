@@ -83,28 +83,11 @@
             {% block main %}{% endblock %}
         </div>
 
-        <footer class="max-w-6xl mx-auto px-4 pb-10 space-y-4 mt-8">
-            <div
-                class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/70 shadow-soft dark:shadow-soft-dark p-5 sm:p-6">
-                <h3 class="text-sm font-semibold tracking-tight">Disclaimer</h3>
-                <p class="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                    This project is for community and educational purposes only. Data is aggregated from public sources
-                    (company websites, LinkedIn, and Workable public API). Job counts are cached snapshots and are not
-                    a real-time official database.
-                </p>
-                <p class="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                    Non-affiliation: this project is independent and not affiliated with, sponsored by, or endorsed by
-                    any listed company. Always verify openings and policies on official company websites.
-                </p>
-                <p class="mt-3 text-xs text-slate-500 dark:text-slate-400">
-                    <button type="button" id="agtj-cookie-choices-btn"
-                        class="underline underline-offset-2 decoration-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900 rounded-sm">
-                        Cookie choices
-                    </button>
-                    — change analytics consent any time.
-                </p>
-            </div>
+        {% block site_footer %}
+        <footer class="w-full mt-12 sm:mt-16" role="contentinfo" aria-label="Repository and disclaimer">
+            {% include "_site_footer_disclaimer_card.html" %}
         </footer>
+        {% endblock %}
     </div>
 
     <div id="agtj-consent-banner" class="agtj-consent-banner fixed bottom-0 left-0 right-0 z-[95] pointer-events-none"

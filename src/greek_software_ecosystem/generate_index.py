@@ -13,7 +13,8 @@ Data flow
    ``python -m greek_software_ecosystem.fetch_workable_counts`` (server-side; avoids browser CORS).
    Embedded in the page for badges, header totals, sort, and hiring-only filter.
 4. ``templates/index_template.html`` → ``index.html`` (hub); ``page_job_search_combined.html`` →
-   ``job-search.html`` (employer directory + job-board links); ``employers.html`` is a short redirect.
+   ``job-search.html`` (directory + Workable); ``page_resources.html`` → ``resources.html``
+   (queries + café YAML); ``employers.html`` is a short redirect.
 
 Run
 ---
@@ -44,12 +45,14 @@ from greek_software_ecosystem.industry_clusters import (
     industries_for_sectors,
     sort_industries_for_filter,
 )
+from greek_software_ecosystem.generate_readme import build_remote_cafe_resources_markdown
 from greek_software_ecosystem.load_companies import (
     QUERIES_YAML,
     WORKABLE_COUNTS_YAML,
     load_companies,
 )
-from greek_software_site.markdown_html import markdown_file_to_html, markdown_to_html
+from greek_software_ecosystem.podcast_urls import podcast_summary_table_html
+from greek_software_site.markdown_html import markdown_to_html
 from greek_software_site.sitemap_robots import write_robots_txt, write_sitemap_xml
 from greek_software_ecosystem.workable_apply_slug import extract_workable_apply_slug
 
@@ -66,7 +69,7 @@ OUTPUT_PODCASTS = "podcasts.html"
 ITEMS_PER_PAGE = 50
 WORKABLE_SNAPSHOT_PATH = WORKABLE_COUNTS_YAML
 PODCASTS_YAML = Path("_data/podcasts.yaml")
-REMOTE_CAFE_MD = Path("remote-cafe-resources.md")
+CAFE_RESOURCES_YAML = Path("_data/cafe_resources.yaml")
 
 env = Environment(loader=FileSystemLoader(str(TEMPLATES_DIR)))
 
@@ -192,7 +195,7 @@ def build_schema_employers_directory(
     total_companies: int,
     github_repo_url: str,
 ) -> str:
-    """JSON-LD for the employers directory page including CollectionPage."""
+    """JSON-LD for the job search page including employer directory ``CollectionPage``."""
     website_id = f"{origin}/#website"
     org_id = f"{origin}/#organization"
     employers_search = f"{origin}/job-search.html?q={{search_term_string}}"
@@ -313,25 +316,12 @@ def load_queries_split() -> tuple[list[dict], list[dict]]:
     return job_sections, awesome_queries
 
 
-def podcast_link_kind(label: str) -> str:
-    """Map link label to icon bucket for the podcasts page template."""
-    s = (label or "").casefold().strip()
-    if "spotify" in s:
-        return "spotify"
-    if "apple" in s:
-        return "apple"
-    if "google" in s and "podcast" in s:
-        return "google_podcasts"
-    if "youtube" in s:
-        return "youtube"
-    if s in ("site", "website", "web") or "website" in s:
-        return "site"
-    return "other"
-
-
 def load_podcasts_page_data(github_repo_url: str = "") -> dict:
-    """YAML → structured data for ``page_podcasts.html`` (cards + intro)."""
-    out: dict = {"intro_html": "", "disclaimer_html": "", "podcasts": []}
+    """YAML → structured data for ``page_podcasts.html`` (intro, summary table)."""
+    out: dict = {
+        "intro_html": "",
+        "summary_table_html": "",
+    }
     if not PODCASTS_YAML.is_file():
         return out
     try:
@@ -347,50 +337,33 @@ def load_podcasts_page_data(github_repo_url: str = "") -> dict:
         out["intro_html"] = markdown_to_html(
             intro, github_repo_url=github_repo_url
         )
-    disc = (data.get("disclaimer") or "").strip()
-    if disc:
-        out["disclaimer_html"] = markdown_to_html(
-            disc, github_repo_url=github_repo_url
-        )
 
-    shows: list[dict] = []
-    for pod in data.get("podcasts") or []:
-        if not isinstance(pod, dict):
-            continue
-        title = (pod.get("title") or "").strip() or "Podcast"
-        desc_raw = (pod.get("description") or "").strip()
-        desc_html = (
-            markdown_to_html(desc_raw, github_repo_url=github_repo_url)
-            if desc_raw
-            else ""
-        )
-        links_out: list[dict] = []
-        for link in pod.get("links") or []:
-            if not isinstance(link, dict):
-                continue
-            label = (link.get("label") or "").strip()
-            url = (link.get("url") or "").strip()
-            anchor = (link.get("anchor") or label).strip()
-            if not label or not url:
-                continue
-            links_out.append(
-                {
-                    "label": label,
-                    "url": url,
-                    "anchor": anchor,
-                    "kind": podcast_link_kind(label),
-                }
-            )
-        shows.append(
-            {
-                "title": title,
-                "description_html": desc_html,
-                "links": links_out,
-            }
-        )
+    raw_podcasts = [
+        p
+        for p in (data.get("podcasts") or [])
+        if isinstance(p, dict) and (p.get("title") or "").strip()
+    ]
+    if raw_podcasts:
+        out["summary_table_html"] = podcast_summary_table_html(raw_podcasts)
 
-    out["podcasts"] = shows
     return out
+
+
+def load_remote_workspace_html(github_repo_url: str) -> str:
+    """``_data/cafe_resources.yaml`` → HTML (same markdown pipeline as ``docs/remote-cafe-resources.md``)."""
+    if not CAFE_RESOURCES_YAML.is_file():
+        return ""
+    try:
+        with CAFE_RESOURCES_YAML.open(encoding="utf-8") as f:
+            data = yaml.safe_load(f)
+    except (yaml.YAMLError, OSError):
+        return ""
+    if not isinstance(data, dict):
+        data = {}
+    md = build_remote_cafe_resources_markdown(data, for_web_embed=True).strip()
+    if not md:
+        return ""
+    return markdown_to_html(md, github_repo_url=github_repo_url)
 
 
 def meta_page(
@@ -671,9 +644,7 @@ def run_generate_index() -> None:
     site_name = _meta["og_site_name"]
 
     job_combined_desc = (
-        "Technology employers in Greece—search and filter by industry, location, sector, "
-        "and work policy, with weekly Workable role counts where available. Further down, "
-        "curated job boards and portals from the repository YAML. "
+        "Greek tech employers: searchable directory, Workable role counts in Greece, and filters."
     )
     job_meta = meta_page(
         _meta,
@@ -693,7 +664,6 @@ def run_generate_index() -> None:
     )
     Path(OUTPUT_JOB_SEARCH).write_text(
         env.get_template("page_job_search_combined.html").render(
-            query_sections=job_sections,
             companies=companies_data,
             sectors=sorted_sectors,
             locations=sorted_locations,
@@ -707,7 +677,6 @@ def run_generate_index() -> None:
             current_page="job-search",
             page_kicker="Job search · Directory & links",
             page_title="Job search",
-            page_subtitle=job_combined_desc,
             **job_meta,
         ),
         encoding="utf-8",
@@ -720,8 +689,8 @@ def run_generate_index() -> None:
     )
 
     res_desc = (
-        "Curated GitHub awesome lists plus remote café and laptop-friendly workspace "
-        "guides—the same content as in the repository."
+        "Job boards and portals, curated GitHub awesome lists, and remote café / "
+        "laptop-friendly workspaces—driven by the same YAML as the repository docs."
     )
     res_meta = meta_page(
         _meta,
@@ -734,16 +703,10 @@ def run_generate_index() -> None:
         document_title=res_meta["document_title"],
         description=res_meta["og_description"],
     )
-    remote_html = ""
-    if REMOTE_CAFE_MD.is_file():
-        try:
-            remote_html = markdown_file_to_html(
-                REMOTE_CAFE_MD, github_repo_url=_meta["github_repo_url"]
-            )
-        except OSError:
-            remote_html = ""
+    remote_html = load_remote_workspace_html(_meta["github_repo_url"])
     Path(OUTPUT_RESOURCES).write_text(
         env.get_template("page_resources.html").render(
+            query_sections=job_sections,
             awesome_queries=awesome_queries,
             remote_workspace_html=remote_html,
             page_kicker="Resources · Lists & spaces",
@@ -758,7 +721,7 @@ def run_generate_index() -> None:
 
     pod_desc = (
         "Greek tech and startup podcasts in video and audio—curated from the repository "
-        "and shown here as browsable cards with listen links."
+        "and shown as an at-a-glance platform table with links."
     )
     pod_meta = meta_page(
         _meta,
@@ -800,10 +763,10 @@ def run_generate_index() -> None:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description=(
-            "Generate index.html (hub), job-search.html (directory + links), "
-            "employers.html (redirect), resources.html, podcasts.html, sitemap.xml, "
-            "and robots.txt from _data/companies/*.yaml, "
-            "_data/queries.yaml, _data/podcasts.yaml, and markdown resources."
+            "Generate index.html (hub), job-search.html (directory), "
+            "employers.html (redirect), resources.html (queries + café YAML), podcasts.html, "
+            "sitemap.xml, and robots.txt from _data/companies/*.yaml, "
+            "_data/queries.yaml, _data/cafe_resources.yaml, _data/podcasts.yaml, and readme data."
         ),
     )
     parser.add_argument(

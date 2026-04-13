@@ -19,7 +19,7 @@ sync *ARGS:
 fetch:
 	uv run python -m greek_software_ecosystem.fetch_workable_counts
 
-# Regenerate generated/*.md (plus root README.md stub) from _data/readme.yaml, open_source_projects.yaml, and other YAML data.
+# Regenerate docs/*.md (plus root README.md stub) from _data/readme.yaml, open_source_projects.yaml, and other YAML data.
 readme:
 	uv run python -m greek_software_ecosystem.generate_readme
 

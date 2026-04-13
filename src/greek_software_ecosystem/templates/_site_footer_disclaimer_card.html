@@ -1,0 +1,36 @@
+{# Full-width footer band; inner content max-w-6xl. Expects: github_repo_url #}
+<div
+    class="w-full border-t border-slate-200/90 dark:border-slate-800 bg-gradient-to-b from-slate-50/95 via-slate-50/90 to-slate-100/70 dark:from-slate-950 dark:via-slate-950 dark:to-slate-900/95">
+    <div class="max-w-6xl mx-auto agtj-site-px py-8 sm:py-10">
+        <div
+            class="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between lg:gap-12 xl:gap-16">
+            <div class="min-w-0 lg:max-w-sm xl:max-w-md shrink-0">
+                <p class="text-[11px] font-mono uppercase tracking-widest text-cyan-700 dark:text-cyan-400">
+                    Repository</p>
+                <p class="mt-1 text-xs text-slate-500 dark:text-slate-400 font-mono break-all sm:break-normal sm:truncate"
+                    title="{{ github_repo_url }}">{{ github_repo_url }}</p>
+                <div class="mt-4 flex flex-col sm:flex-row sm:flex-wrap gap-2.5 sm:gap-3">
+                    <a href="{{ github_repo_url }}"
+                        class="inline-flex items-center justify-center gap-2 min-h-[2.75rem] rounded-xl border border-slate-200/90 dark:border-slate-600/90 bg-white/90 dark:bg-slate-900/80 px-4 text-sm font-semibold text-slate-800 dark:text-slate-100 shadow-sm hover:border-cyan-500/50 hover:bg-cyan-50/60 dark:hover:bg-slate-800 dark:hover:border-cyan-600/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 dark:focus-visible:ring-offset-slate-950 transition-colors">
+                        <span class="material-symbols-outlined text-[1.125rem] text-cyan-600 dark:text-cyan-400"
+                            aria-hidden="true">code</span>
+                        <span>View on GitHub</span>
+                    </a>
+                    <a href="{{ github_repo_url }}/blob/main/contributing.md" target="_blank" rel="noopener noreferrer"
+                        class="inline-flex items-center justify-center gap-2 min-h-[2.75rem] rounded-xl border border-slate-200/90 dark:border-slate-600/90 bg-white/90 dark:bg-slate-900/80 px-4 text-sm font-semibold text-slate-800 dark:text-slate-100 shadow-sm hover:border-cyan-500/50 hover:bg-cyan-50/60 dark:hover:bg-slate-800 dark:hover:border-cyan-600/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 dark:focus-visible:ring-offset-slate-950 transition-colors"
+                        title="Contributing guide (contributing.md)"
+                        aria-label="Contributing guide on GitHub (contributing.md)">
+                        <span class="material-symbols-outlined text-[1.125rem] text-cyan-600 dark:text-cyan-400"
+                            aria-hidden="true">group_add</span>
+                        <span>How to contribute</span>
+                        <span class="material-symbols-outlined text-base text-slate-400 dark:text-slate-500"
+                            aria-hidden="true">open_in_new</span>
+                    </a>
+                </div>
+            </div>
+            <div class="min-w-0 flex-1 lg:pt-0.5">
+                {% include "_site_footer_disclaimer_body.html" %}
+            </div>
+        </div>
+    </div>
+</div>

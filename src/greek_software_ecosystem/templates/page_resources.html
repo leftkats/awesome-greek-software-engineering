@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% from "_macros_resources.html" import resource_details %}
 {% block main %}
 <section class="max-w-6xl mx-auto px-4 pt-8 pb-4" aria-labelledby="res-heading">
     <div
@@ -6,36 +7,74 @@
         <p class="text-[11px] font-mono uppercase tracking-widest text-cyan-700 dark:text-cyan-400">{{ page_kicker }}</p>
         <h1 id="res-heading" class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-2">
             {{ page_title }}</h1>
-        <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-3xl leading-relaxed">{{ page_subtitle }}</p>
+        <p class="mt-3 max-w-3xl text-base sm:text-lg leading-relaxed text-slate-600 dark:text-slate-300">{{ page_subtitle }}</p>
+        <p class="mt-4 max-w-3xl text-sm leading-relaxed text-slate-500 dark:text-slate-400">
+            Each block below can be <strong class="font-medium text-slate-700 dark:text-slate-300">collapsed</strong> to scan the page faster.
+            Jump to a topic with the list under “On this page”.
+        </p>
+        <p class="mt-3 text-xs leading-relaxed text-slate-500 dark:text-slate-500 max-w-3xl">
+            Generated from <span class="font-mono text-cyan-700 dark:text-cyan-400">_data/queries.yaml</span> and
+            <span class="font-mono text-cyan-700 dark:text-cyan-400">_data/cafe_resources.yaml</span> — run
+            <span class="font-mono">just generate</span> after edits.
+        </p>
     </div>
 </section>
 
-<div class="max-w-6xl mx-auto px-4 pb-12 space-y-10">
-    {% if awesome_queries %}
-    <section aria-labelledby="awesome-git-heading">
-        <h2 id="awesome-git-heading"
-            class="text-lg font-bold text-slate-900 dark:text-white border-b border-slate-200 dark:border-slate-700 pb-2 mb-4">
-            Curated awesome lists (GitHub)</h2>
-        <ul class="space-y-3" role="list">
-            {% for q in awesome_queries %}
+{% if query_sections or awesome_queries or remote_workspace_html %}
+<nav class="max-w-6xl mx-auto px-4 pb-6" aria-label="On this page">
+    <div
+        class="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-gradient-to-br from-white/95 to-cyan-50/30 dark:from-slate-900/80 dark:to-slate-900/50 px-4 py-4 sm:px-5 sm:py-4 shadow-sm">
+        <p class="text-[11px] font-mono uppercase tracking-widest text-cyan-700 dark:text-cyan-400">On this page</p>
+        <ul class="mt-3 flex flex-wrap gap-2" role="list">
+            {% for section in query_sections %}
             <li>
-                <a href="{{ q.url }}" target="_blank" rel="noopener noreferrer"
-                    class="group flex flex-col sm:flex-row sm:items-start gap-2 rounded-2xl border border-slate-200/90 dark:border-slate-700/90 bg-white/95 dark:bg-slate-900/70 p-4 hover:border-cyan-400/80 dark:hover:border-cyan-600/60 hover:shadow-md transition">
-                    <span
-                        class="font-semibold text-cyan-800 dark:text-cyan-300 group-hover:underline shrink-0">{{ q.name }}</span>
-                    <span class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{{ q.description }}</span>
-                </a>
+                <a href="#res-jobs-{{ loop.index }}"
+                    class="inline-flex items-center rounded-lg border border-slate-200/90 bg-white/90 px-3 py-1.5 text-sm font-medium text-slate-700 shadow-sm hover:border-cyan-400/60 hover:text-cyan-800 dark:border-slate-600 dark:bg-slate-800/60 dark:text-slate-200 dark:hover:border-cyan-600/50 dark:hover:text-cyan-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500">{{ section.title }}</a>
             </li>
             {% endfor %}
+            {% if awesome_queries %}
+            <li>
+                <a href="#awesome-git-heading"
+                    class="inline-flex items-center rounded-lg border border-slate-200/90 bg-white/90 px-3 py-1.5 text-sm font-medium text-slate-700 shadow-sm hover:border-cyan-400/60 hover:text-cyan-800 dark:border-slate-600 dark:bg-slate-800/60 dark:text-slate-200 dark:hover:border-cyan-600/50 dark:hover:text-cyan-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500">Awesome lists (GitHub)</a>
+            </li>
+            {% endif %}
+            {% if remote_workspace_html %}
+            <li>
+                <a href="#remote-cafe-heading"
+                    class="inline-flex items-center rounded-lg border border-slate-200/90 bg-white/90 px-3 py-1.5 text-sm font-medium text-slate-700 shadow-sm hover:border-cyan-400/60 hover:text-cyan-800 dark:border-slate-600 dark:bg-slate-800/60 dark:text-slate-200 dark:hover:border-cyan-600/50 dark:hover:text-cyan-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500">Workspaces &amp; cafés</a>
+            </li>
+            {% endif %}
         </ul>
-    </section>
+    </div>
+</nav>
+{% endif %}
+
+<div class="max-w-6xl mx-auto space-y-5 px-4 pb-14 sm:space-y-6">
+
+    {% if query_sections %}
+    {% for section in query_sections %}
+    {% call resource_details('res-jobs-' ~ loop.index, section.title, 'Job boards, search shortcuts, and portals', section.queries|length ~ ' links') %}
+    {% set queries = section.queries %}
+    {% include "_resource_query_cards.html" %}
+    {% endcall %}
+    {% endfor %}
+    {% endif %}
+
+    {% if awesome_queries %}
+    {% call resource_details('awesome-git-heading', 'Curated awesome lists (GitHub)', 'Community-maintained lists of remote work, nomads, and more', awesome_queries|length ~ ' lists') %}
+    {% set queries = awesome_queries %}
+    {% include "_resource_query_cards.html" %}
+    {% endcall %}
     {% endif %}
 
     {% if remote_workspace_html %}
-    <section class="page-md-content rounded-2xl border border-slate-200/90 dark:border-slate-700/90 bg-white/95 dark:bg-slate-900/75 p-5 sm:p-8"
-        aria-label="Remote workspaces">
+    {% call resource_details('remote-cafe-heading', 'Remote café & laptop-friendly workspaces', 'Laptop-friendly venues and directories — from the same YAML as the docs') %}
+    <div
+        class="page-md-content agtj-resource-md max-w-none text-slate-700 dark:text-slate-300 [&_a]:text-cyan-700 dark:[&_a]:text-cyan-400 [&_table]:text-sm">
         {{ remote_workspace_html | safe }}
-    </section>
+    </div>
+    {% endcall %}
     {% endif %}
+
 </div>
 {% endblock %}

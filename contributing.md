@@ -7,24 +7,25 @@ Thank you for wanting to improve this list! We love community contributions. To 
 This repository organizes its data under the `_data` directory. Below is a description of the files you can contribute to:
 
 - **`_data/companies/`**: One YAML file per company (`.yaml`). Each file is a single mapping with the company name, sectors, careers page URL, LinkedIn company ID, and other fields. For the LinkedIn ID, open the company’s LinkedIn page and copy the segment after `/company/` (for example `https://www.linkedin.com/company/**company-id**/`).
-- **`_data/queries.yaml`**: Predefined search queries and resources, grouped into sections. Each query has a name, URL, and optional description; sections appear as headings in **[generated/search-queries-and-resources.md](generated/search-queries-and-resources.md)** (generated when you run `just generate`). **Tips & Notes** on that page are copied from **`_data/readme.yaml`** (`footer.notes`), not from this file.
-- **`_data/podcasts.yaml`**: Curated Greek tech and startup podcasts. Each entry has a `title`, markdown `description`, and a `links` list (`label`, `url`, optional `anchor` for the link text). Running **`just readme`** or **`just generate`** writes **[generated/greek-tech-podcasts.md](generated/greek-tech-podcasts.md)** and feeds **`podcasts.html`**. Add new shows here (see the comments at the top of the YAML file).
-- **`_data/open_source_projects.yaml`**: Open source Greek tech projects on GitHub (`title`, `url`, `description`). Running **`just readme`** writes **[generated/open-source-projects.md](generated/open-source-projects.md)** and links it from the generated readme overview.
-- **`remote-cafe-resources.md`**: Curated remote café and laptop-friendly workspace links (maintained in this file; **not** overwritten by `just readme`).
+- **`_data/queries.yaml`**: Predefined search queries and resources, grouped into sections. Each query has a name, URL, and optional description; sections appear as headings in **[docs/search-queries-and-resources.md](docs/search-queries-and-resources.md)** (generated when you run `just generate`). **Tips & Notes** on that page are copied from **`_data/readme.yaml`** (`footer.notes`), not from this file.
+- **`_data/podcasts.yaml`**: Curated Greek tech and startup podcasts. Each entry has a `title`, markdown `description`, and optional URL fields such as **`website_url`**, **`spotify_url`**, **`youtube_url`**, **`apple_podcasts_url`**, **`google_podcasts_url`**, **`simplecast_url`**, and **`podlist_url`** (omit keys you do not have). Running **`just readme`** or **`just generate`** writes **[docs/greek-tech-podcasts.md](docs/greek-tech-podcasts.md)** and feeds **`podcasts.html`**. See the comments at the top of the YAML file.
+- **`_data/open_source_projects.yaml`**: Open source Greek tech projects on GitHub (`title`, `url`, `description`). Running **`just readme`** writes **[docs/open-source-projects.md](docs/open-source-projects.md)** and links it from the generated readme overview.
+- **`_data/cafe_resources.yaml`**: Remote café and laptop-friendly workspace listings (`kind: directory` or `kind: cafe`, plus `title`, `url`, optional `description`, `details`, `note`, etc.). Running **`just readme`** or **`just generate`** writes **[docs/remote-cafe-resources.md](docs/remote-cafe-resources.md)** and feeds **`resources.html`**.
 
 ## Generated Markdown (do not edit by hand)
 
-These files are **overwritten** by **`src/greek_software_ecosystem/generate_readme.py`** when you run **`just readme`** or **`just generate`**. The repo root **`README.md`** is the same content as **`generated/readme.md`**, with links adjusted for paths from the repository root (so GitHub shows the full readme on the project home page).
+These files are **overwritten** by **`src/greek_software_ecosystem/generate_readme.py`** when you run **`just readme`** or **`just generate`**. The repo root **`README.md`** is the same content as **`docs/readme.md`**, with links adjusted for paths from the repository root (so GitHub shows the full readme on the project home page).
 
 - **`README.md`** (root — what GitHub displays by default)
-- **`generated/readme.md`**
-- **`generated/engineering-hubs.md`**
-- **`generated/search-queries-and-resources.md`**
-- **`generated/greek-tech-podcasts.md`**
-- **`generated/open-source-projects.md`**
-- **`generated/development.md`**
+- **`docs/readme.md`**
+- **`docs/engineering-hubs.md`**
+- **`docs/search-queries-and-resources.md`**
+- **`docs/greek-tech-podcasts.md`**
+- **`docs/open-source-projects.md`**
+- **`docs/remote-cafe-resources.md`**
+- **`docs/development.md`**
 
-To change their wording or structure, edit **`_data/readme.yaml`** (see **`generated_markdown`** for shared prose, plus `development`, `disclaimer`, `footer`, etc.), **`_data/queries.yaml`**, **`_data/podcasts.yaml`**, **`_data/open_source_projects.yaml`**, and company YAML as needed, then regenerate. Hand-edits to the generated `*.md` files will be lost on the next run.
+To change their wording or structure, edit **`_data/readme.yaml`** (see **`generated_markdown`** for shared prose, plus `development`, `disclaimer`, `footer`, etc.), **`_data/queries.yaml`**, **`_data/podcasts.yaml`**, **`_data/open_source_projects.yaml`**, **`_data/cafe_resources.yaml`**, and company YAML as needed, then regenerate. Hand-edits to the `docs/*.md` files will be lost on the next run.
 
 ## Reporting wrong or outdated company data
 
@@ -52,7 +53,7 @@ You do not need to open a pull request if you only want to flag an error: use **
       - name: "Startup Pirate: Learn what matters in Greek tech and startups"
         url: https://startuppirate.gr/
       ```
-    - For **`_data/podcasts.yaml`**: Append a new list item under `podcasts` with `title`, `description` (markdown), and `links` (each link needs `label` and `url`; optional `anchor` sets the clickable text). Then run **`just readme`** (or **`just generate`**) so **`generated/greek-tech-podcasts.md`** and **`podcasts.html`** stay in sync.
+    - For **`_data/podcasts.yaml`**: Append a new list item under `podcasts` with `title`, `description` (markdown), and any of the URL fields you have (`website_url`, `spotify_url`, `youtube_url`, `apple_podcasts_url`, etc.). Then run **`just readme`** (or **`just generate`**) so **`docs/greek-tech-podcasts.md`** and **`podcasts.html`** stay in sync.
 4. **Commit Changes**: Use a clear commit message like `feat: add [Company Name] to _data/companies`.
 5. **Create Pull Request**: Go back to the original repository and click "New Pull Request".
 6. **Automated Review & Merge**: If your Pull Request passes the validation checks and follows the required format, our automated workflow will merge via a squash commit.
@@ -65,7 +66,7 @@ If you want to work on an open issue, follow this simple flow:
 2. **Comment on the issue**: Leave a short message like "I can work on this" to avoid duplicate work.
 3. **Create a branch**: Use a clear branch name, for example `fix/workable-count-summary` or `docs/uv-quickstart`.
 4. **Implement and test locally** (install [uv](https://github.com/astral-sh/uv) and [just](https://github.com/casey/just)):
-   - Use **[generated/development.md](generated/development.md)** for copy-paste shell blocks: installing dependencies, `just generate`, `just all`, `just check`, and the optional Jekyll build that mirrors CI. Regeneration writes the static HTML files in the repo root (`index.html`, `employers.html`, `job-search.html`, `resources.html`, `podcasts.html`), plus **`sitemap.xml`** and **`robots.txt`** (from Python via `just index`). Those outputs are **not committed** on **`main`** (see `.gitignore`). CI runs Jekyll, then copies `sitemap.xml` / `robots.txt` into `_site/` and deploys branch **`live`**; a local Jekyll build outputs to `jekyll-pages/_site/`.
+   - Use **[docs/development.md](docs/development.md)** for copy-paste shell blocks: installing dependencies, `just generate`, `just all`, `just check`, and the optional Jekyll build that mirrors CI. Regeneration writes the static HTML files in the repo root (`index.html`, `employers.html`, `job-search.html`, `resources.html`, `podcasts.html`), plus **`sitemap.xml`** and **`robots.txt`** (from Python via `just index`). Those outputs are **not committed** on **`main`** (see `.gitignore`). CI runs Jekyll, then copies `sitemap.xml` / `robots.txt` into `_site/` and deploys branch **`live`**; a local Jekyll build outputs to `jekyll-pages/_site/`.
    - Equivalent `uv` commands still work, for example `uv sync --frozen`, `uv run python -m greek_software_ecosystem.generate_readme`, and `uv run python -m greek_software_ecosystem.generate_index`.
 5. **Open a PR linked to the issue**:
    - Include `Closes #<issue-number>` (or `Fixes #<issue-number>`) in the PR description so GitHub closes the issue automatically after merge.

@@ -1,0 +1,14 @@
+{# Pass ``queries`` as a list of {name, url, description}. #}
+<ul class="space-y-3" role="list">
+    {% for q in queries %}
+    <li>
+        <a href="{{ q.url }}" target="_blank" rel="noopener noreferrer"
+            class="group flex flex-col gap-2 rounded-xl border border-slate-200/90 dark:border-slate-600/80 bg-white dark:bg-slate-900/50 p-4 sm:flex-row sm:items-start sm:gap-4 sm:p-5 hover:border-cyan-400/70 dark:hover:border-cyan-600/50 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 dark:focus-visible:ring-offset-slate-950 transition">
+            <span
+                class="text-base font-semibold leading-snug text-cyan-800 dark:text-cyan-300 group-hover:underline sm:max-w-[min(100%,20rem)] sm:shrink-0">{{ q.name }}</span>
+            <span
+                class="text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:border-l sm:border-slate-200 sm:pl-4 sm:dark:border-slate-600">{{ q.description }}</span>
+        </a>
+    </li>
+    {% endfor %}
+</ul>

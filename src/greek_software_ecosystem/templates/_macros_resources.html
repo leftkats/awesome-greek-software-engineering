@@ -1,0 +1,27 @@
+{# Collapsible resource section — open by default; use with {% call %} ... {% endcall %}. #}
+{% macro resource_details(id, title, subtitle, count_text='') %}
+<details id="{{ id }}"
+    class="agtj-resource-details scroll-mt-28 rounded-2xl border border-slate-200/90 dark:border-slate-700/90 bg-white/95 dark:bg-slate-900/65 shadow-sm open:shadow-md dark:open:shadow-soft-dark transition-shadow"
+    open>
+    <summary
+        class="agtj-resource-summary flex cursor-pointer list-none items-center gap-3 rounded-2xl px-4 py-4 sm:px-6 sm:py-5 text-left outline-none transition-colors hover:bg-slate-50/90 dark:hover:bg-slate-800/40 focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-900 [&::-webkit-details-marker]:hidden">
+        <span
+            class="material-symbols-outlined agtj-resource-chevron shrink-0 text-2xl text-cyan-600 dark:text-cyan-400 transition-transform duration-200"
+            aria-hidden="true">expand_more</span>
+        <span class="min-w-0 flex-1">
+            <span class="block text-lg sm:text-xl font-extrabold tracking-tight text-slate-900 dark:text-white">{{ title }}</span>
+            {% if subtitle %}
+            <span class="mt-1 block text-sm font-normal leading-snug text-slate-500 dark:text-slate-400">{{ subtitle }}</span>
+            {% endif %}
+        </span>
+        {% if count_text %}
+        <span
+            class="shrink-0 rounded-full border border-slate-200/80 bg-slate-50 px-2.5 py-1 text-[11px] font-mono uppercase tracking-wide text-slate-600 dark:border-slate-600 dark:bg-slate-800/80 dark:text-slate-300">{{ count_text }}</span>
+        {% endif %}
+    </summary>
+    <div
+        class="border-t border-slate-200/80 bg-slate-50/40 px-4 py-5 dark:border-slate-700/80 dark:bg-slate-950/30 sm:px-6 sm:py-6">
+        {{ caller() }}
+    </div>
+</details>
+{% endmacro %}

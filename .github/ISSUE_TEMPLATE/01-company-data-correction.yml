@@ -14,7 +14,7 @@ body:
     id: company_name
     attributes:
       label: Company name (as listed)
-      description: Match the name in `generated/engineering-hubs.md` if possible.
+      description: Match the name in `docs/engineering-hubs.md` if possible.
       placeholder: e.g. Example SA
     validations:
       required: true

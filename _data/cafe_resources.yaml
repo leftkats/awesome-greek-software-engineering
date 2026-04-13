@@ -1,4 +1,4 @@
-# Source for generated/remote-cafe-resources.md (run `just readme` or `just generate`).
+# Source for docs/remote-cafe-resources.md (run `just readme` or `just generate`).
 #
 # Entry kinds:
 #   - directory — one website or article that lists or maps many laptop-friendly cafés
@@ -25,7 +25,7 @@
 #     description: Short note about Wi‑Fi, noise, and power outlets.
 
 intro: |
-  Curated links to **find coffee shops and spaces** where you can work on a laptop—Wi‑Fi, quiet areas, and practical filters. Complements the job-search links in **[search-queries-and-resources.md](../search-queries-and-resources.md)**.
+  Curated links to **find coffee shops and spaces** where you can work on a laptop—Wi‑Fi, quiet areas, and practical filters. Complements the job-search links in **[search-queries-and-resources.md](search-queries-and-resources.md)**.
 
 disclaimer: |
   **Disclaimer:** This list is community-maintained. Venues, hours, and policies change—confirm on the site or with the café before visiting.

@@ -244,3 +244,27 @@ body.has-location-filters .company-location-tag:not(.active-filter) {
     margin: 0.5rem 0 0.75rem 1.1rem;
     list-style: disc;
 }
+
+/* Resources page: native <details> panels (page_resources.html) */
+.agtj-resource-details .agtj-resource-summary {
+    list-style: none;
+}
+
+.agtj-resource-details .agtj-resource-summary::marker,
+.agtj-resource-details .agtj-resource-summary::-webkit-details-marker {
+    display: none;
+}
+
+.agtj-resource-details[open] .agtj-resource-chevron {
+    transform: rotate(180deg);
+}
+
+/* Slightly roomier markdown inside resource panels */
+.agtj-resource-md.page-md-content {
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+.agtj-resource-md.page-md-content h1:first-child {
+    margin-top: 0;
+}
