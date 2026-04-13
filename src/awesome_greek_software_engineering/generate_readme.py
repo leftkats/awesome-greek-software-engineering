@@ -73,6 +73,22 @@ _DEFAULT_README_DEV_BLURB = (
 )
 
 
+def _readme_markdown_for_repository_root(generated_readme_body: str) -> str:
+    """Rewrite links written for ``generated/readme.md`` so they work from the repo root ``README.md``."""
+    replacements: tuple[tuple[str, str], ...] = (
+        ("](engineering-hubs.md)", "](generated/engineering-hubs.md)"),
+        ("](search-queries-and-resources.md)", "](generated/search-queries-and-resources.md)"),
+        ("](greek-tech-podcasts.md)", "](generated/greek-tech-podcasts.md)"),
+        ("](open-source-projects.md)", "](generated/open-source-projects.md)"),
+        ("](development.md)", "](generated/development.md)"),
+        ("](../remote-cafe-resources.md)", "](generated/remote-cafe-resources.md)"),
+    )
+    out = generated_readme_body
+    for old, new in replacements:
+        out = out.replace(old, new)
+    return out
+
+
 def _engineering_hubs_disclaimer_text(
     readme_data: dict, issue_chooser: str
 ) -> str:
@@ -348,19 +364,6 @@ def build_development_markdown(readme_data: dict) -> str:
     return "\n".join(lines)
 
 
-def _write_root_readme_stub() -> None:
-    """Short root README for GitHub; full content lives in ``generated/readme.md``."""
-    body = (
-        "# Awesome Greek Software Engineering\n\n"
-        "The full **badges, overview, and table of contents** are in "
-        "**[generated/readme.md](generated/readme.md)**.\n\n"
-        "Other generated guides live in **[generated/](generated/)** "
-        "(run `just generate` after editing `_data/readme.yaml` and YAML data; "
-        "do not edit `generated/*.md` by hand).\n"
-    )
-    ROOT_README.write_text(body, encoding="utf-8")
-
-
 def generate() -> None:
     companies_data = load_companies()
 
@@ -606,8 +609,13 @@ def generate() -> None:
         lines.append(f"{readme_data['disclaimer'].strip()}\n")
 
     readme_out = GENERATED_MD_DIR / README_MD
+    readme_text = "\n".join(lines) + "\n"
     with readme_out.open("w", encoding="utf-8") as f:
-        f.write("\n".join(lines) + "\n")
+        f.write(readme_text)
+    ROOT_README.write_text(
+        _readme_markdown_for_repository_root(readme_text),
+        encoding="utf-8",
+    )
 
     with (GENERATED_MD_DIR / SEARCH_QUERIES_MD).open("w", encoding="utf-8") as f:
         f.write(build_search_queries_markdown(queries_data, readme_data))
@@ -714,13 +722,11 @@ def generate() -> None:
     ) as f:
         f.writelines(hubs)
 
-    _write_root_readme_stub()
-
 
 if __name__ == "__main__":
     generate()
     print(
-        "README.md stub, generated/readme.md, generated/search-queries-and-resources.md, "
+        "README.md (repo root), generated/readme.md, generated/search-queries-and-resources.md, "
         "generated/greek-tech-podcasts.md, generated/open-source-projects.md, "
         "generated/development.md, and generated/engineering-hubs.md written successfully!"
     )
