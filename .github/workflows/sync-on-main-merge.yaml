@@ -49,7 +49,7 @@ jobs:
       - name: Install Python and dependencies
         run: just sync --frozen
 
-      - name: Set up Ruby (Jekyll for sitemap.xml and robots.txt)
+      - name: Set up Ruby (Jekyll site build)
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.3"
@@ -74,7 +74,7 @@ jobs:
             LIVE_MSG="$1"
             WORK="$(mktemp -d)"
             cp -a "${GITHUB_WORKSPACE}/jekyll-pages/." "${WORK}/"
-            uv run python -m awesome_greek_software_engineering.jekyll_url_config > "${WORK}/_url.yml"
+            uv run python -m greek_software_ecosystem.jekyll_url_config > "${WORK}/_url.yml"
             for f in index.html employers.html job-search.html resources.html podcasts.html; do
               cp "${GITHUB_WORKSPACE}/${f}" "${WORK}/"
             done

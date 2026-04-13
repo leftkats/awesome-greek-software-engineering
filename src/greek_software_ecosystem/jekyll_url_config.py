@@ -18,7 +18,7 @@ README_YAML = _REPO_ROOT / "_data" / "readme.yaml"
 
 def main() -> int:
     url = "https://leftkats.github.io"
-    baseurl = "/awesome-greek-software-engineering"
+    baseurl = "/greek-software-ecosystem"
     if README_YAML.is_file():
         try:
             with README_YAML.open(encoding="utf-8") as f:
