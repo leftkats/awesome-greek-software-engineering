@@ -5,7 +5,7 @@ requires-python = ">=3.10"
 [[package]]
 name = "awesome-greek-tech-jobs"
 version = "0.0.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "jinja2" },
     { name = "pyyaml" },

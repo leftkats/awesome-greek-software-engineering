@@ -11,7 +11,7 @@ from html import escape
 
 import yaml
 
-from scripts.load_companies import (
+from awesome_greek_tech_jobs.load_companies import (
     QUERIES_YAML,
     WORKABLE_COUNTS_YAML,
     load_companies,

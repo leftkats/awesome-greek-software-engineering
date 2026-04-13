@@ -10,7 +10,7 @@ live_url: "https://leftkats.github.io/awesome-greek-tech-jobs/"
 live_directory_cta: "Open the interactive directory"
 repo: "leftkats/awesome-greek-tech-jobs"
 
-# Prose for Markdown files produced by scripts/generate_readme.py (do not edit those .md files by hand).
+# Prose for Markdown files produced by src/awesome_greek_tech_jobs/generate_readme.py (do not edit those .md files by hand).
 # Use {issue_chooser_url} in engineering_hubs.disclaimer — replaced when generating engineering-hubs.md.
 # Omit disclaimer or leave it empty to use the built-in default (disclaimer is always emitted).
 generated_markdown:
@@ -109,13 +109,13 @@ development:
         Requires Ruby/Bundler. Copy `index.html` and `assets/` into `jekyll-pages/`
         first (as in CI), then run:
       commands:
-        - uv run python scripts/jekyll_url_config.py > jekyll-pages/_url.yml
+        - uv run python -m awesome_greek_tech_jobs.jekyll_url_config > jekyll-pages/_url.yml
         - cd jekyll-pages && bundle install && bundle exec jekyll build --config _config.yml,_url.yml
     - title: "Run script modules directly (equivalent to just recipes)"
       commands:
-        - uv run python -m scripts.generate_readme
-        - uv run python -m scripts.generate_index
-        - uv run python -m scripts.fetch_workable_counts
+        - uv run python -m awesome_greek_tech_jobs.generate_readme
+        - uv run python -m awesome_greek_tech_jobs.generate_index
+        - uv run python -m awesome_greek_tech_jobs.fetch_workable_counts
   footer: >
     See [contributing.md](contributing.md) for the full workflow and repository
     conventions.

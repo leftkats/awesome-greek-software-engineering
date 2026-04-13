@@ -4,26 +4,26 @@ Data flow
 ---------
 1. ``_data/companies/*.yaml`` — one file per company (sectors, locations, careers URLs, policies).
    Coarse **industries** (≤20, for the dropdown) are derived from ``sectors`` via
-   ``scripts.industry_clusters`` at build time. **Locations** are Greece-focused:
+   ``awesome_greek_tech_jobs.industry_clusters`` at build time. **Locations** are Greece-focused:
    known non-Greek place names are dropped (see ``_NON_GREEK_LOCATIONS_CASEFOLD``),
    and common Greek spelling variants are canonicalised in ``normalize_location``.
 2. This module normalises rows and sets ``workable_slug`` for apply.workable.com URLs
-   (see ``scripts.workable_apply_slug``).
+   (see ``awesome_greek_tech_jobs.workable_apply_slug``).
 3. ``_data/workable_counts.yaml`` — Greece ``incountry`` counts per slug, from
-   ``python -m scripts.fetch_workable_counts`` (server-side; avoids browser CORS).
+   ``python -m awesome_greek_tech_jobs.fetch_workable_counts`` (server-side; avoids browser CORS).
    Embedded in the page for badges, header totals, sort, and hiring-only filter.
 4. ``templates/index_template.html`` → ``index.html``.
 
 Run
 ---
-* ``uv run python -m scripts.generate_index`` — render (use existing snapshot YAML if any).
-* ``uv run python -m scripts.generate_index --fetch-workable`` — fetch then render.
+* ``uv run python -m awesome_greek_tech_jobs.generate_index`` — render (use existing snapshot YAML if any).
+* ``uv run python -m awesome_greek_tech_jobs.generate_index --fetch-workable`` — fetch then render.
 
 CI: ``.github/workflows/sync-on-main-merge.yaml`` runs on ``main`` (push, weekly,
 manual): refreshes ``_data/workable_counts.yaml`` on schedule, regenerates readme /
 engineering-hubs, runs this script, then **force-pushes** only the static bundle
 (HTML and page assets) to branch ``live``; ``sitemap.xml`` / ``robots.txt`` are built by Jekyll for
-GitHub Pages. Paths align with ``scripts.fetch_workable_counts``.
+GitHub Pages. Paths align with ``awesome_greek_tech_jobs.fetch_workable_counts``.
 """
 
 from __future__ import annotations
@@ -38,11 +38,14 @@ from collections import Counter
 
 from jinja2 import Environment, FileSystemLoader
 
-from scripts.industry_clusters import industries_for_sectors, sort_industries_for_filter
-from scripts.load_companies import WORKABLE_COUNTS_YAML, load_companies
-from scripts.workable_apply_slug import extract_workable_apply_slug
+from awesome_greek_tech_jobs.industry_clusters import (
+    industries_for_sectors,
+    sort_industries_for_filter,
+)
+from awesome_greek_tech_jobs.load_companies import WORKABLE_COUNTS_YAML, load_companies
+from awesome_greek_tech_jobs.workable_apply_slug import extract_workable_apply_slug
 
-# --- Configuration (aligned with scripts/fetch_workable_counts.py) ---
+# --- Configuration (aligned with fetch_workable_counts.py) ---
 OUTPUT_PATH = "index.html"
 ITEMS_PER_PAGE = 50
 WORKABLE_SNAPSHOT_PATH = WORKABLE_COUNTS_YAML
@@ -443,7 +446,9 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     if args.fetch_workable:
-        from scripts.fetch_workable_counts import main as fetch_workable_main
+        from awesome_greek_tech_jobs.fetch_workable_counts import (
+            main as fetch_workable_main,
+        )
 
         rc = fetch_workable_main()
         if rc != 0:
