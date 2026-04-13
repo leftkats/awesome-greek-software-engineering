@@ -1,5 +1,5 @@
-# Regenerates readme / engineering-hubs / search-queries / development on `main`, builds static HTML with Python,
-# runs **Jekyll** (`jekyll-pages/`: `jekyll-sitemap` + Liquid `robots.txt`), then
+# Regenerates `generated/*.md` + root `README.md` on `main`, builds static HTML with Python,
+# runs **Jekyll** (`jekyll-pages/`), copies **Python-generated** `sitemap.xml` / `robots.txt`, then
 # force-pushes `_site/` (+ `.nojekyll`) to branch `live` for GitHub Pages.
 #
 # Skips when the triggering push was the bot follow-up (`[skip ci]` in the message).
@@ -68,7 +68,7 @@ jobs:
             just index
           }
 
-          # Jekyll build → _site/ (sitemap.xml, robots.txt, index.html, assets).
+          # Jekyll build → _site/ (HTML + assets). sitemap.xml / robots.txt from Python (just index).
           # .nojekyll: GitHub Pages serves files as-is (no second Jekyll pass on `live`).
           deploy_live() {
             LIVE_MSG="$1"
@@ -88,6 +88,7 @@ jobs:
               bundle exec jekyll build --config _config.yml,_url.yml
             )
             SITE="${WORK}/_site"
+            cp "${GITHUB_WORKSPACE}/sitemap.xml" "${GITHUB_WORKSPACE}/robots.txt" "${SITE}/"
             touch "${SITE}/.nojekyll"
             (
               cd "${SITE}"
@@ -109,7 +110,7 @@ jobs:
             git config --local user.email "github-actions[bot]@users.noreply.github.com"
             git config --local user.name "github-actions[bot]"
 
-            git add readme.md engineering-hubs.md search-queries-and-resources.md development.md
+            git add README.md generated/*.md _data/readme.yaml
             MAIN_CHANGED=0
             if git diff --staged --quiet; then
               echo "No main-branch doc changes to commit."
@@ -132,7 +133,7 @@ jobs:
 
             git config --local user.email "github-actions[bot]@users.noreply.github.com"
             git config --local user.name "github-actions[bot]"
-            git add readme.md engineering-hubs.md search-queries-and-resources.md development.md _data/workable_counts.yaml
+            git add README.md generated/*.md _data/readme.yaml _data/workable_counts.yaml
             MAIN_CHANGED=0
             if git diff --staged --quiet; then
               echo "No main-branch changes to commit."

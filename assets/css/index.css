@@ -138,6 +138,15 @@ body.has-location-filters .company-location-tag:not(.active-filter) {
     border-color: rgb(16 185 129 / 0.8);
 }
 
+/* Podcast cards (page_podcasts.html): keep body copy compact vs. article titles */
+.podcast-card-body.page-md-content p {
+    margin: 0.5rem 0;
+}
+
+.podcast-card-body.page-md-content p:first-child {
+    margin-top: 0;
+}
+
 /* Markdown bodies on static subpages (podcasts, resources) */
 .page-md-content {
     font-size: 0.9375rem;

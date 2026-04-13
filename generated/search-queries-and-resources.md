@@ -2,7 +2,7 @@
 
 ← [readme.md](readme.md)
 
-Hand-picked links for Greek (and broader remote) job hunting. Each entry includes a short note on what you’ll find there. For **laptop-friendly cafés and remote workspaces**, see **[remote-cafe-resources.md](remote-cafe-resources.md)**.
+Hand-picked links for Greek (and broader remote) job hunting. Each entry includes a short note on what you’ll find there. For **laptop-friendly cafés and remote workspaces**, see **[remote-cafe-resources.md](../remote-cafe-resources.md)**.
 
 ## Job boards, portals & search
 

@@ -43,15 +43,20 @@ jobs:
           TAG="${NEXT#v}"
           TAG="v${TAG}"
 
+          # Nepal / Nepal–border Himalaya (release titles must not contain the word "peak").
           PEAKS=(
-            "Everest" "K2" "Kangchenjunga" "Lhotse" "Makalu" "Cho Oyu"
-            "Dhaulagiri" "Manaslu" "Nanga Parbat" "Annapurna" "Denali"
-            "Aconcagua" "Kilimanjaro" "Elbrus" "Vinson" "Puncak Jaya"
-            "Mont Blanc" "Matterhorn" "Olympus" "Triglav"
+            "Everest" "Sagarmatha" "Kangchenjunga" "Lhotse" "Makalu" "Cho Oyu"
+            "Dhaulagiri" "Manaslu" "Annapurna" "Gyachung Kang" "Ama Dablam"
+            "Machapuchare" "Baruntse" "Pumori" "Himlung" "Langtang Lirung"
+            "Ganesh Himal" "Gaurishankar" "Api" "Saipal" "Kanjiroba"
+            "Cholatse" "Khumbila" "Lobuche" "Chamlang" "Hiunchuli"
+            "Mardi Himal" "Nilgiri" "Kangtega" "Thamserku" "Kusum Kanguru"
+            "Dorje Lakpa" "Nuptse" "Taboche" "Kongde Ri" "Kwangde"
+            "Tawache" "Nupla" "Tukuche" "Imja Tse" "Lamjung Himal"
           )
           HASH="$(printf '%s' "${GITHUB_SHA}${TAG}" | cksum | cut -d' ' -f1)"
           IDX=$((HASH % ${#PEAKS[@]}))
-          NAME="${PEAKS[$IDX]} Peak"
+          NAME="${PEAKS[$IDX]}"
 
           echo "name=${NAME}" >> "$GITHUB_OUTPUT"
           echo "tag=${TAG}" >> "$GITHUB_OUTPUT"

@@ -7,7 +7,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        For problems with the **live directory**, **readme**, **development.md**, search-queries page, or build tooling.
+        For problems with the **live directory**, **readme**, **generated/development.md**, search-queries page, or build tooling.
 
   - type: dropdown
     id: area
@@ -16,7 +16,7 @@ body:
       options:
         - Live site (GitHub Pages / index.html)
         - Readme or generated markdown
-        - Podcasts (`_data/podcasts.yaml` / greek-tech-podcasts.md / podcasts.html)
+        - Podcasts (`_data/podcasts.yaml` / `generated/greek-tech-podcasts.md` / podcasts.html)
         - Python scripts / `just` recipes
         - GitHub Actions / CI
         - Other

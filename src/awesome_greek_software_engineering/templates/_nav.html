@@ -21,7 +21,7 @@
                     <span class="material-symbols-outlined text-base" aria-hidden="true">code</span>
                     <span class="hidden sm:inline">GitHub</span>
                 </a>
-                <a href="{{ github_repo_url }}/blob/main/contributing.md" target="_blank" rel="noopener noreferrer"
+                <a href="{{ github_repo_url }}/contribute" target="_blank" rel="noopener noreferrer"
                     class="h-11 min-w-[2.75rem] rounded-xl inline-flex items-center justify-center gap-1.5 px-2 sm:px-3 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950 text-xs font-mono uppercase tracking-wide text-slate-700 dark:text-slate-200"
                     title="How to contribute" aria-label="Contribute">
                     <span class="material-symbols-outlined text-base" aria-hidden="true">add</span>
@@ -39,9 +39,6 @@
             <a href="index.html"
                 class="nav-pill min-h-[2.75rem] inline-flex items-center rounded-lg px-2.5 py-1.5 {% if current_page == 'home' %}bg-cyan-100/80 dark:bg-cyan-950/50 text-cyan-900 dark:text-cyan-200 ring-1 ring-cyan-300/50 dark:ring-cyan-700/50{% else %}text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800{% endif %}"
                 {% if current_page == 'home' %}aria-current="page" {% endif %}>Home</a>
-            <a href="employers.html"
-                class="nav-pill min-h-[2.75rem] inline-flex items-center rounded-lg px-2.5 py-1.5 {% if current_page == 'employers' %}bg-cyan-100/80 dark:bg-cyan-950/50 text-cyan-900 dark:text-cyan-200 ring-1 ring-cyan-300/50 dark:ring-cyan-700/50{% else %}text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800{% endif %}"
-                {% if current_page == 'employers' %}aria-current="page" {% endif %}>Employers</a>
             <a href="job-search.html"
                 class="nav-pill min-h-[2.75rem] inline-flex items-center rounded-lg px-2.5 py-1.5 {% if current_page == 'job-search' %}bg-cyan-100/80 dark:bg-cyan-950/50 text-cyan-900 dark:text-cyan-200 ring-1 ring-cyan-300/50 dark:ring-cyan-700/50{% else %}text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800{% endif %}"
                 {% if current_page == 'job-search' %}aria-current="page" {% endif %}>Job search</a>

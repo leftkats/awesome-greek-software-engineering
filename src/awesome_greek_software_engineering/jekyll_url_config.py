@@ -1,6 +1,6 @@
-"""Emit a small Jekyll config fragment: url + baseurl from readme.yaml.
+"""Emit a small Jekyll config fragment: url + baseurl from _data/readme.yaml.
 
-Reads ``live_url`` from ``readme.yaml``. Used as:
+Reads ``live_url`` from ``_data/readme.yaml``. Used as:
 ``jekyll build --config _config.yml,_url.yml``
 """
 
@@ -13,7 +13,7 @@ from urllib.parse import urlparse
 import yaml
 
 _REPO_ROOT = Path(__file__).resolve().parents[2]
-README_YAML = _REPO_ROOT / "readme.yaml"
+README_YAML = _REPO_ROOT / "_data" / "readme.yaml"
 
 
 def main() -> int:

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block body_scripts %}
+<script type="application/json" id="workable-job-snapshot">{{ workable_snapshot_json | safe }}</script>
+<script type="application/json" id="agtj-config">{{ agtj_config_json | safe }}</script>
+<script src="assets/js/analytics-consent.js"></script>
+<script src="assets/js/site-chrome.js"></script>
+<script src="assets/js/index.js"></script>
+{% endblock %}
+{% block main %}
+<section class="max-w-6xl mx-auto px-4 pt-8 pb-4" aria-labelledby="job-search-hub-heading">
+    <div
+        class="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/70 shadow-soft dark:shadow-soft-dark p-6 sm:p-8">
+        <p class="text-[11px] font-mono uppercase tracking-widest text-cyan-700 dark:text-cyan-400">{{ page_kicker }}</p>
+        <h1 id="job-search-hub-heading"
+            class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-2">{{ page_title }}</h1>
+        <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-3xl leading-relaxed">
+            {{ page_subtitle }}
+            For GitHub awesome lists and laptop-friendly workspace guides, see
+            <a href="resources.html"
+                class="text-cyan-700 dark:text-cyan-300 font-medium hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 rounded">Resources</a>.
+        </p>
+    </div>
+</section>
+
+{% include "_index_directory.html" %}
+
+<div class="max-w-6xl mx-auto px-4 pb-12 space-y-10">
+    <h2 id="curated-links"
+        class="scroll-mt-28 text-2xl font-extrabold text-slate-900 dark:text-white border-b border-slate-200 dark:border-slate-700 pb-2">
+        Job boards &amp; portals</h2>
+    {% for section in query_sections %}
+    <section aria-labelledby="sec-{{ loop.index }}">
+        <h3 id="sec-{{ loop.index }}"
+            class="text-lg font-bold text-slate-900 dark:text-white border-b border-slate-200 dark:border-slate-700 pb-2 mb-4">
+            {{ section.title }}</h3>
+        <ul class="space-y-3" role="list">
+            {% for q in section.queries %}
+            <li>
+                <a href="{{ q.url }}" target="_blank" rel="noopener noreferrer"
+                    class="group flex flex-col sm:flex-row sm:items-start gap-2 rounded-2xl border border-slate-200/90 dark:border-slate-700/90 bg-white/95 dark:bg-slate-900/70 p-4 hover:border-cyan-400/80 dark:hover:border-cyan-600/60 hover:shadow-md transition">
+                    <span
+                        class="font-semibold text-cyan-800 dark:text-cyan-300 group-hover:underline shrink-0">{{ q.name }}</span>
+                    <span class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{{ q.description }}</span>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "awesome-greek-software-engineering"
 version = "0.0.0"
 description = "Generator tooling for the Awesome Greek Software Engineering directory"
-readme = "readme.md"
+readme = "generated/readme.md"
 requires-python = ">=3.10"
 dependencies = [
     "jinja2>=3.1",
@@ -20,3 +20,4 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 awesome_greek_software_engineering = ["py.typed", "templates/*.html"]
+agse_site = ["py.typed"]

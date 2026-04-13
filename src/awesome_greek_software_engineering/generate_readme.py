@@ -1,7 +1,8 @@
-"""Generate ``readme.md``, ``search-queries-and-resources.md``, ``greek-tech-podcasts.md``,
-``development.md``, and ``engineering-hubs.md`` from YAML.
+"""Generate ``generated/readme.md``, ``generated/search-queries-and-resources.md``,
+``generated/greek-tech-podcasts.md``, ``generated/development.md``, and
+``generated/engineering-hubs.md`` from YAML.
 
-**Do not edit generated ``*.md`` files by hand.** Change ``readme.yaml``, ``_data/queries.yaml``,
+**Do not edit generated ``*.md`` files by hand.** Change ``_data/readme.yaml``, ``_data/queries.yaml``,
 ``_data/podcasts.yaml``, company YAML under ``_data/companies/``, then run ``just readme`` (or ``just generate``).
 """
 
@@ -19,18 +20,24 @@ from awesome_greek_software_engineering.load_companies import (
     load_companies,
 )
 
+README_YAML = Path("_data/readme.yaml")
+GENERATED_MD_DIR = Path("generated")
+ROOT_README = Path("README.md")
+
 SEARCH_QUERIES_MD = "search-queries-and-resources.md"
 GREEK_TECH_PODCASTS_MD = "greek-tech-podcasts.md"
+ENGINEERING_HUBS_MD = "engineering-hubs.md"
+README_MD = "readme.md"
 PODCASTS_YAML = Path("_data/podcasts.yaml")
 REMOTE_CAFE_RESOURCES_MD = "remote-cafe-resources.md"
 DEVELOPMENT_MD = "development.md"
 
-# Fallbacks when ``readme.yaml`` → ``generated_markdown`` omits a key.
+# Fallbacks when ``_data/readme.yaml`` → ``generated_markdown`` omits a key.
 _DEFAULT_SEARCH_QUERIES_INTRO = (
     "Hand-picked links for Greek (and broader remote) job hunting. "
     "Each entry includes a short note on what you’ll find there. "
     f"For **laptop-friendly cafés and remote workspaces**, see "
-    f"**[{REMOTE_CAFE_RESOURCES_MD}]({REMOTE_CAFE_RESOURCES_MD})**."
+    f"**[{REMOTE_CAFE_RESOURCES_MD}](../{REMOTE_CAFE_RESOURCES_MD})**."
 )
 _DEFAULT_EH_TITLE = "Engineering Hubs & Career Portals"
 _DEFAULT_EH_INTRO = (
@@ -44,13 +51,13 @@ _DEFAULT_EH_DISCLAIMER = (
 )
 _DEFAULT_README_OVERVIEW_LINKS = (
     "**What’s in this repository**\n\n"
-    f"- **[engineering-hubs.md](engineering-hubs.md)** — the sortable employer "
+    f"- **[{ENGINEERING_HUBS_MD}]({ENGINEERING_HUBS_MD})** — the sortable employer "
     "table: sectors, work policy, and talent portals.\n"
     f"- **[{SEARCH_QUERIES_MD}]({SEARCH_QUERIES_MD})** — job search links, "
     "curated lists, and tips & notes.\n"
     f"- **[{GREEK_TECH_PODCASTS_MD}]({GREEK_TECH_PODCASTS_MD})** — Greek tech "
     "& startup podcasts (video and audio).\n"
-    f"- **[{REMOTE_CAFE_RESOURCES_MD}]({REMOTE_CAFE_RESOURCES_MD})** — remote "
+    f"- **[{REMOTE_CAFE_RESOURCES_MD}](../{REMOTE_CAFE_RESOURCES_MD})** — remote "
     "café & laptop-friendly workspace guides (e.g. "
     "[Remote Work Café](https://remotework.cafe/))."
 )
@@ -272,10 +279,25 @@ def build_development_markdown(readme_data: dict) -> str:
     return "\n".join(lines)
 
 
+def _write_root_readme_stub() -> None:
+    """Short root README for GitHub; full content lives in ``generated/readme.md``."""
+    body = (
+        "# Awesome Greek Software Engineering\n\n"
+        "The full **badges, overview, and table of contents** are in "
+        "**[generated/readme.md](generated/readme.md)**.\n\n"
+        "Other generated guides live in **[generated/](generated/)** "
+        "(run `just generate` after editing `_data/readme.yaml` and YAML data; "
+        "do not edit `generated/*.md` by hand).\n"
+    )
+    ROOT_README.write_text(body, encoding="utf-8")
+
+
 def generate() -> None:
     companies_data = load_companies()
 
-    with open("readme.yaml", "r", encoding="utf-8") as f:
+    GENERATED_MD_DIR.mkdir(parents=True, exist_ok=True)
+
+    with README_YAML.open("r", encoding="utf-8") as f:
         readme_data = yaml.safe_load(f)
 
     with QUERIES_YAML.open("r", encoding="utf-8") as f:
@@ -292,6 +314,15 @@ def generate() -> None:
             maybe_total = workable_data.get("total_open")
             if isinstance(maybe_total, int):
                 open_roles = maybe_total
+
+    podcast_count = 0
+    if PODCASTS_YAML.is_file():
+        with PODCASTS_YAML.open("r", encoding="utf-8") as f:
+            podcasts_data = yaml.safe_load(f) or {}
+        if isinstance(podcasts_data, dict):
+            plist = podcasts_data.get("podcasts")
+            if isinstance(plist, list):
+                podcast_count = len(plist)
 
     all_companies = sorted(
         companies_data, key=lambda x: x["name"].lower()
@@ -363,6 +394,7 @@ def generate() -> None:
     open_roles_color = stats_cfg.get("open_roles_color", "f59e0b")
     remote_color = stats_cfg.get("remote_color", "16a34a")
     hybrid_color = stats_cfg.get("hybrid_color", "ca8a04")
+    podcasts_color = stats_cfg.get("podcasts_color", "9333ea")
     meta_cfg = badges_cfg.get("meta", {}) or {}
     show_ci = bool(meta_cfg.get("show_ci", False))
     ci_workflow = meta_cfg.get("ci_workflow", "pr-validation.yaml")
@@ -405,6 +437,13 @@ def generate() -> None:
     open_roles_href = f"{live_url}?hire=1" if live_url else companies_href
     remote_href = f"{live_url}?pol=remote" if live_url else companies_href
     hybrid_href = f"{live_url}?pol=hybrid" if live_url else companies_href
+    if live_url:
+        base = live_url.rstrip("/")
+        podcasts_href = f"{base}/podcasts.html"
+    else:
+        podcasts_href = (
+            f"https://github.com/{repo}/blob/main/generated/{GREEK_TECH_PODCASTS_MD}"
+        )
     lines.append(
         "  "
         f"<a href=\"{companies_href}\">"
@@ -424,6 +463,11 @@ def generate() -> None:
         "  "
         f"<a href=\"{hybrid_href}\">"
         f"<img src=\"https://img.shields.io/badge/Hybrid-{hybrid}-{hybrid_color}?style={stats_style}\" alt=\"Hybrid\" /></a>"
+    )
+    lines.append(
+        "  "
+        f"<a href=\"{podcasts_href}\">"
+        f"<img src=\"https://img.shields.io/badge/Podcasts-{podcast_count}-{podcasts_color}?style={stats_style}\" alt=\"Podcasts\" /></a>"
     )
     lines.append("</p>")
     lines.append("")
@@ -507,10 +551,11 @@ def generate() -> None:
     if readme_data.get("disclaimer"):
         lines.append(f"{readme_data['disclaimer'].strip()}\n")
 
-    with open("readme.md", "w", encoding="utf-8") as f:
+    readme_out = GENERATED_MD_DIR / README_MD
+    with readme_out.open("w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")
 
-    with open(SEARCH_QUERIES_MD, "w", encoding="utf-8") as f:
+    with (GENERATED_MD_DIR / SEARCH_QUERIES_MD).open("w", encoding="utf-8") as f:
         f.write(build_search_queries_markdown(queries_data, readme_data))
 
     podcasts_data: dict = {}
@@ -519,11 +564,15 @@ def generate() -> None:
             loaded = yaml.safe_load(f)
             if isinstance(loaded, dict):
                 podcasts_data = loaded
-    with open(GREEK_TECH_PODCASTS_MD, "w", encoding="utf-8") as f:
+    with (GENERATED_MD_DIR / GREEK_TECH_PODCASTS_MD).open(
+        "w", encoding="utf-8"
+    ) as f:
         f.write(build_greek_tech_podcasts_markdown(podcasts_data))
 
     if dev_md_body:
-        with open(DEVELOPMENT_MD, "w", encoding="utf-8") as f:
+        with (GENERATED_MD_DIR / DEVELOPMENT_MD).open(
+            "w", encoding="utf-8"
+        ) as f:
             f.write(dev_md_body)
 
     # ── Build engineering-hubs.md ───────────────────────────
@@ -595,15 +644,18 @@ def generate() -> None:
             f"| {careers} · {li} |\n"
         )
 
-    with open(
-        "engineering-hubs.md", "w", encoding="utf-8"
+    with (GENERATED_MD_DIR / ENGINEERING_HUBS_MD).open(
+        "w", encoding="utf-8"
     ) as f:
         f.writelines(hubs)
+
+    _write_root_readme_stub()
 
 
 if __name__ == "__main__":
     generate()
     print(
-        "readme.md, search-queries-and-resources.md, greek-tech-podcasts.md, "
-        "development.md, and engineering-hubs.md generated successfully!"
+        "README.md stub, generated/readme.md, generated/search-queries-and-resources.md, "
+        "generated/greek-tech-podcasts.md, generated/development.md, and "
+        "generated/engineering-hubs.md written successfully!"
     )

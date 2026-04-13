@@ -19,7 +19,7 @@ sync *ARGS:
 fetch:
 	uv run python -m awesome_greek_software_engineering.fetch_workable_counts
 
-# Regenerate readme.md, engineering-hubs.md, search-queries-and-resources.md, greek-tech-podcasts.md, and development.md from YAML.
+# Regenerate generated/*.md (plus root README.md stub) from _data/readme.yaml and YAML data.
 readme:
 	uv run python -m awesome_greek_software_engineering.generate_readme
 
@@ -27,7 +27,7 @@ readme:
 index:
 	uv run python -m awesome_greek_software_engineering.generate_index
 
-# Regenerate readme + engineering-hubs + search-queries + development + index (no Workable fetch).
+# Regenerate generated markdown + index (no Workable fetch).
 generate: readme index
 
 # Refresh Workable snapshot, then regenerate readme, hubs, and index.

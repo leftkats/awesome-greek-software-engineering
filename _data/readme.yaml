@@ -13,7 +13,8 @@ live_url: "https://leftkats.github.io/awesome-greek-software-engineering/"
 live_directory_cta: "Open the interactive directory"
 repo: "leftkats/awesome-greek-software-engineering"
 
-# Prose for Markdown files produced by src/awesome_greek_software_engineering/generate_readme.py (do not edit those .md files by hand).
+# Prose for Markdown files produced by awesome_greek_software_engineering.generate_readme
+# (outputs under generated/). Do not edit those generated *.md files by hand.
 # Use {issue_chooser_url} in engineering_hubs.disclaimer — replaced when generating engineering-hubs.md.
 # Omit disclaimer or leave it empty to use the built-in default (disclaimer is always emitted).
 generated_markdown:
@@ -21,7 +22,7 @@ generated_markdown:
     intro: >
       Hand-picked links for Greek (and broader remote) job hunting.
       Each entry includes a short note on what you’ll find there.
-      For **laptop-friendly cafés and remote workspaces**, see **[remote-cafe-resources.md](remote-cafe-resources.md)**.
+      For **laptop-friendly cafés and remote workspaces**, see **[remote-cafe-resources.md](../remote-cafe-resources.md)**.
   engineering_hubs:
     title: "Engineering Hubs & Career Portals"
     intro: >
@@ -37,7 +38,7 @@ generated_markdown:
       - **[engineering-hubs.md](engineering-hubs.md)** — the sortable employer table: sectors, work policy, and talent portals.
       - **[search-queries-and-resources.md](search-queries-and-resources.md)** — job search links, curated lists, and tips & notes.
       - **[greek-tech-podcasts.md](greek-tech-podcasts.md)** — Greek tech & startup podcasts (video and audio).
-      - **[remote-cafe-resources.md](remote-cafe-resources.md)** — remote café & laptop-friendly workspace guides (e.g. [Remote Work Café](https://remotework.cafe/)).
+      - **[remote-cafe-resources.md](../remote-cafe-resources.md)** — remote café & laptop-friendly workspace guides (e.g. [Remote Work Café](https://remotework.cafe/)).
     development_section_blurb: >
       Setup, regeneration commands, and CI checks are documented in **[development.md](development.md)** (copy-paste shell blocks).
 
@@ -57,6 +58,8 @@ badges:
     open_roles_color: "f59e0b"
     remote_color: "16a34a"
     hybrid_color: "ca8a04"
+    # Curated entries in _data/podcasts.yaml (shown on badge; regenerated with `just readme`).
+    podcasts_color: "9333ea"
   meta:
     show_ci: false
     ci_workflow: "pr-validation.yaml"
@@ -97,9 +100,10 @@ development:
     Use [uv](https://github.com/astral-sh/uv) for Python and
     [just](https://github.com/casey/just) for short commands. Each block below is a
     fenced shell snippet you can copy into your terminal.
-    `just index` writes `index.html`, `employers.html`, `job-search.html`, `resources.html`, and `podcasts.html`
-    (plus shared `assets/`) for the static site. Those HTML files are gitignored on **`main`**; only branch **`live`**
-    (GitHub Pages) holds the built pages after CI.
+    `just index` writes `index.html`, `job-search.html` (employer directory + job-board links), `employers.html`
+    (redirect to `job-search.html#employers`), `resources.html`, `podcasts.html`, `sitemap.xml`, and `robots.txt`
+    (plus shared `assets/`) for the static site. Those files are gitignored on **`main`**; branch **`live`**
+    (GitHub Pages) holds the built site after CI.
   blocks:
     - title: "Install or refresh dependencies"
       commands:
@@ -117,8 +121,8 @@ development:
         - just check
     - title: "Jekyll (optional): build the live site bundle like CI"
       note_before: >
-        Requires Ruby/Bundler. Copy `index.html`, `employers.html`, `job-search.html`, `resources.html`,
-        `podcasts.html`, and `assets/` into `jekyll-pages/` first (as in CI), then run:
+        Requires Ruby/Bundler. Run `just index` first, then copy `index.html`, `employers.html`, `job-search.html`,
+        `resources.html`, `podcasts.html`, `sitemap.xml`, `robots.txt`, and `assets/` into `jekyll-pages/` as in CI, then run:
       commands:
         - uv run python -m awesome_greek_software_engineering.jekyll_url_config > jekyll-pages/_url.yml
         - cd jekyll-pages && bundle install && bundle exec jekyll build --config _config.yml,_url.yml
@@ -128,7 +132,7 @@ development:
         - uv run python -m awesome_greek_software_engineering.generate_index
         - uv run python -m awesome_greek_software_engineering.fetch_workable_counts
   footer: >
-    See [contributing.md](contributing.md) for the full workflow and repository
+    See [contributing.md](../contributing.md) for the full workflow and repository
     conventions.
 
 footer:
