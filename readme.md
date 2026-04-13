@@ -13,10 +13,10 @@
 </p>
 
 <p align="center">
-  <a href="https://leftkats.github.io/awesome-greek-tech-jobs/"><img src="https://img.shields.io/badge/Companies-251-2563eb?style=for-the-badge" alt="Companies" /></a>
+  <a href="https://leftkats.github.io/awesome-greek-tech-jobs/"><img src="https://img.shields.io/badge/Companies-252-2563eb?style=for-the-badge" alt="Companies" /></a>
   <a href="https://leftkats.github.io/awesome-greek-tech-jobs/?hire=1"><img src="https://img.shields.io/badge/Open%20Roles-1265-f59e0b?style=for-the-badge" alt="Open Roles" /></a>
   <a href="https://leftkats.github.io/awesome-greek-tech-jobs/?pol=remote"><img src="https://img.shields.io/badge/Remote-50-16a34a?style=for-the-badge" alt="Remote" /></a>
-  <a href="https://leftkats.github.io/awesome-greek-tech-jobs/?pol=hybrid"><img src="https://img.shields.io/badge/Hybrid-122-ca8a04?style=for-the-badge" alt="Hybrid" /></a>
+  <a href="https://leftkats.github.io/awesome-greek-tech-jobs/?pol=hybrid"><img src="https://img.shields.io/badge/Hybrid-123-ca8a04?style=for-the-badge" alt="Hybrid" /></a>
 </p>
 
 <p align="center">
@@ -29,7 +29,7 @@
 A vibrant, community-maintained map of employers hiring for technology roles in Greece — sectors, work policies, career portals, and weekly Workable hiring snapshots so you can explore with confidence.
 
 
-Currently tracking **251** companies, with **Athens** as the leading hub (170 offices). **50** teams are fully remote, **122** hybrid, and **33** on-site. The most common sectors are **IT Services** (51), **AI** (34), **Software Development** (31), **Consulting** (24), **IT Consulting** (21).
+Currently tracking **252** companies, with **Athens** as the leading hub (171 offices). **50** teams are fully remote, **123** hybrid, and **33** on-site. The most common sectors are **IT Services** (51), **AI** (34), **Software Development** (31), **Consulting** (25), **IT Consulting** (21).
 
 
 The sortable employer table is in **[engineering-hubs.md](engineering-hubs.md)** — sectors, work policy, and talent portals. Job search links, curated lists, and tips & notes live in **[search-queries-and-resources.md](search-queries-and-resources.md)**.
