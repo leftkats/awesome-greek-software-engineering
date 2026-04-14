@@ -3,8 +3,9 @@
 ``docs/development.md``, and ``docs/engineering-hubs.md`` from YAML.
 
 **Do not edit these output ``*.md`` files by hand.** Change ``_data/readme.yaml``, ``_data/queries.yaml``,
-``_data/podcasts.yaml``, ``_data/open_source_projects.yaml``, ``_data/cafe_resources.yaml``,
-company YAML under ``_data/companies/``, then run ``just readme`` (or ``just generate``).
+``_data/podcasts.yaml``, ``_data/open_source_projects.yaml``, ``_data/open_source_github_stats.yaml`` (via
+``just fetch-open-source-stats``), ``_data/cafe_resources.yaml``, company YAML under ``_data/companies/``,
+then run ``just readme`` (or ``just generate``).
 """
 
 from __future__ import annotations
@@ -16,6 +17,11 @@ from urllib.parse import urlparse
 
 import yaml
 
+from greek_software_ecosystem.github_stars import (
+    format_compact_github_count,
+    load_open_source_github_stats_yaml,
+    parse_github_repo_url,
+)
 from greek_software_ecosystem.load_companies import (
     QUERIES_YAML,
     WORKABLE_COUNTS_YAML,
@@ -252,6 +258,12 @@ def build_greek_tech_podcasts_markdown(podcasts_data: dict | None) -> str:
     return "\n".join(body).rstrip() + "\n"
 
 
+def _open_source_table_cell(text: str) -> str:
+    """Single-line table cell: collapse whitespace; avoid breaking GitHub pipe tables."""
+    s = " ".join((text or "").split())
+    return s.replace("|", "\\|")
+
+
 def build_open_source_projects_markdown(data: dict | None) -> str:
     """Markdown for ``docs/open-source-projects.md`` from ``_data/open_source_projects.yaml``."""
     data = data or {}
@@ -281,20 +293,45 @@ def build_open_source_projects_markdown(data: dict | None) -> str:
             continue
         valid.append(p)
 
-    for idx, p in enumerate(valid):
-        title = (p.get("title") or "").strip()
-        url = (p.get("url") or "").strip()
-        desc = (p.get("description") or "").strip()
-        lines.append(f"## {title}")
+    if valid:
+        stats_map = load_open_source_github_stats_yaml(
+            Path("_data/open_source_github_stats.yaml")
+        )
+        rows: list[tuple[dict, int | None, int | None]] = []
+        for p in valid:
+            stars: int | None = None
+            forks: int | None = None
+            parsed = parse_github_repo_url((p.get("url") or "").strip())
+            if parsed:
+                key = f"{parsed[0]}/{parsed[1]}"
+                if key in stats_map:
+                    stars, forks = stats_map[key]
+            rows.append((p, stars, forks))
+        rows.sort(key=lambda r: r[1] if r[1] is not None else -1, reverse=True)
+
+        lines.append("## Projects")
         lines.append("")
-        lines.append(f"**Repository:** [{url}]({url})")
+        lines.append(
+            "Repositories are **sorted by GitHub stars** (highest first). **Star** and **fork** counts come from "
+            "`_data/open_source_github_stats.yaml` (run `just fetch-open-source-stats` to refresh them)."
+        )
         lines.append("")
-        if desc:
-            lines.append(desc.rstrip())
-            lines.append("")
-        if idx < len(valid) - 1:
-            lines.append("---")
-            lines.append("")
+        lines.append("| Project | Stars | Forks | Description |")
+        lines.append("| :------ | ----: | ----: | :---------- |")
+        for p, stars, forks in rows:
+            title = (p.get("title") or "").strip()
+            url = (p.get("url") or "").strip()
+            desc = _open_source_table_cell((p.get("description") or "").strip())
+            link = f"[{title}]({url})"
+            star_cell = format_compact_github_count(stars)
+            fork_cell = format_compact_github_count(forks)
+            lines.append(f"| {link} | {star_cell} | {fork_cell} | {desc} |")
+        lines.append("")
+        lines.append(
+            "*Each description is one line in the table; open the repository for the full README, "
+            "licence, and contribution guidelines.*"
+        )
+        lines.append("")
 
     if not valid:
         lines.append(

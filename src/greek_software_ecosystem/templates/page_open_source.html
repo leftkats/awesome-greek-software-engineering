@@ -1,64 +1,68 @@
 {% extends "base.html" %}
 {% block body_scripts %}
 {{ super() }}
-<script src="{{ assets_base }}/js/resources-search.js" defer></script>
+<script src="{{ assets_base }}/js/open-source-search.js" defer></script>
 {% endblock %}
 {% block main %}
-<section class="max-w-6xl mx-auto px-4 pt-6 pb-3" aria-labelledby="res-heading">
+<section class="max-w-6xl mx-auto px-4 pt-6 pb-3" aria-labelledby="osp-heading">
     <div
         class="agtj-hero-card rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/70 shadow-soft dark:shadow-soft-dark p-4 sm:p-5">
         <p class="text-[11px] font-mono uppercase tracking-widest text-cyan-700 dark:text-cyan-400">{{ page_kicker }}</p>
-        <h1 id="res-heading" class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-1.5">
+        <h1 id="osp-heading" class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-1.5">
             {{ page_title }}</h1>
         <p class="mt-2 max-w-3xl text-sm sm:text-base leading-snug text-slate-600 dark:text-slate-300">{{ page_subtitle }}</p>
         <p class="mt-2 text-[11px] leading-snug text-slate-500 dark:text-slate-500 max-w-3xl">
-            {{ res_hero_note_html | safe }} · <a href="{{ nav.workspaces }}" class="text-cyan-700 dark:text-cyan-400 underline hover:no-underline font-medium">Workspaces</a>
+            {{ osp_source_note_html | safe }}
         </p>
     </div>
 </section>
 
 <div class="max-w-6xl mx-auto px-4 pb-14">
-    {% if has_resource_rows %}
+    {% if has_projects %}
     <div class="mt-2 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-4">
-        <div class="w-full max-w-md" role="search" aria-label="Filter resource links">
-            <label for="res-filter-input" class="block text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">Filter links</label>
+        <div class="w-full max-w-md" role="search" aria-label="Filter open source projects">
+            <label for="osp-filter-input" class="block text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">Filter projects</label>
             <div class="relative">
                 <span class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500" aria-hidden="true">
                     <span class="material-symbols-outlined text-[1.25rem]">search</span>
                 </span>
-                <input type="search" id="res-filter-input" name="q" autocomplete="off" enterkeyhint="search"
-                    placeholder="Search by category, title, URL, or description…"
+                <input type="search" id="osp-filter-input" name="q" autocomplete="off" enterkeyhint="search"
+                    placeholder="Search by name, stack, topic…"
                     class="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-10 pr-3 text-sm text-slate-900 shadow-sm placeholder:text-slate-400 focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500 dark:focus:border-cyan-500" />
             </div>
         </div>
-        <p id="res-filter-hint" class="text-sm text-slate-600 dark:text-slate-400 sm:pb-2 sm:text-right">
-            <span class="font-semibold text-slate-800 dark:text-slate-200">{{ resource_count }}</span> links · order follows <span class="font-mono text-xs">_data/queries.yaml</span> &amp; <span class="font-mono text-xs">open_greek_data.yaml</span>
+        <p id="osp-filter-hint" class="text-sm text-slate-600 dark:text-slate-400 sm:pb-2 sm:text-right">
+            <span class="font-semibold text-slate-800 dark:text-slate-200">{{ project_count }}</span> repositories · sorted by <span class="font-medium">GitHub stars</span> (highest first)
         </p>
     </div>
+    {# Horizontal scroll on narrow viewports; vertical scroll for long lists so the nav stays usable. #}
     <div
         class="mt-4 overflow-x-auto rounded-2xl border border-slate-200/90 dark:border-slate-700/90 bg-white/90 dark:bg-slate-900/50 shadow-sm ring-1 ring-slate-200/60 dark:ring-slate-700/50">
         <div class="agtj-open-source-scroll max-h-[min(75vh,48rem)] overflow-y-auto overscroll-y-contain">
-            <table class="w-full min-w-[52rem] border-collapse text-left text-sm">
+            <table class="w-full min-w-[58rem] border-collapse text-left text-sm">
                 <thead>
                     <tr
                         class="sticky top-0 z-10 border-b border-slate-200 bg-slate-100/95 text-xs font-mono uppercase tracking-wide text-slate-600 shadow-[0_1px_0_0_rgb(15_23_42_/_0.06)] dark:border-slate-600 dark:bg-slate-800/95 dark:text-slate-300 dark:shadow-[0_1px_0_0_rgb(0_0_0_/_0.35)]">
-                        <th scope="col" class="w-[11rem] min-w-[9rem] px-3 py-3 sm:px-4">Category</th>
-                        <th scope="col" class="min-w-[14rem] px-3 py-3 sm:px-4">Link</th>
+                        <th scope="col" class="px-3 py-3 sm:px-4">Project</th>
+                        <th scope="col" class="w-[4.5rem] px-2 py-3 text-right sm:w-24">Stars</th>
+                        <th scope="col" class="w-[4.5rem] px-2 py-3 text-right sm:w-24">Forks</th>
                         <th scope="col" class="min-w-[12rem] px-3 py-3 sm:px-4">Description</th>
                     </tr>
                 </thead>
-                <tbody id="res-tbody" class="divide-y divide-slate-200/90 dark:divide-slate-700/80">
-                    {% for row in resource_rows %}
+                <tbody id="osp-tbody" class="divide-y divide-slate-200/90 dark:divide-slate-700/80">
+                    {% for row in rows %}
                     <tr
-                        class="agtj-res-row align-top odd:bg-white/90 even:bg-slate-50/70 dark:odd:bg-slate-900/35 dark:even:bg-slate-900/55"
+                        class="agtj-osp-row align-top odd:bg-white/90 even:bg-slate-50/70 dark:odd:bg-slate-900/35 dark:even:bg-slate-900/55"
                         data-search="{{ row.search_text|e }}">
-                        <td class="px-3 py-3 text-sm text-slate-700 dark:text-slate-300 sm:px-4">
-                            {{ row.category }}
-                        </td>
                         <td class="px-3 py-3 sm:px-4">
                             <a href="{{ row.url }}" target="_blank" rel="noopener noreferrer"
-                                class="font-semibold text-cyan-800 underline-offset-2 hover:underline dark:text-cyan-300">{{ row.name }}</a>
-                            <div class="mt-1 break-all text-[11px] font-mono text-slate-500 dark:text-slate-500">{{ row.url }}</div>
+                                class="font-semibold text-cyan-800 underline-offset-2 hover:underline dark:text-cyan-300">{{ row.title }}</a>
+                        </td>
+                        <td class="px-2 py-3 text-right tabular-nums text-slate-800 dark:text-slate-200 sm:px-3">
+                            {{ row.stars_display }}
+                        </td>
+                        <td class="px-2 py-3 text-right tabular-nums text-slate-800 dark:text-slate-200 sm:px-3">
+                            {{ row.forks_display }}
                         </td>
                         <td
                             class="px-3 py-3 text-slate-600 dark:text-slate-400 sm:px-4 [&_a]:text-cyan-700 [&_a]:underline dark:[&_a]:text-cyan-400 [&_code]:rounded [&_code]:bg-slate-100 [&_code]:px-1 [&_code]:text-xs dark:[&_code]:bg-slate-800 [&_p]:my-1 [&_p:first-child]:mt-0 [&_p:last-child]:mb-0">
@@ -71,13 +75,14 @@
         </div>
     </div>
     <p class="mt-4 text-xs leading-relaxed text-slate-500 dark:text-slate-500">
-        Search uses a precomputed text index per row (category, title, URL, description) so filtering stays fast with long lists.
+        Star and fork counts come from the GitHub API when the site is built (CI includes this step). If a cell shows “—”, the API request failed or the URL is not a public GitHub repo.
+        Search uses a precomputed text index per row so filtering stays fast with hundreds of entries (no per-keystroke layout reads).
     </p>
     {% else %}
     <div
         class="mt-6 rounded-2xl border border-dashed border-slate-300 dark:border-slate-600 bg-slate-50/50 dark:bg-slate-900/40 p-8 text-center text-sm text-slate-600 dark:text-slate-400">
-        No resource links configured. Edit <code class="font-mono text-cyan-700 dark:text-cyan-400">_data/queries.yaml</code> and
-        <code class="font-mono">_data/open_greek_data.yaml</code>, then run <code class="font-mono">just generate</code>.
+        No projects listed yet. Add entries under <code class="font-mono text-cyan-700 dark:text-cyan-400">projects</code> in
+        <code class="font-mono">_data/open_source_projects.yaml</code>, then run <code class="font-mono">just generate</code>.
     </div>
     {% endif %}
 </div>

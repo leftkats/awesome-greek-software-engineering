@@ -6,13 +6,14 @@ from datetime import date
 from pathlib import Path
 from xml.sax.saxutils import escape
 
-# Paths under site root. Index is ``origin/``.
+# Path segments under site root (Jekyll clean URLs: ``/stem/``). Index is ``origin/``.
 _SITEMAP_ENTRIES: tuple[tuple[str, str], ...] = (
     ("", "1.0"),
-    ("job-search.html", "0.95"),
-    ("resources.html", "0.85"),
-    ("podcasts.html", "0.85"),
-    ("workspaces.html", "0.85"),
+    ("job-search", "0.95"),
+    ("resources", "0.85"),
+    ("podcasts", "0.85"),
+    ("workspaces", "0.85"),
+    ("open-source", "0.85"),
 )
 
 
@@ -24,8 +25,8 @@ def write_sitemap_xml(repo_root: Path, site_origin: str) -> None:
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
     ]
-    for relpath, priority in _SITEMAP_ENTRIES:
-        loc = f"{origin}/" if not relpath else f"{origin}/{relpath}"
+    for segment, priority in _SITEMAP_ENTRIES:
+        loc = f"{origin}/" if not segment else f"{origin}/{segment}/"
         lines.extend(
             [
                 "  <url>",

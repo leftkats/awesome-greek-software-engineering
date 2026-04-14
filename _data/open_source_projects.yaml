@@ -1,9 +1,13 @@
-# Greek-related open source on GitHub — feeds docs/open-source-projects.md (run `just readme`).
-# Add a list item under `projects` with `title`, `url`, and optional `description` (markdown).
+# Greek-related open source on GitHub — feeds docs/open-source-projects.md (run `just readme`). Star/fork counts: `open_source_github_stats.yaml` via `just fetch-open-source-stats`.
+# Add rows under `projects` with `title`, `url`, and `description` (markdown allowed; rendered as one line in the table).
 
 intro: |
   Curated **open source** repositories on GitHub that are especially relevant in Greece—APIs for public services,
-  translations, and tooling. Use them in your work or **contribute** issues, code, or docs.
+  translations, and tooling—plus notable projects from **Greek maintainers** (DevOps, web, audio, and more). Many rows
+  were seeded from [committers.top Greece](https://committers.top/greece.html) (machine-readable
+  [rank list](https://committers.top/rank_only/greece.json)): up to **two** public, non-fork repositories per ranked user
+  (by stars), only if they have **at least one star or fork**, with descriptions taken from GitHub. Use them in your work
+  or **contribute** issues, code, or docs.
 
 projects:
   - title: Ergani Python SDK
@@ -23,3 +27,2929 @@ projects:
     description: >
       Official **Python documentation** translated into Greek—collaboration via issues and pull requests on GitHub,
       coordinated with the wider translation effort.
+
+  - title: Greek Legislation Wiki
+    url: https://github.com/TeoMastro/Greek-Legislation-Wiki
+    description: >
+      LLM-assisted personal wiki for **Greek legislation**: PDF → Markdown (Docling), structured pages under `wiki/`,
+      ingest/query/lint workflow, Obsidian-friendly. Useful if you work with legal text as data.
+
+  - title: just-text (Greek laws in plain text)
+    url: https://github.com/kafidas/just-text
+    description: >
+      **Greek laws** as published in the Government Gazette (FEK A’)—plain text extractions (no codification),
+      sourced from the National Printing House; includes tooling such as `fekpdf2txt`. Dataset also on **Harvard Dataverse**
+      ([DOI](https://doi.org/10.7910/DVN/F1CNFC)); **EPL-2.0**.
+
+  - title: JSS-01 (JavaScript Software Synthesizer)
+    url: https://github.com/michaelkolesidis/javascript-software-synthesizer
+    description: >
+      **JSS-01**—browser-based software synthesizer using the **Web Audio API** and modern JavaScript; interactive
+      controls for learning and playing with synthesis in the open web.
+
+  - title: Cherry Charm
+    url: https://github.com/michaelkolesidis/cherry-charm
+    description: >
+      Online **3D slot machine** built with **Three.js**, **React**, and **React Three Fiber** (Vite, Zustand)—fully
+      responsive WebGL gameplay; **AGPL-3.0**.
+
+  - title: gitops-environment-promotion
+    url: https://github.com/kostis-codefresh/gitops-environment-promotion
+    description: >
+      Example **Kustomize** layout for **GitOps** apps and **promoting releases** between environments (staging/prod,
+      regions)—companion to Codefresh blog posts on environment modelling.
+
+  - title: many-appsets-demo
+    url: https://github.com/kostis-codefresh/many-appsets-demo
+    description: >
+      Demo repo for structuring **Argo CD** with multiple **ApplicationSets**—three-level pattern (manifests →
+      ApplicationSets → optional app-of-apps) for Kubernetes delivery.
+
+  - title: ProShop (MERN eCommerce)
+    url: https://github.com/mariosknl/ProShop
+    description: >
+      Full **MERN stack** eCommerce: auth, admin catalogue & orders, PayPal checkout, reviews—**Express** / **React** /
+      **Redux** / **MongoDB**; useful as a learning or starter codebase.
+
+  - title: Online Music Store (front-end)
+    url: https://github.com/mariosknl/Online_Music_Store-Front-End-Project
+    description: >
+      Capstone **front-end** for a music-instruments shop—**HTML**, **CSS**, **SASS**, responsive layouts and
+      animations; MIT-licensed student portfolio project.
+
+  - title: Chardin.js
+    url: https://github.com/pablof7z/chardin.js
+    description: >
+      **jQuery** plugin for **overlay product tours**—tooltips on existing elements (`data-intro`, `data-position`),
+      optional sequenced stepping; useful for onboarding UIs. **Apache-2.0**.
+
+  - title: Senhor
+    url: https://github.com/turri21/Senhor
+    description: >
+      **Binaries, scripts, and docs** for the **Senhor** FPGA board (MiSTer-class clone): core ports, Linux images,
+      and community updates—hardware aimed at retro gaming and FPGA enthusiasts.
+
+  - title: Bootstrap Admin (WordPress)
+    url: https://github.com/aristath/bootstrap-admin
+    description: >
+      **WordPress** admin theme inspired by **Bootstrap**—restyles the dashboard, menus as popovers, form and button
+      theming; **GPLv2** plugin by Greek maintainer **Aristeidis Stathopoulos** (aristath).
+
+  - title: github-theme-updater
+    url: https://github.com/aristath/github-theme-updater
+    description: >
+      Small **PHP** class to ship **WordPress theme updates** from **GitHub Releases** (zip assets)—lightweight
+      alternative to heavier updaters; **MIT**. By aristath; remove before shipping to wordpress.org if required.
+
+  - title: covid19-Greece
+    url: https://github.com/Sandbird/covid19-Greece
+    description: >
+      **Daily regional COVID-19 statistics** for **Greece**—aggregated case data and related reporting useful for
+      dashboards, research, and historical reference (check the repo for data sources and licence).
+
+  - title: erl_streams
+    url: https://github.com/epappas/erl_streams
+    description: >
+      **Erlang** library built around **gen_stream**—streams as processes with backpressure, pause/drop, piping, and
+      map/filter/reduce-style operations; **MIT**, Rebar-friendly.
+
+  - title: llmtrace
+    url: https://github.com/epappas/llmtrace
+    description: >
+      **Rust** proxy for **OpenAI-compatible** LLM APIs—**prompt-injection** detection, **PII** scanning, and cost
+      controls with minimal setup; security and observability for LLM traffic.
+
+  - title: PKGBUILDs (loathingKernel)
+    url: https://github.com/loathingKernel/PKGBUILDs
+    description: >
+      Personal collection of **Arch Linux** / **AUR** **PKGBUILDs**—patched or tweaked packages (games, tools, wine-related
+      builds, and more) maintained for custom builds and reproducibility.
+
+  - title: naylib
+    url: https://github.com/planetis-m/naylib
+    description: >
+      **Nim** wrapper for **[raylib](https://www.raylib.com/)**—2D/3D games and multimedia with a Nim-friendly API,
+      docs, and cross-platform targets (desktop, WebAssembly, Android); **MIT** (raylib sources under zlib). Install with
+      `nimble install naylib`. By Greek maintainer **planetis-m**.
+
+  - title: raylib-examples (Nim)
+    url: https://github.com/planetis-m/raylib-examples
+    description: >
+      **raylib** examples ported to **Nim** with **naylib**, plus original Nim examples (games, shaders, pathfinding,
+      and more)—companion repo to learn and extend; **MIT**.
+
+  - title: michaelkolesidis.com
+    url: https://github.com/michaelkolesidis/michaelkolesidis.com
+    description: >
+      My award-winning playground / portfolio website. · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **michaelkolesidis**).
+
+  - title: emoji-minesweeper
+    url: https://github.com/michaelkolesidis/emoji-minesweeper
+    description: >
+      Minesweeper made with emoji. The most fun way to play minesweeper! 😄 · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **michaelkolesidis**).
+
+  - title: multi-sources-example
+    url: https://github.com/kostis-codefresh/multi-sources-example
+    description: >
+      Argo CD Multi sources semi-realistic example · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **kostis-codefresh**).
+
+  - title: gitops-promotion-source-code
+    url: https://github.com/kostis-codefresh/gitops-promotion-source-code
+    description: >
+      Simple Golang app with environment variables · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **kostis-codefresh**).
+
+  - title: intro.js-rails
+    url: https://github.com/pablof7z/intro.js-rails
+    description: >
+      Integrate the awesome intro.js javascript library in your Rails asset pipeline · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **pablof7z**).
+
+  - title: TwitterBot-Ruby
+    url: https://github.com/mariosknl/TwitterBot-Ruby
+    description: >
+      This is a Twitter bot created in Ruby. Follows #tsandpipers_88, Re-tweets, and follows the user account. · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **mariosknl**).
+
+  - title: Music Opinions-Ruby-on-Rails
+    url: https://github.com/mariosknl/Music_Opinions-Ruby-on-Rails
+    description: >
+      Music Opinions in Ruby on Rails. MVP model is implemented. Basic User functionality. Sign up, Sign in with a username, and follow other accounts. Share your opinions and leave comments to others. · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **mariosknl**).
+
+  - title: Distribution Senhor
+    url: https://github.com/turri21/Distribution_Senhor
+    description: >
+      This repository contains all the required files for the update_senhor.sh script. · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **turri21**).
+
+  - title: VGA Test-neptuno
+    url: https://github.com/turri21/VGA_Test-neptuno
+    description: >
+      Open-source project on GitHub—see the repository README for details. · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **turri21**).
+
+  - title: edd-remote-installer
+    url: https://github.com/aristath/edd-remote-installer
+    description: >
+      This is a remote installer for plugins hosted on a site running EDD. The package consists of a plugin that has to be installed on a server running EDD (and optionally EDD-SL) and a plugin that serves as a client. · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **aristath**).
+
+  - title: covid19-gr
+    url: https://github.com/Sandbird/covid19-gr
+    description: >
+      Daily regional statistics for Covid19 cases in Greece · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **Sandbird**).
+
+  - title: ESP8266-with-LUA---Thingspeak
+    url: https://github.com/Sandbird/ESP8266-with-LUA---Thingspeak
+    description: >
+      Open-source project on GitHub—see the repository README for details. · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **Sandbird**).
+
+  - title: async-tungstenite
+    url: https://github.com/sdroege/async-tungstenite
+    description: >
+      Async binding for Tungstenite, the Lightweight stream-based WebSocket implementation · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **sdroege**).
+
+  - title: modQuery
+    url: https://github.com/epappas/modQuery
+    description: >
+      A module to use for MySQL queries with respect to SQL. · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **epappas**).
+
+  - title: rollbar-hapi
+    url: https://github.com/epappas/rollbar-hapi
+    description: >
+      A Hapi plugin for rollbar painless integration · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **epappas**).
+
+  - title: Qutefan
+    url: https://github.com/loathingKernel/Qutefan
+    description: >
+      Simple and easy control over GPU's fan speed. · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **loathingKernel**).
+
+  - title: RedShiftQt
+    url: https://github.com/loathingKernel/RedShiftQt
+    description: >
+      Frontend for redshift (http://jonls.dk/redshift) written in Qt · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **loathingKernel**).
+
+  - title: minijava-compiler
+    url: https://github.com/georgesittas/minijava-compiler
+    description: >
+      MiniJava to LLVM IR compiler · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **georgesittas**).
+
+  - title: minihaskell-compiler
+    url: https://github.com/georgesittas/minihaskell-compiler
+    description: >
+      MiniHaskell compiler and interpreter with a Lucid-like dataflow IR · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **georgesittas**).
+
+  - title: lua-hiredis
+    url: https://github.com/agladysh/lua-hiredis
+    description: >
+      Bindings for hiredis Redis-client library · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **agladysh**).
+
+  - title: lua-geoip
+    url: https://github.com/agladysh/lua-geoip
+    description: >
+      Bindings for MaxMind's GeoIP library · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **agladysh**).
+
+  - title: RustBooks
+    url: https://github.com/sger/RustBooks
+    description: >
+      List of Rust books · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **sger**).
+
+  - title: ElixirBooks
+    url: https://github.com/sger/ElixirBooks
+    description: >
+      List of Elixir books · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **sger**).
+
+  - title: dummy boilerplate
+    url: https://github.com/vtripolitakis/dummy_boilerplate
+    description: >
+      Boilerplate for ES6 - React / Babel / Gulp / Webpack / ESLint / Jest · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **vtripolitakis**).
+
+  - title: imap sync to gmail
+    url: https://github.com/vtripolitakis/imap_sync_to_gmail
+    description: >
+      Sync your imap folders to gmail · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **vtripolitakis**).
+
+  - title: elastop
+    url: https://github.com/acidvegas/elastop
+    description: >
+      HTOP for Elasticsearch · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **acidvegas**).
+
+  - title: acid-drop
+    url: https://github.com/acidvegas/acid-drop
+    description: >
+      Hacking the planet from a LilyGo T-Deck using custom firmware · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **acidvegas**).
+
+  - title: reicast-emulator
+    url: https://github.com/skmp/reicast-emulator
+    description: >
+      Reicast was a multiplatform Sega Dreamcast emulator · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **skmp**).
+
+  - title: nullDC-v1
+    url: https://github.com/skmp/nullDC-v1
+    description: >
+      nullDC, a sega dreamcast emulator · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **skmp**).
+
+  - title: minimal-java-compiler
+    url: https://github.com/kkmanos/minimal-java-compiler
+    description: >
+      A full-blown compiler implementation for a subset of the Java language. · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **kkmanos**).
+
+  - title: systems-programming-assignments
+    url: https://github.com/kkmanos/systems-programming-assignments
+    description: >
+      A systems programming assignment, utilizing tcp sockets, named pipes, handling multiple processes and multi-threading. · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **kkmanos**).
+
+  - title: tinyauth
+    url: https://github.com/steveiliop56/tinyauth
+    description: >
+      The tiniest authentication and authorization server you have ever seen. · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **steveiliop56**).
+
+  - title: getashell
+    url: https://github.com/steveiliop56/getashell
+    description: >
+      Quickly spin up ssh shells from a dead simple UI 🐚 · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **steveiliop56**).
+
+  - title: Artificial-Intelligence
+    url: https://github.com/mgiannopoulos24/Artificial-Intelligence
+    description: >
+      Solutions for the Projects of the Artificial Intelligence (CS 188) course of UC Berkeley · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **mgiannopoulos24**).
+
+  - title: CTF-Challenges
+    url: https://github.com/mgiannopoulos24/CTF-Challenges
+    description: >
+      Writeups for CTF Challenges. · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **mgiannopoulos24**).
+
+  - title: OverHAuL
+    url: https://github.com/kchousos/OverHAuL
+    description: >
+      Unleash the fuzz on your C codebase. · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **kchousos**).
+
+  - title: kchousos.github.io
+    url: https://github.com/kchousos/kchousos.github.io
+    description: >
+      Source of my personal website. · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **kchousos**).
+
+  - title: idee
+    url: https://github.com/iocanel/idee
+    description: >
+      Unified way to perform IDE-like tasks across multiple languages and frameworks in Emacs. · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **iocanel**).
+
+  - title: emacs.d
+    url: https://github.com/iocanel/emacs.d
+    description: >
+      My emacs setup · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **iocanel**).
+
+  - title: gerb
+    url: https://github.com/epilys/gerb
+    description: >
+      Graphical font editor (GTK + Rust) · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **epilys**).
+
+  - title: bb
+    url: https://github.com/epilys/bb
+    description: >
+      simple toy process viewer in rust https://crates.io/crates/bb · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **epilys**).
+
+  - title: neogma
+    url: https://github.com/themetalfleece/neogma
+    description: >
+      Object-Graph-Mapping neo4j framework, Fully-typed with TypeScript, for easy and flexible node and relationship operations · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **themetalfleece**).
+
+  - title: nodejs-typescript-template
+    url: https://github.com/themetalfleece/nodejs-typescript-template
+    description: >
+      A template for a Node.js project using Typescript, ESLint, Prettier. It's Docker-ready. Everything is configured with the appropriate scripts and README. An MIT license is set. · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **themetalfleece**).
+
+  - title: widgetizer
+    url: https://github.com/tsiger/widgetizer
+    description: >
+      A website builder for the rest of us · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **tsiger**).
+
+  - title: iconigniter
+    url: https://github.com/tsiger/iconigniter
+    description: >
+      A set of free SVG icons for you to use in your web projects · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **tsiger**).
+
+  - title: blibliki
+    url: https://github.com/mikezaby/blibliki
+    description: >
+      Schema-driven audio engine for Web and Node · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **mikezaby**).
+
+  - title: chip-8.rs
+    url: https://github.com/mikezaby/chip-8.rs
+    description: >
+      a chip8 emulator in Rust · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **mikezaby**).
+
+  - title: FILTER.js
+    url: https://github.com/foo123/FILTER.js
+    description: >
+      Video and Image Processing and Computer Vision Library similar to OpenCV in pure JavaScript (Browser and Nodejs) · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **foo123**).
+
+  - title: HAAR.js
+    url: https://github.com/foo123/HAAR.js
+    description: >
+      Feature Detection based on Haar Cascades in JavaScript (Viola-Jones-Lienhart et al Algorithm) · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **foo123**).
+
+  - title: js-graph-it
+    url: https://github.com/kostasx/js-graph-it
+    description: >
+      A JavaScript graph library · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **kostasx**).
+
+  - title: flyingcar
+    url: https://github.com/spirosrap/flyingcar
+    description: >
+      Flying Car Nanodegree · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **spirosrap**).
+
+  - title: Deep-Reinforcement-Learning
+    url: https://github.com/spirosrap/Deep-Reinforcement-Learning
+    description: >
+      Deep Reinforcement Learning - Implementations and Theory: A path to mastery · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **spirosrap**).
+
+  - title: Inconsolata-Hellenic
+    url: https://github.com/cosmix/Inconsolata-Hellenic
+    description: >
+      The Hellenisation of Inconsolata · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **cosmix**).
+
+  - title: loom
+    url: https://github.com/cosmix/loom
+    description: >
+      A Rust-based agent orchestrator enabling a swarm of Claude Code instances building software. · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **cosmix**).
+
+  - title: spring-cloud-microservice-example
+    url: https://github.com/geoand/spring-cloud-microservice-example
+    description: >
+      An example project that demonstrates an end-to-end cloud-native platform using Spring Cloud for building a practical microservices architecture. · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **geoand**).
+
+  - title: quarkus-pdfmerge
+    url: https://github.com/geoand/quarkus-pdfmerge
+    description: >
+      A Quarkus CLI that can merge PDF iles · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **geoand**).
+
+  - title: typesense-ts
+    url: https://github.com/tharropoulos/typesense-ts
+    description: >
+      A fully type-safe Typesense client for type-heads · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **tharropoulos**).
+
+  - title: dots
+    url: https://github.com/tharropoulos/dots
+    description: >
+      dofiles for linux. alacritty, hyprland, nvim, rofi etc · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **tharropoulos**).
+
+  - title: orthodox-ascii
+    url: https://github.com/rizitis/orthodox-ascii
+    description: >
+      Open-source project on GitHub—see the repository README for details. · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **rizitis**).
+
+  - title: Qemu-slackware
+    url: https://github.com/rizitis/Qemu-slackware
+    description: >
+      A simple script for running slackware in qemu · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **rizitis**).
+
+  - title: snapshot device
+    url: https://github.com/ktsaou/snapshot_device
+    description: >
+      Create snapshot devices for any file or device in linux · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **ktsaou**).
+
+  - title: ollama-templates
+    url: https://github.com/ktsaou/ollama-templates
+    description: >
+      Tools and documentation for creating proper, fully functional Ollama model templates. Addresses critical issues with community-generated Ollama models that often have incorrect or incomplete templates, resulting in models that cannot properly handle chat history, tool executions, and other advanced features. · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **ktsaou**).
+
+  - title: Crystal-Structure-Classification
+    url: https://github.com/AndreasAvgou/Crystal-Structure-Classification
+    description: >
+      Classification the perovskite oxides based on their characteristics · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **AndreasAvgou**).
+
+  - title: Dermoscopic-Melanoma-Image-Classification
+    url: https://github.com/AndreasAvgou/Dermoscopic-Melanoma-Image-Classification
+    description: >
+      Neural network for dermoscopic classification problems in melanoma images · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **AndreasAvgou**).
+
+  - title: jekyll-post-via-web
+    url: https://github.com/vrypan/jekyll-post-via-web
+    description: >
+      A simple HTML+JS page that allows you to post new articles to your GitHub-hosted Jekyll blog, via web. · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **vrypan**).
+
+  - title: farcaster-brand
+    url: https://github.com/vrypan/farcaster-brand
+    description: >
+      Farcaster brand assets · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **vrypan**).
+
+  - title: Jubler
+    url: https://github.com/teras/Jubler
+    description: >
+      Jubler Subtitle Εditor · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **teras**).
+
+  - title: JavaPlot
+    url: https://github.com/teras/JavaPlot
+    description: >
+      JavaPlot is a pure Java programming interface library for GNUPlot · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **teras**).
+
+  - title: tududi
+    url: https://github.com/chrisvel/tududi
+    description: >
+      A calm, open system for organizing life and work. Tasks, projects, notes, areas, and smart workflows - self-hosted or hosted. · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **chrisvel**).
+
+  - title: wreeto official
+    url: https://github.com/chrisvel/wreeto_official
+    description: >
+      Wreeto is an open source note-taking, knowledge management and wiki system. · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **chrisvel**).
+
+  - title: bugbounty-cicd
+    url: https://github.com/proditis/bugbounty-cicd
+    description: >
+      A set of Gitlab pipelines and Github workflows to automate and ease on BugBounty and Penetration Testing engagements · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **proditis**).
+
+  - title: orunmila
+    url: https://github.com/proditis/orunmila
+    description: >
+      a simple tool to refine and produce lists for your bugbounty and pen-test engagements · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **proditis**).
+
+  - title: ethers-rs
+    url: https://github.com/gakonst/ethers-rs
+    description: >
+      Complete Ethereum & Celo library and wallet implementation in Rust. https://docs.rs/ethers · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **gakonst**).
+
+  - title: solidity-book
+    url: https://github.com/gakonst/solidity-book
+    description: >
+      The Senior Solidity Engineer's Book is a resource meant to transform you into a Senior Solidity Engineer. · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **gakonst**).
+
+  - title: ibc-relay-tab
+    url: https://github.com/clockworkgr/ibc-relay-tab
+    description: >
+      Open-source project on GitHub—see the repository README for details. · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **clockworkgr**).
+
+  - title: bitshares-pricefeed-js
+    url: https://github.com/clockworkgr/bitshares-pricefeed-js
+    description: >
+      A BitShares pricefeed script in JS ported from @xeroc's bitshares-pricefeed · From [committers.top Greece](https://committers.top/greece.html) top contributors (maintainer **clockworkgr**).
+
+  - title: beachy-beachy-ball
+    url: https://github.com/michaelkolesidis/beachy-beachy-ball
+    description: >
+      A beach ball adventure! Can you make it to the end? · From [committers.top Greece](https://committers.top/greece.html) (maintainer **michaelkolesidis**).
+
+  - title: learnc
+    url: https://github.com/michaelkolesidis/learnc
+    description: >
+      Educational material and examples for those interested in learning the C programming language · From [committers.top Greece](https://committers.top/greece.html) (maintainer **michaelkolesidis**).
+
+  - title: multi-app-multi-value-argocd
+    url: https://github.com/kostis-codefresh/multi-app-multi-value-argocd
+    description: >
+      Example for distributing many applications to different clusters with Argo CD labels · From [committers.top Greece](https://committers.top/greece.html) (maintainer **kostis-codefresh**).
+
+  - title: docker-maven-comparison
+    url: https://github.com/kostis-codefresh/docker-maven-comparison
+    description: >
+      Comparing the Spotify and fabric8 docker maven plugins · From [committers.top Greece](https://committers.top/greece.html) (maintainer **kostis-codefresh**).
+
+  - title: olas
+    url: https://github.com/pablof7z/olas
+    description: >
+      Guess. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **pablof7z**).
+
+  - title: nostr-chat-widget
+    url: https://github.com/pablof7z/nostr-chat-widget
+    description: >
+      Nostr-based embeddable chat widget · From [committers.top Greece](https://committers.top/greece.html) (maintainer **pablof7z**).
+
+  - title: React-Redux-Music-Artists
+    url: https://github.com/mariosknl/React-Redux-Music-Artists
+    description: >
+      React & Redux -Search for your favourite artist and see his/hers most famous albums along with similar artist in genre. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **mariosknl**).
+
+  - title: music store front-end
+    url: https://github.com/mariosknl/music_store_front-end
+    description: >
+      eMusic_Store_Front-end is the front-end for my Music Store app React-Redux · From [committers.top Greece](https://committers.top/greece.html) (maintainer **mariosknl**).
+
+  - title: GalaksijaPLUS poseidon-ep4cgx150
+    url: https://github.com/turri21/GalaksijaPLUS_poseidon-ep4cgx150
+    description: >
+      FPGA core port of the iconic Yugoslavian home computer to Poseidon-ep4cgx150 · From [committers.top Greece](https://committers.top/greece.html) (maintainer **turri21**).
+
+  - title: C128 poseidon-ep4cgx150
+    url: https://github.com/turri21/C128_poseidon-ep4cgx150
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **turri21**).
+
+  - title: kirki-helpers
+    url: https://github.com/aristath/kirki-helpers
+    description: >
+      This repository is no longer used. Please see https://github.com/aristath/kirki/tree/develop/docs/files · From [committers.top Greece](https://committers.top/greece.html) (maintainer **aristath**).
+
+  - title: kirki-demo
+    url: https://github.com/aristath/kirki-demo
+    description: >
+      demo theme for the Kirki WordPress plugin · From [committers.top Greece](https://committers.top/greece.html) (maintainer **aristath**).
+
+  - title: Dayz.Epoch.3d.Editor.Live.Mission-with-Database
+    url: https://github.com/Sandbird/Dayz.Epoch.3d.Editor.Live.Mission-with-Database
+    description: >
+      For fast debugging of scripts, without running a server. All done in the 3d editor (Alt+E), now with Database interactions. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **Sandbird**).
+
+  - title: gamer
+    url: https://github.com/Sandbird/gamer
+    description: >
+      Gamer for iOS · From [committers.top Greece](https://committers.top/greece.html) (maintainer **Sandbird**).
+
+  - title: gstreamer-rs
+    url: https://github.com/sdroege/gstreamer-rs
+    description: >
+      GStreamer bindings for Rust - This repository moved to https://gitlab.freedesktop.org/gstreamer/gstreamer-rs · From [committers.top Greece](https://committers.top/greece.html) (maintainer **sdroege**).
+
+  - title: gst-plugin-rs
+    url: https://github.com/sdroege/gst-plugin-rs
+    description: >
+      Rust crate for writing GStreamer plugins and various plugins - This repository moved to https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs · From [committers.top Greece](https://committers.top/greece.html) (maintainer **sdroege**).
+
+  - title: Crypto-Expert-DeepSeek-LLM
+    url: https://github.com/epappas/Crypto-Expert-DeepSeek-LLM
+    description: >
+      A fine-tuned of the distilled model `deepseek-ai/DeepSeek-R1-Distill-Qwen-7B` on crypto and web3 prompts. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **epappas**).
+
+  - title: TubeJS
+    url: https://github.com/epappas/TubeJS
+    description: >
+      A prototype port of Scala actors to NodeJS. A lightweight asynchronous concurrent messaging. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **epappas**).
+
+  - title: OptiUI
+    url: https://github.com/loathingKernel/OptiUI
+    description: >
+      Optimized UI for Heroes of Newerth · From [committers.top Greece](https://committers.top/greece.html) (maintainer **loathingKernel**).
+
+  - title: KnR2E
+    url: https://github.com/loathingKernel/KnR2E
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **loathingKernel**).
+
+  - title: ground-station
+    url: https://github.com/sgoudelis/ground-station
+    description: >
+      Ground Station is all-in-one satellite monitoring suite · From [committers.top Greece](https://committers.top/greece.html) (maintainer **sgoudelis**).
+
+  - title: mybitbank
+    url: https://github.com/sgoudelis/mybitbank
+    description: >
+      Your Personal CryptoCoin Bank (for bitcoin, litecoin, feathercoin, ppcoin, namecoin, auroracoin and more) · From [committers.top Greece](https://committers.top/greece.html) (maintainer **sgoudelis**).
+
+  - title: oterm
+    url: https://github.com/ggozad/oterm
+    description: >
+      the terminal client for Ollama · From [committers.top Greece](https://committers.top/greece.html) (maintainer **ggozad**).
+
+  - title: haiku.rag
+    url: https://github.com/ggozad/haiku.rag
+    description: >
+      Opinionated agentic RAG powered by LanceDB, Pydantic AI, and Docling · From [committers.top Greece](https://committers.top/greece.html) (maintainer **ggozad**).
+
+  - title: CF7-Testbed
+    url: https://github.com/a8anassis/CF7-Testbed
+    description: >
+      This is the main Java repo for Coding Factory 7 AUEB · From [committers.top Greece](https://committers.top/greece.html) (maintainer **a8anassis**).
+
+  - title: CF8
+    url: https://github.com/a8anassis/CF8
+    description: >
+      This is the main Java Repository of Coding Factory 8. It is divided in chapters and each chapter contains the code authored in the class. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **a8anassis**).
+
+  - title: libfuzzer
+    url: https://github.com/planetis-m/libfuzzer
+    description: >
+      Thin interface for libFuzzer, an in-process, coverage-guided, evolutionary fuzzing engine. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **planetis-m**).
+
+  - title: manu
+    url: https://github.com/planetis-m/manu
+    description: >
+      Nim MAtrix NUmeric package · From [committers.top Greece](https://committers.top/greece.html) (maintainer **planetis-m**).
+
+  - title: awesome-resources-for-rare-disease
+    url: https://github.com/matentzn/awesome-resources-for-rare-disease
+    description: >
+      A collection of resources useful for Rare Disease research · From [committers.top Greece](https://committers.top/greece.html) (maintainer **matentzn**).
+
+  - title: sieve
+    url: https://github.com/matentzn/sieve
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **matentzn**).
+
+  - title: AI-for-Trading
+    url: https://github.com/spirosrap/AI-for-Trading
+    description: >
+      Artificial Intelligence for Trading Nanodegree · From [committers.top Greece](https://committers.top/greece.html) (maintainer **spirosrap**).
+
+  - title: Udacity-queue-position
+    url: https://github.com/spirosrap/Udacity-queue-position
+    description: >
+      Find your place in the Udacity reviews queue with this simple script · From [committers.top Greece](https://committers.top/greece.html) (maintainer **spirosrap**).
+
+  - title: linear-mcp
+    url: https://github.com/cosmix/linear-mcp
+    description: >
+      A Model Context Protocol server for Linear. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **cosmix**).
+
+  - title: jira-mcp
+    url: https://github.com/cosmix/jira-mcp
+    description: >
+      A Model Context Protocol server for Jira. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **cosmix**).
+
+  - title: quarkus-test-demo
+    url: https://github.com/geoand/quarkus-test-demo
+    description: >
+      Source code for demo shown at https://www.youtube.com/watch?v=OCPFdpvL1Q0 · From [committers.top Greece](https://committers.top/greece.html) (maintainer **geoand**).
+
+  - title: 7-wonders-demo
+    url: https://github.com/geoand/7-wonders-demo
+    description: >
+      Demo project showing how to start building a chatbot that allows asking questions about a game's rules · From [committers.top Greece](https://committers.top/greece.html) (maintainer **geoand**).
+
+  - title: rcp-slack-notifications
+    url: https://github.com/Basilakis/rcp-slack-notifications
+    description: >
+      Send Slack Notifications for each Member Subscription Status change at Restrict Content Pro · From [committers.top Greece](https://committers.top/greece.html) (maintainer **Basilakis**).
+
+  - title: kai
+    url: https://github.com/Basilakis/kai
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **Basilakis**).
+
+  - title: catt
+    url: https://github.com/skorokithakis/catt
+    description: >
+      Cast All The Things allows you to send videos from many, many online sources to your Chromecast. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **skorokithakis**).
+
+  - title: shortuuid
+    url: https://github.com/skorokithakis/shortuuid
+    description: >
+      A generator library for concise, unambiguous and URL-safe UUIDs. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **skorokithakis**).
+
+  - title: injectionforge
+    url: https://github.com/dzervas/injectionforge
+    description: >
+      Compile frida scripts into injectable libraries or executables that inject themselfs · From [committers.top Greece](https://committers.top/greece.html) (maintainer **dzervas**).
+
+  - title: fzf-command-bookmarks
+    url: https://github.com/dzervas/fzf-command-bookmarks
+    description: >
+      Save and search complex commands inside your terminal · From [committers.top Greece](https://committers.top/greece.html) (maintainer **dzervas**).
+
+  - title: openai-assistant-demo
+    url: https://github.com/mandarini/openai-assistant-demo
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **mandarini**).
+
+  - title: ngc-workshop-docs
+    url: https://github.com/mandarini/ngc-workshop-docs
+    description: >
+      ngColombia workshop training material · From [committers.top Greece](https://committers.top/greece.html) (maintainer **mandarini**).
+
+  - title: rrtools-repro-research
+    url: https://github.com/annakrystalli/rrtools-repro-research
+    description: >
+      Tutorial on Reproducible Research in R with rrtools · From [committers.top Greece](https://committers.top/greece.html) (maintainer **annakrystalli**).
+
+  - title: talks
+    url: https://github.com/annakrystalli/talks
+    description: >
+      repo for talks · From [committers.top Greece](https://committers.top/greece.html) (maintainer **annakrystalli**).
+
+  - title: fastapi-rbac-example
+    url: https://github.com/chrisK824/fastapi-rbac-example
+    description: >
+      FastAPI example with distinct permissions for each route · From [committers.top Greece](https://committers.top/greece.html) (maintainer **chrisK824**).
+
+  - title: fastapi-sso-example
+    url: https://github.com/chrisK824/fastapi-sso-example
+    description: >
+      FastAPI SSO example with various providers · From [committers.top Greece](https://committers.top/greece.html) (maintainer **chrisK824**).
+
+  - title: ipl-interpreter
+    url: https://github.com/georgesittas/ipl-interpreter
+    description: >
+      Interpreter for a simple imperative language called IPL · From [committers.top Greece](https://committers.top/greece.html) (maintainer **georgesittas**).
+
+  - title: jobshop-scheduling
+    url: https://github.com/georgesittas/jobshop-scheduling
+    description: >
+      Optimal ECLiPSe Prolog job-shop scheduling solver · From [committers.top Greece](https://committers.top/greece.html) (maintainer **georgesittas**).
+
+  - title: luabins
+    url: https://github.com/agladysh/luabins
+    description: >
+      Trivial Lua Binary Serialization Library · From [committers.top Greece](https://committers.top/greece.html) (maintainer **agladysh**).
+
+  - title: luatexts
+    url: https://github.com/agladysh/luatexts
+    description: >
+      Trivial Lua human-readable binary-safe serialization library · From [committers.top Greece](https://committers.top/greece.html) (maintainer **agladysh**).
+
+  - title: go-apns2
+    url: https://github.com/sger/go-apns2
+    description: >
+      Go package for HTTP/2 Apple Push Notification Service. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **sger**).
+
+  - title: wwdc-bot
+    url: https://github.com/sger/wwdc-bot
+    description: >
+      WWDC slackbot in Golang for http://asciiwwdc.com · From [committers.top Greece](https://committers.top/greece.html) (maintainer **sger**).
+
+  - title: task executor
+    url: https://github.com/vtripolitakis/task_executor
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **vtripolitakis**).
+
+  - title: blog
+    url: https://github.com/vtripolitakis/blog
+    description: >
+      My blog · From [committers.top Greece](https://committers.top/greece.html) (maintainer **vtripolitakis**).
+
+  - title: booster
+    url: https://github.com/acidvegas/booster
+    description: >
+      twitter bot that builds followers · From [committers.top Greece](https://committers.top/greece.html) (maintainer **acidvegas**).
+
+  - title: mzk
+    url: https://github.com/acidvegas/mzk
+    description: >
+      🎸 music theory helper 🎵 · From [committers.top Greece](https://committers.top/greece.html) (maintainer **acidvegas**).
+
+  - title: node-msoffice-pdf
+    url: https://github.com/skmp/node-msoffice-pdf
+    description: >
+      Module to export Word, Excel & PowerPoint to PDF. Requires windows and installed office 2013 · From [committers.top Greece](https://committers.top/greece.html) (maintainer **skmp**).
+
+  - title: nullDCe
+    url: https://github.com/skmp/nullDCe
+    description: >
+      nullDCe, a precursor to Reicast. PSP port might still compile · From [committers.top Greece](https://committers.top/greece.html) (maintainer **skmp**).
+
+  - title: security-ctf-assignment
+    url: https://github.com/kkmanos/security-ctf-assignment
+    description: >
+      Capture the flag cybersecurity assignment submission · From [committers.top Greece](https://committers.top/greece.html) (maintainer **kkmanos**).
+
+  - title: pentest-eclass-assignment
+    url: https://github.com/kkmanos/pentest-eclass-assignment
+    description: >
+      This is a cyber security university assignment which is consisted of two phases. On the first phase, students seperated in teams, must find and patch security vulnerabilities of an old eClass version on a 4-week period. On the second phase, all teams had to attack the patched eClass version of the other teams. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **kkmanos**).
+
+  - title: pyducky
+    url: https://github.com/steveiliop56/pyducky
+    description: >
+      Flash the usb rubber ducky program with python! · From [committers.top Greece](https://committers.top/greece.html) (maintainer **steveiliop56**).
+
+  - title: buttonbox
+    url: https://github.com/steveiliop56/buttonbox
+    description: >
+      Run your shell tasks with one click. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **steveiliop56**).
+
+  - title: sql-zoo-solutions
+    url: https://github.com/tharropoulos/sql-zoo-solutions
+    description: >
+      My Solutions Of The SQL ZOO Tutorial · From [committers.top Greece](https://committers.top/greece.html) (maintainer **tharropoulos**).
+
+  - title: thesis-ml
+    url: https://github.com/tharropoulos/thesis-ml
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **tharropoulos**).
+
+  - title: Slackware-Commander
+    url: https://github.com/rizitis/Slackware-Commander
+    description: >
+      GUI Apps & scripts collection, helping Slackware system control · From [committers.top Greece](https://committers.top/greece.html) (maintainer **rizitis**).
+
+  - title: Slackware-Stable-Gnome
+    url: https://github.com/rizitis/Slackware-Stable-Gnome
+    description: >
+      scripts to build and install gnome on Slackware64 15 stable from slackbuilds.org using slpkg · From [committers.top Greece](https://committers.top/greece.html) (maintainer **rizitis**).
+
+  - title: ktsaou.github.io
+    url: https://github.com/ktsaou/ktsaou.github.io
+    description: >
+      My personal home page · From [committers.top Greece](https://committers.top/greece.html) (maintainer **ktsaou**).
+
+  - title: Tutoring-System
+    url: https://github.com/AndreasAvgou/Tutoring-System
+    description: >
+      Full-stack application is a professional solution designed to streamline the management of private tutoring services. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **AndreasAvgou**).
+
+  - title: Genetic-Bacteria-Identification
+    url: https://github.com/AndreasAvgou/Genetic-Bacteria-Identification
+    description: >
+      Machine Learning model that classifies 10 different bacteria species using the data from a genomic analysis technique by comparison to available bacterial DNA sequences · From [committers.top Greece](https://committers.top/greece.html) (maintainer **AndreasAvgou**).
+
+  - title: btsync-keys
+    url: https://github.com/vrypan/btsync-keys
+    description: >
+      A list of public BitTorrent Sync keys · From [committers.top Greece](https://committers.top/greece.html) (maintainer **vrypan**).
+
+  - title: fario
+    url: https://github.com/vrypan/fario
+    description: >
+      Farcaster command-line tools · From [committers.top Greece](https://committers.top/greece.html) (maintainer **vrypan**).
+
+  - title: stormify
+    url: https://github.com/teras/stormify
+    description: >
+      Kotlin Multiplatform ORM for JVM, Android, iOS, and native Linux/Windows/macOS — with direct access to PostgreSQL, MariaDB/MySQL, Oracle, MSSQL, and SQLite · From [committers.top Greece](https://committers.top/greece.html) (maintainer **teras**).
+
+  - title: pydosbox
+    url: https://github.com/teras/pydosbox
+    description: >
+      A frontend to the exellent DOSBox emulator. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **teras**).
+
+  - title: ticketbox
+    url: https://github.com/chrisvel/ticketbox
+    description: >
+      What a modern case/ticket management system should be like (not maintained) · From [committers.top Greece](https://committers.top/greece.html) (maintainer **chrisvel**).
+
+  - title: helnet
+    url: https://github.com/chrisvel/helnet
+    description: >
+      Network scanner that finds vulnerable telnet servers that can be logged in with default credentials that mirai bot is using · From [committers.top Greece](https://committers.top/greece.html) (maintainer **chrisvel**).
+
+  - title: godot-discord-bot
+    url: https://github.com/OverloadedOrama/godot-discord-bot
+    description: >
+      A Discord bot made entirely in the Godot Engine, written in GDScript. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **OverloadedOrama**).
+
+  - title: Godot-ComputeShader-GameOfLife
+    url: https://github.com/OverloadedOrama/Godot-ComputeShader-GameOfLife
+    description: >
+      A compute shader implementation of the game of life, in Godot 4. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **OverloadedOrama**).
+
+  - title: greek-adblockplus-filter
+    url: https://github.com/kargig/greek-adblockplus-filter
+    description: >
+      Greek Ad Blocking Filters · From [committers.top Greece](https://committers.top/greece.html) (maintainer **kargig**).
+
+  - title: itop
+    url: https://github.com/kargig/itop
+    description: >
+      Interrupts 'top-like' utility for Linux · From [committers.top Greece](https://committers.top/greece.html) (maintainer **kargig**).
+
+  - title: mini-tools
+    url: https://github.com/proditis/mini-tools
+    description: >
+      A collection of mini tools and snippets for various purposes · From [committers.top Greece](https://committers.top/greece.html) (maintainer **proditis**).
+
+  - title: proditis.github.io
+    url: https://github.com/proditis/proditis.github.io
+    description: >
+      the rumblings of a unix geekopath · From [committers.top Greece](https://committers.top/greece.html) (maintainer **proditis**).
+
+  - title: opensea-rs
+    url: https://github.com/gakonst/opensea-rs
+    description: >
+      Rust client to Opensea's APIs and Ethereum smart contracts · From [committers.top Greece](https://committers.top/greece.html) (maintainer **gakonst**).
+
+  - title: narwhal-abci-evm
+    url: https://github.com/gakonst/narwhal-abci-evm
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **gakonst**).
+
+  - title: bitshares-witness-monitor
+    url: https://github.com/clockworkgr/bitshares-witness-monitor
+    description: >
+      A BitShares witness monitoring script with telegram integration written in JS. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **clockworkgr**).
+
+  - title: ts-relayer-example
+    url: https://github.com/clockworkgr/ts-relayer-example
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **clockworkgr**).
+
+  - title: gitissius
+    url: https://github.com/glogiotatidis/gitissius
+    description: >
+      Distributed Issue Tracking for GIT · From [committers.top Greece](https://committers.top/greece.html) (maintainer **glogiotatidis**).
+
+  - title: tg-relay
+    url: https://github.com/glogiotatidis/tg-relay
+    description: >
+      Telegram Message Relay · From [committers.top Greece](https://committers.top/greece.html) (maintainer **glogiotatidis**).
+
+  - title: Amethyst
+    url: https://github.com/Geoxor/Amethyst
+    description: >
+      A cross-platform music player made with Typescript · From [committers.top Greece](https://committers.top/greece.html) (maintainer **Geoxor**).
+
+  - title: geoxor.moe
+    url: https://github.com/Geoxor/geoxor.moe
+    description: >
+      This is my homepage website where people can download my music, covers and other assets! · From [committers.top Greece](https://committers.top/greece.html) (maintainer **Geoxor**).
+
+  - title: CircuitPython AXP313A
+    url: https://github.com/bill88t/CircuitPython_AXP313A
+    description: >
+      A CircuitPython module for managing the AXP313A pmic over I2C, along with the common voltages to power cameras with it. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **bill88t**).
+
+  - title: fsign
+    url: https://github.com/bill88t/fsign
+    description: >
+      A signing utility that should already exist · From [committers.top Greece](https://committers.top/greece.html) (maintainer **bill88t**).
+
+  - title: parin
+    url: https://github.com/Kapendev/parin
+    description: >
+      A delightfully simple 2D game engine. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **Kapendev**).
+
+  - title: joka
+    url: https://github.com/Kapendev/joka
+    description: >
+      A nogc utility library. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **Kapendev**).
+
+  - title: create-joomla-extension
+    url: https://github.com/dgrammatiko/create-joomla-extension
+    description: >
+      Joomla 4 instant extension scaffolding · From [committers.top Greece](https://committers.top/greece.html) (maintainer **dgrammatiko**).
+
+  - title: sloth
+    url: https://github.com/dgrammatiko/sloth
+    description: >
+      As slow as it gets PWA · From [committers.top Greece](https://committers.top/greece.html) (maintainer **dgrammatiko**).
+
+  - title: Discord-Activities-Exploits
+    url: https://github.com/mgiannopoulos24/Discord-Activities-Exploits
+    description: >
+      A list of exploits found on Discord Activities. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **mgiannopoulos24**).
+
+  - title: Prog-Intro-Lectures
+    url: https://github.com/mgiannopoulos24/Prog-Intro-Lectures
+    description: >
+      A website for the lectures of Introduction to Programming (Κ04) course of DIT NKUA · From [committers.top Greece](https://committers.top/greece.html) (maintainer **mgiannopoulos24**).
+
+  - title: SICP-solutions
+    url: https://github.com/kchousos/SICP-solutions
+    description: >
+      My solutions to the SICP exercises. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **kchousos**).
+
+  - title: BSc-Thesis
+    url: https://github.com/kchousos/BSc-Thesis
+    description: >
+      My BSc Thesis on fuzzing automation through LLMs. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **kchousos**).
+
+  - title: backstage-mcp
+    url: https://github.com/iocanel/backstage-mcp
+    description: >
+      A simple backstage mcp server using quarkus-backstage · From [committers.top Greece](https://committers.top/greece.html) (maintainer **iocanel**).
+
+  - title: blog
+    url: https://github.com/iocanel/blog
+    description: >
+      iocanel blog code samples · From [committers.top Greece](https://committers.top/greece.html) (maintainer **iocanel**).
+
+  - title: bibliothecula
+    url: https://github.com/epilys/bibliothecula
+    description: >
+      document organizer with tags and full-text-search, in a simple and clean sqlite3 schema · From [committers.top Greece](https://committers.top/greece.html) (maintainer **epilys**).
+
+  - title: rsqlite3
+    url: https://github.com/epilys/rsqlite3
+    description: >
+      sqlite3 Rewritten in RiiR Rust 🦀🦀🦀 /s · From [committers.top Greece](https://committers.top/greece.html) (maintainer **epilys**).
+
+  - title: tennis-score
+    url: https://github.com/themetalfleece/tennis-score
+    description: >
+      A simple tennis score keeper · From [committers.top Greece](https://committers.top/greece.html) (maintainer **themetalfleece**).
+
+  - title: intercom-discord
+    url: https://github.com/themetalfleece/intercom-discord
+    description: >
+      Intercom integration for Discord. Secure and customizable notifications for any event · From [committers.top Greece](https://committers.top/greece.html) (maintainer **themetalfleece**).
+
+  - title: widgetizer-docs
+    url: https://github.com/tsiger/widgetizer-docs
+    description: >
+      Development docs for widgetizer · From [committers.top Greece](https://committers.top/greece.html) (maintainer **tsiger**).
+
+  - title: my data
+    url: https://github.com/mikezaby/my_data
+    description: >
+      AADE MyData ruby client · From [committers.top Greece](https://committers.top/greece.html) (maintainer **mikezaby**).
+
+  - title: lamepress legacy
+    url: https://github.com/mikezaby/lamepress_legacy
+    description: >
+      Lamepress is a Content Managment System for issuing magazines/newspapers. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **mikezaby**).
+
+  - title: RegexAnalyzer
+    url: https://github.com/foo123/RegexAnalyzer
+    description: >
+      Regular Expression Analyzer and Composer for JavaScript, PHP, Python · From [committers.top Greece](https://committers.top/greece.html) (maintainer **foo123**).
+
+  - title: MOD3
+    url: https://github.com/foo123/MOD3
+    description: >
+      3D Modifier Library in JavaScript, port of AS3DMod ActionScript 3D Modifier Library · From [committers.top Greece](https://committers.top/greece.html) (maintainer **foo123**).
+
+  - title: EventLoop
+    url: https://github.com/kostasx/EventLoop
+    description: >
+      :heart: Passionate about Technology & Tech Education · From [committers.top Greece](https://committers.top/greece.html) (maintainer **kostasx**).
+
+  - title: Discover-Embeddings-with-TensorFlow.js
+    url: https://github.com/kostasx/Discover-Embeddings-with-TensorFlow.js
+    description: >
+      Word and Sentence Embeddings in JavaScript with TensorFlow.js · From [committers.top Greece](https://committers.top/greece.html) (maintainer **kostasx**).
+
+  - title: My Arduino Projects
+    url: https://github.com/AlexandrosPanag/My_Arduino_Projects
+    description: >
+      My Arduino Projects which includes many Arduino solutions for a variety of microcontrollers, Processing solutions & Assembly solutions. Written by Alexandros Panagiotakopoulos. All Rights Reserved Ⓒ. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **AlexandrosPanag**).
+
+  - title: My Python Projects
+    url: https://github.com/AlexandrosPanag/My_Python_Projects
+    description: >
+      My Python Projects. Written by Alexandros Panagiotakopoulos. All Rights Reserved Ⓒ. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **AlexandrosPanag**).
+
+  - title: Coursera-Machine-Learning-Foundations-A-Case-Study-Approach
+    url: https://github.com/PavlosIsaris/Coursera-Machine-Learning-Foundations-A-Case-Study-Approach
+    description: >
+      Course material and assignment repository for the "Machine Learning Foundations: A Case Study Approach" on Coursera. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **PavlosIsaris**).
+
+  - title: Coursera-Nativescript-Restaurant-app
+    url: https://github.com/PavlosIsaris/Coursera-Nativescript-Restaurant-app
+    description: >
+      A Restaurant mobile app written in Nativescript, for the https://www.coursera.org/learn/nativescript Coursera course. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **PavlosIsaris**).
+
+  - title: KaloudasDev
+    url: https://github.com/KaloudasDev/KaloudasDev
+    description: >
+      GitHub profile highlighting my expertise in FiveM, Discord bots, JavaScript, Lua, coding efficiency, maintainability, and community contributions. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **KaloudasDev**).
+
+  - title: velvet-pong-game
+    url: https://github.com/KaloudasDev/velvet-pong-game
+    description: >
+      Minimalist, responsive pong game with adjustable difficulty levels, smooth animations, dynamic sound effects, and retro-modern UI design features. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **KaloudasDev**).
+
+  - title: coss-wagtail
+    url: https://github.com/akatsoulas/coss-wagtail
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **akatsoulas**).
+
+  - title: mozsignal
+    url: https://github.com/akatsoulas/mozsignal
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **akatsoulas**).
+
+  - title: event-tram
+    url: https://github.com/nikosdouvlis/event-tram
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **nikosdouvlis**).
+
+  - title: pkglab
+    url: https://github.com/nikosdouvlis/pkglab
+    description: >
+      Fast local package development CLI with an embedded fast NPM registry. Publish, test, and iterate on workspace packages across consumer repos. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **nikosdouvlis**).
+
+  - title: greece-trig-points
+    url: https://github.com/ppapadeas/greece-trig-points
+    description: >
+      Interactive crowdsourced map of 25,000+ Hellenic Army (ΓΥΣ) trigonometric survey points across Greece. Report status, upload photos, explore geodetic heritage. \| vathra.xyz · From [committers.top Greece](https://committers.top/greece.html) (maintainer **ppapadeas**).
+
+  - title: eclipse magic
+    url: https://github.com/ppapadeas/eclipse_magic
+    description: >
+      MagicLantern Lua script for total eclipse · From [committers.top Greece](https://committers.top/greece.html) (maintainer **ppapadeas**).
+
+  - title: 3y3
+    url: https://github.com/ArjixWasTaken/3y3
+    description: >
+      Hide text in plain sight, using invisible characters. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **ArjixWasTaken**).
+
+  - title: pear-desktop
+    url: https://github.com/ArjixWasTaken/pear-desktop
+    description: >
+      Fork of https://github.com/pear-devs/pear-desktop · From [committers.top Greece](https://committers.top/greece.html) (maintainer **ArjixWasTaken**).
+
+  - title: ScreenCapture
+    url: https://github.com/WindowsNT/ScreenCapture
+    description: >
+      A DirectX hardware video + audio capture with mixing capabilities and Media Foundation file encoding (Windows 8+) · From [committers.top Greece](https://committers.top/greece.html) (maintainer **WindowsNT**).
+
+  - title: asm
+    url: https://github.com/WindowsNT/asm
+    description: >
+      Assembly Tutorial for DOS · From [committers.top Greece](https://committers.top/greece.html) (maintainer **WindowsNT**).
+
+  - title: Compositional
+    url: https://github.com/statlink/Compositional
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **statlink**).
+
+  - title: MLE
+    url: https://github.com/statlink/MLE
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **statlink**).
+
+  - title: rich-text-autocomplete
+    url: https://github.com/arisgk/rich-text-autocomplete
+    description: >
+      Text input box that autocompletes hashtags, mentions and related entities. Built with React & Redux. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **arisgk**).
+
+  - title: data-table
+    url: https://github.com/arisgk/data-table
+    description: >
+      Data table built with ReactJS, NodeJS, GraphQL and MongoDB · From [committers.top Greece](https://committers.top/greece.html) (maintainer **arisgk**).
+
+  - title: wildfires
+    url: https://github.com/christosporios/wildfires
+    description: >
+      Explore the progression of wildfires · From [committers.top Greece](https://committers.top/greece.html) (maintainer **christosporios**).
+
+  - title: coolestjob
+    url: https://github.com/christosporios/coolestjob
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **christosporios**).
+
+  - title: unix-history-repo
+    url: https://github.com/dspinellis/unix-history-repo
+    description: >
+      Continuous Unix commit history from 1970 until today · From [committers.top Greece](https://committers.top/greece.html) (maintainer **dspinellis**).
+
+  - title: latex-advice
+    url: https://github.com/dspinellis/latex-advice
+    description: >
+      Advice for writing LaTeX documents · From [committers.top Greece](https://committers.top/greece.html) (maintainer **dspinellis**).
+
+  - title: project-management-dashboard
+    url: https://github.com/paulkokos/project-management-dashboard
+    description: >
+      A comprehensive project management dashboard with real-time collaboration, task tracking, and team management features · From [committers.top Greece](https://committers.top/greece.html) (maintainer **paulkokos**).
+
+  - title: UniCloud
+    url: https://github.com/paulkokos/UniCloud
+    description: >
+      Enterprise-grade multi-cloud file management system unifying Google Drive, OneDrive, and iCloud. Demonstrates full-stack development with Spring Boot REST API, PostgreSQL, Redis caching, and JavaFX desktop client. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **paulkokos**).
+
+  - title: Blender-NLE
+    url: https://github.com/cerebrux/Blender-NLE
+    description: >
+      These are my presets for Blender's Video editing UI and keyboard shortcuts which are inspired by Final Cut Pro · From [committers.top Greece](https://committers.top/greece.html) (maintainer **cerebrux**).
+
+  - title: vtiger6-greek-translation
+    url: https://github.com/cerebrux/vtiger6-greek-translation
+    description: >
+      This is the Greek translation of Vtiger 6 · From [committers.top Greece](https://committers.top/greece.html) (maintainer **cerebrux**).
+
+  - title: felix86
+    url: https://github.com/OFFTKP/felix86
+    description: >
+      Run x86 and x86-64 games on RISC-V Linux · From [committers.top Greece](https://committers.top/greece.html) (maintainer **OFFTKP**).
+
+  - title: discord-plays
+    url: https://github.com/OFFTKP/discord-plays
+    description: >
+      A discord bot where all users can play pokemon together · From [committers.top Greece](https://committers.top/greece.html) (maintainer **OFFTKP**).
+
+  - title: TIDAL-Discord-Rich-Presence-UNOFFICIAL
+    url: https://github.com/purpl3F0x/TIDAL-Discord-Rich-Presence-UNOFFICIAL
+    description: >
+      UNOFFICIAL Tidal Discord Rich Presence · From [committers.top Greece](https://committers.top/greece.html) (maintainer **purpl3F0x**).
+
+  - title: MQA identifier
+    url: https://github.com/purpl3F0x/MQA_identifier
+    description: >
+      Master Quality Authenticated codec reverse engineering, Tool to identify MQA encoding and Master's Sample Rate · From [committers.top Greece](https://committers.top/greece.html) (maintainer **purpl3F0x**).
+
+  - title: revm-by-example
+    url: https://github.com/greekfetacheese/revm-by-example
+    description: >
+      Practical examples of the Rust Ethereum Virtual Machine · From [committers.top Greece](https://committers.top/greece.html) (maintainer **greekfetacheese**).
+
+  - title: zeus
+    url: https://github.com/greekfetacheese/zeus
+    description: >
+      A truly seedless and decentralized self-custodial Ethereum wallet · From [committers.top Greece](https://committers.top/greece.html) (maintainer **greekfetacheese**).
+
+  - title: erosivity
+    url: https://github.com/kvantas/erosivity
+    description: >
+      calculates rainfall erosivity using precipitation time series · From [committers.top Greece](https://committers.top/greece.html) (maintainer **kvantas**).
+
+  - title: hyetor
+    url: https://github.com/kvantas/hyetor
+    description: >
+      Analysis of fixed interval precipitation records · From [committers.top Greece](https://committers.top/greece.html) (maintainer **kvantas**).
+
+  - title: Computational Geometry
+    url: https://github.com/geooo109/Computational_Geometry
+    description: >
+      Spring 2018-2019 · From [committers.top Greece](https://committers.top/greece.html) (maintainer **geooo109**).
+
+  - title: Redesign Eudoxus
+    url: https://github.com/geooo109/Redesign_Eudoxus
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **geooo109**).
+
+  - title: asdcontrol
+    url: https://github.com/nikosdion/asdcontrol
+    description: >
+      Apple Studio Display monitor brightness control for Linux · From [committers.top Greece](https://committers.top/greece.html) (maintainer **nikosdion**).
+
+  - title: sortbyfield
+    url: https://github.com/nikosdion/sortbyfield
+    description: >
+      Sort articles in a Joomla category by the value of a custom field. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **nikosdion**).
+
+  - title: mycroft offline
+    url: https://github.com/jimmykarily/mycroft_offline
+    description: >
+      Deploy a full mycroft instance on-premises · From [committers.top Greece](https://committers.top/greece.html) (maintainer **jimmykarily**).
+
+  - title: fuzzygui
+    url: https://github.com/jimmykarily/fuzzygui
+    description: >
+      A fuzzy finder with GUI (inspired by fzf) · From [committers.top Greece](https://committers.top/greece.html) (maintainer **jimmykarily**).
+
+  - title: python-gui-electron
+    url: https://github.com/keybraker/python-gui-electron
+    description: >
+      A simple example on how to create electron GUIs for python programs · From [committers.top Greece](https://committers.top/greece.html) (maintainer **keybraker**).
+
+  - title: reSkroutzed
+    url: https://github.com/keybraker/reSkroutzed
+    description: >
+      A browser extension that enhances the shopping experience on skroutz.gr. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **keybraker**).
+
+  - title: nvshare
+    url: https://github.com/grgalex/nvshare
+    description: >
+      Practical GPU Sharing Without Memory Size Constraints · From [committers.top Greece](https://committers.top/greece.html) (maintainer **grgalex**).
+
+  - title: pyxray
+    url: https://github.com/grgalex/pyxray
+    description: >
+      Build cross-language call graphs for Python packages. Perform vulnerability reachability analysis, detect unused code (bloat) · From [committers.top Greece](https://committers.top/greece.html) (maintainer **grgalex**).
+
+  - title: ntua compilers
+    url: https://github.com/kostis/ntua_compilers
+    description: >
+      Programs and utilities for the Compilers course at NTUA · From [committers.top Greece](https://committers.top/greece.html) (maintainer **kostis**).
+
+  - title: peepdb
+    url: https://github.com/evangelosmeklis/peepdb
+    description: >
+      CLI tool and python library to inspect databases fast. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **evangelosmeklis**).
+
+  - title: deepdrone
+    url: https://github.com/evangelosmeklis/deepdrone
+    description: >
+      Control drones with natural language · From [committers.top Greece](https://committers.top/greece.html) (maintainer **evangelosmeklis**).
+
+  - title: UoM-Applied-Informatics
+    url: https://github.com/iosifidis/UoM-Applied-Informatics
+    description: >
+      My University Assignments etc · From [committers.top Greece](https://committers.top/greece.html) (maintainer **iosifidis**).
+
+  - title: multiboot
+    url: https://github.com/iosifidis/multiboot
+    description: >
+      How to create multiboot USB · From [committers.top Greece](https://committers.top/greece.html) (maintainer **iosifidis**).
+
+  - title: notepad2-mod
+    url: https://github.com/XhmikosR/notepad2-mod
+    description: >
+      LOOKING FOR DEVELOPERS - Notepad2-mod, a Notepad2 fork, a fast and light-weight Notepad-like text editor with syntax highlighting · From [committers.top Greece](https://committers.top/greece.html) (maintainer **XhmikosR**).
+
+  - title: perfmonbar
+    url: https://github.com/XhmikosR/perfmonbar
+    description: >
+      Displays performance counters on the Windows Taskbar · From [committers.top Greece](https://committers.top/greece.html) (maintainer **XhmikosR**).
+
+  - title: localForage-cordovaSQLiteDriver
+    url: https://github.com/thgreasi/localForage-cordovaSQLiteDriver
+    description: >
+      SQLite driver for Cordova apps using localForage. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **thgreasi**).
+
+  - title: babel-plugin-system-import-transformer
+    url: https://github.com/thgreasi/babel-plugin-system-import-transformer
+    description: >
+      import() & System.import() to UMD pattern transformer plugin for Babel · From [committers.top Greece](https://committers.top/greece.html) (maintainer **thgreasi**).
+
+  - title: WebGLxnaProj
+    url: https://github.com/nkast/WebGLxnaProj
+    description: >
+      Test project for xna Blazor · From [committers.top Greece](https://committers.top/greece.html) (maintainer **nkast**).
+
+  - title: Wasm
+    url: https://github.com/nkast/Wasm
+    description: >
+      WebAssembly Core API · From [committers.top Greece](https://committers.top/greece.html) (maintainer **nkast**).
+
+  - title: demoUserPosts
+    url: https://github.com/ntsekouras/demoUserPosts
+    description: >
+      demo angular app that uses data from http://jsonplaceholder.typicode.com/ · From [committers.top Greece](https://committers.top/greece.html) (maintainer **ntsekouras**).
+
+  - title: raw2vmdk
+    url: https://github.com/Zapotek/raw2vmdk
+    description: >
+      raw2vmdk is an OS independent Java utility that allows you to mount raw disk images, like images created by "dd", using VMware, VirtualBox or any other virtualization platform supporting the VMDK disk format. It analyzes the raw image and creates an approprietly formatted ".vmdk" file that can be used to mount the image right away. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **Zapotek**).
+
+  - title: cdpsnarf
+    url: https://github.com/Zapotek/cdpsnarf
+    description: >
+      CDPSnarf is a network sniffer exclusively written to extract information from CDP (Cisco Discovery Protocol) packets. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **Zapotek**).
+
+  - title: android-dev-sources
+    url: https://github.com/ParaskP7/android-dev-sources
+    description: >
+      All those Android development sources that you need to be and stay awesome! · From [committers.top Greece](https://committers.top/greece.html) (maintainer **ParaskP7**).
+
+  - title: sample-code-movies
+    url: https://github.com/ParaskP7/sample-code-movies
+    description: >
+      This repository contains sample code. Its purpose being, to quickly demonstrate Android and software development in general, clean code, best practices, testing and all those other must know goodies. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **ParaskP7**).
+
+  - title: Algorithms
+    url: https://github.com/themicp/Algorithms
+    description: >
+      Algorithms and stuff in C++ · From [committers.top Greece](https://committers.top/greece.html) (maintainer **themicp**).
+
+  - title: block17
+    url: https://github.com/themicp/block17
+    description: >
+      Bank transactions via the blockchain. Winning project of the Beyond Hackathon 2017. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **themicp**).
+
+  - title: mpv-scripts
+    url: https://github.com/ObserverOfTime/mpv-scripts
+    description: >
+      My personal mpv scripts · From [committers.top Greece](https://committers.top/greece.html) (maintainer **ObserverOfTime**).
+
+  - title: notifications.nvim
+    url: https://github.com/ObserverOfTime/notifications.nvim
+    description: >
+      Neovim plugin for desktop notifications · From [committers.top Greece](https://committers.top/greece.html) (maintainer **ObserverOfTime**).
+
+  - title: XLRisk
+    url: https://github.com/pyscripter/XLRisk
+    description: >
+      Excell addin for performing Monte Carlo simulation · From [committers.top Greece](https://committers.top/greece.html) (maintainer **pyscripter**).
+
+  - title: Ssh-Pascal
+    url: https://github.com/pyscripter/Ssh-Pascal
+    description: >
+      Delphi ssh library wrapping libssh2 · From [committers.top Greece](https://committers.top/greece.html) (maintainer **pyscripter**).
+
+  - title: airline-db
+    url: https://github.com/vagman/airline-db
+    description: >
+      A PostgreSQL database for an airline company, introduced in Databases' undergraduate class. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **vagman**).
+
+  - title: personal-assistant-ui
+    url: https://github.com/vagman/personal-assistant-ui
+    description: >
+      A university assignment as an intro in UI/UX implemented with Windows Forms. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **vagman**).
+
+  - title: tiny-sc
+    url: https://github.com/iani/tiny-sc
+    description: >
+      Compact but powerful tools for SuperCollider, with Emacs Org-mode intergration · From [committers.top Greece](https://committers.top/greece.html) (maintainer **iani**).
+
+  - title: emacs-prelude
+    url: https://github.com/iani/emacs-prelude
+    description: >
+      My emacs config using bbatsov/prelude. This is a complete redo, using org-babel to keep the code tidy. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **iani**).
+
+  - title: awesome-drupal
+    url: https://github.com/theodorosploumis/awesome-drupal
+    description: >
+      A collection of awesome resources, tools, books, podcasts etc for Drupal CMS. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **theodorosploumis**).
+
+  - title: drupal-best-practices
+    url: https://github.com/theodorosploumis/drupal-best-practices
+    description: >
+      Opinion based, short list with common best practices for Drupal. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **theodorosploumis**).
+
+  - title: Tuba
+    url: https://github.com/GeopJr/Tuba
+    description: >
+      Browse the Fediverse · From [committers.top Greece](https://committers.top/greece.html) (maintainer **GeopJr**).
+
+  - title: BLAHAJ
+    url: https://github.com/GeopJr/BLAHAJ
+    description: >
+      [MIRROR] 🦈🏳️‍⚧️🏳️‍🌈 Gay sharks at your local terminal - lolcat-like CLI tool · From [committers.top Greece](https://committers.top/greece.html) (maintainer **GeopJr**).
+
+  - title: activeform
+    url: https://github.com/m-Peter/activeform
+    description: >
+      Create nested forms with ease. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **m-Peter**).
+
+  - title: nested-form-examples
+    url: https://github.com/m-Peter/nested-form-examples
+    description: >
+      Simple Rails applications which are implemented by both the accepts_nested_attributes_for helper and the Form Model approach. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **m-Peter**).
+
+  - title: pctation
+    url: https://github.com/VelocityRa/pctation
+    description: >
+      PlayStation emulator & debugger in C++17 · From [committers.top Greece](https://committers.top/greece.html) (maintainer **VelocityRa**).
+
+  - title: awesome-game-file-format-reversing
+    url: https://github.com/VelocityRa/awesome-game-file-format-reversing
+    description: >
+      Collection of docs/tools/resources for reverse engineering and working with video game file formats. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **VelocityRa**).
+
+  - title: RGBDAcquisition
+    url: https://github.com/AmmarkoV/RGBDAcquisition
+    description: >
+      A uniform library wrapper for input from V4L2,Freenect,OpenNI,OpenNI2,DepthSense,Intel Realsense,OpenGL simulations and other types of video and depth input.. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **AmmarkoV**).
+
+  - title: RoboVision
+    url: https://github.com/AmmarkoV/RoboVision
+    description: >
+      My 2010 BSc Thesis. Attempting to create a robot capable of combining stereo video input , with motors and other sensors on a PC running linux · From [committers.top Greece](https://committers.top/greece.html) (maintainer **AmmarkoV**).
+
+  - title: fasty
+    url: https://github.com/solisoft/fasty
+    description: >
+      Fasty is a new CMS based on openresty / lapis & arangoDB · From [committers.top Greece](https://committers.top/greece.html) (maintainer **solisoft**).
+
+  - title: foxxy-old
+    url: https://github.com/solisoft/foxxy-old
+    description: >
+      foxxy : create your app with ArangoDB Foxx RiotJS UIKIT3 Brunch Yarn · From [committers.top Greece](https://committers.top/greece.html) (maintainer **solisoft**).
+
+  - title: go-reloaded
+    url: https://github.com/g-laliotis/go-reloaded
+    description: >
+      go-reloaded is a command-line text transformation tool written in Go using a pipeline architecture. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **g-laliotis**).
+
+  - title: ascii-art
+    url: https://github.com/g-laliotis/ascii-art
+    description: >
+      Regular text into stylized ASCII art converter · From [committers.top Greece](https://committers.top/greece.html) (maintainer **g-laliotis**).
+
+  - title: can-my-dog-eat
+    url: https://github.com/Trinityyi/can-my-dog-eat
+    description: >
+      A simple tool that tells you what food is safe for your dog. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **Trinityyi**).
+
+  - title: COVID-19-Greece
+    url: https://github.com/Trinityyi/COVID-19-Greece
+    description: >
+      A python-generated website for visualizing the novel coronavirus (COVID-19) data for Greece. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **Trinityyi**).
+
+  - title: covertutils
+    url: https://github.com/operatorequals/covertutils
+    description: >
+      A framework for Backdoor development! · From [committers.top Greece](https://committers.top/greece.html) (maintainer **operatorequals**).
+
+  - title: httpimport
+    url: https://github.com/operatorequals/httpimport
+    description: >
+      Module for remote in-memory Python package/module loading through HTTP/S · From [committers.top Greece](https://committers.top/greece.html) (maintainer **operatorequals**).
+
+  - title: SafeSocket
+    url: https://github.com/PanagiotisKotsorgios/SafeSocket
+    description: >
+      A cross-platform encrypted TCP socket chat & file transfer application · From [committers.top Greece](https://committers.top/greece.html) (maintainer **PanagiotisKotsorgios**).
+
+  - title: PanagiotisKotsorgios
+    url: https://github.com/PanagiotisKotsorgios/PanagiotisKotsorgios
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **PanagiotisKotsorgios**).
+
+  - title: christmas-lighthouse
+    url: https://github.com/chrismitsdev/christmas-lighthouse
+    description: >
+      Multilingual Next.js website for The Christmas Lighthouse Christmas park and interactive café menu with secure admin backoffice. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **chrismitsdev**).
+
+  - title: jbook
+    url: https://github.com/chrismitsdev/jbook
+    description: >
+      jBook cli, local-api & local-client monorepo · From [committers.top Greece](https://committers.top/greece.html) (maintainer **chrismitsdev**).
+
+  - title: qzxing
+    url: https://github.com/ftylitak/qzxing
+    description: >
+      Qt/QML wrapper library for the ZXing library. 1D/2D barcode image processing library · From [committers.top Greece](https://committers.top/greece.html) (maintainer **ftylitak**).
+
+  - title: nokiaDeveloperContentArchive
+    url: https://github.com/ftylitak/nokiaDeveloperContentArchive
+    description: >
+      An archive repository for content created in Nokia Developer pages. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **ftylitak**).
+
+  - title: HopefulLEDSoundVisualizer
+    url: https://github.com/menmaa/HopefulLEDSoundVisualizer
+    description: >
+      A Crude LED Sound Visualizer Project that captures the current audio peak level from default sound output device and sends it over to Arduino, to drive a simple 12 LED 1 Line Sound Peak Visualizer. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **menmaa**).
+
+  - title: MenmuDiscordBot
+    url: https://github.com/menmaa/MenmuDiscordBot
+    description: >
+      A mostly music discord bot written in Java using the Discord4J library. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **menmaa**).
+
+  - title: k8s provisioning
+    url: https://github.com/ChrsMark/k8s_provisioning
+    description: >
+      Simple scripts to automate k8s installation (kubeadm, flannel) on a fresh node · From [committers.top Greece](https://committers.top/greece.html) (maintainer **ChrsMark**).
+
+  - title: benchmarkTool
+    url: https://github.com/ChrsMark/benchmarkTool
+    description: >
+      Bench-marking tool for elasticsearch · From [committers.top Greece](https://committers.top/greece.html) (maintainer **ChrsMark**).
+
+  - title: ubuntu-in-termux
+    url: https://github.com/MFDGaming/ubuntu-in-termux
+    description: >
+      This is a script by which you can install Ubuntu in your termux application without a rooted device · From [committers.top Greece](https://committers.top/greece.html) (maintainer **MFDGaming**).
+
+  - title: Ubuntu-In-Ish
+    url: https://github.com/MFDGaming/Ubuntu-In-Ish
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **MFDGaming**).
+
+  - title: nonogram
+    url: https://github.com/stefaniamak/nonogram
+    description: >
+      Solve and design nonogram puzzles with real-time interaction and smart logic! · From [committers.top Greece](https://committers.top/greece.html) (maintainer **stefaniamak**).
+
+  - title: itHappens
+    url: https://github.com/stefaniamak/itHappens
+    description: >
+      Events happening all around you in one place! · From [committers.top Greece](https://committers.top/greece.html) (maintainer **stefaniamak**).
+
+  - title: phase-space-reconstruction-of-financial-time-series
+    url: https://github.com/frizchar/phase-space-reconstruction-of-financial-time-series
+    description: >
+      applies low-pass filtering on historical data of stocks and then plots its phase space · From [committers.top Greece](https://committers.top/greece.html) (maintainer **frizchar**).
+
+  - title: automated-website-visits
+    url: https://github.com/frizchar/automated-website-visits
+    description: >
+      automated webiste visits using Selenium and GitHub workflows · From [committers.top Greece](https://committers.top/greece.html) (maintainer **frizchar**).
+
+  - title: gnome-shell-quick-lang-switch
+    url: https://github.com/ankostis/gnome-shell-quick-lang-switch
+    description: >
+      Gnome-shell extension to quickly switch keyboard language layout (no switcher popup) · From [committers.top Greece](https://committers.top/greece.html) (maintainer **ankostis**).
+
+  - title: polyvers
+    url: https://github.com/ankostis/polyvers
+    description: >
+      Manage sub-project versions in Git monorepos independently · From [committers.top Greece](https://committers.top/greece.html) (maintainer **ankostis**).
+
+  - title: claude-code-guide
+    url: https://github.com/Cranot/claude-code-guide
+    description: >
+      The Complete Claude Code CLI Guide - Live & Auto-Updated Every 2 Days · From [committers.top Greece](https://committers.top/greece.html) (maintainer **Cranot**).
+
+  - title: roam-code
+    url: https://github.com/Cranot/roam-code
+    description: >
+      Architectural intelligence layer for AI coding agents. Structural graph, architecture governance, multi-agent orchestration, vulnerability mapping. 139 commands, 101 MCP tools, 26 languages, 100% local. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **Cranot**).
+
+  - title: Flutter-Movies-Application
+    url: https://github.com/esentis/Flutter-Movies-Application
+    description: >
+      A movies application made with Flutter / Dart. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **esentis**).
+
+  - title: load switch
+    url: https://github.com/esentis/load_switch
+    description: >
+      A highly customizable toggle switch with a loading state. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **esentis**).
+
+  - title: LWJGL-FX
+    url: https://github.com/Spasi/LWJGL-FX
+    description: >
+      LWJGL-JavaFX integration demo · From [committers.top Greece](https://committers.top/greece.html) (maintainer **Spasi**).
+
+  - title: JDK-8229895
+    url: https://github.com/Spasi/JDK-8229895
+    description: >
+      Benchmark for https://bugs.openjdk.java.net/browse/JDK-8229895 · From [committers.top Greece](https://committers.top/greece.html) (maintainer **Spasi**).
+
+  - title: Farkle
+    url: https://github.com/teo-tsirpanis/Farkle
+    description: >
+      LALR parser combinators for C# and F#. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **teo-tsirpanis**).
+
+  - title: Covarsky
+    url: https://github.com/teo-tsirpanis/Covarsky
+    description: >
+      Enabling co(ntra)variance in F# types · From [committers.top Greece](https://committers.top/greece.html) (maintainer **teo-tsirpanis**).
+
+  - title: Phishing-emails-GAN
+    url: https://github.com/Vaggelis-Arg/Phishing-emails-GAN
+    description: >
+      This repository contains the project I developed for the Machine Learning Security course (Cybersecurity Master’s Degree) at Sapienza University of Rome during my Erasmus semester. The full notebook is available on Kaggle: https://www.kaggle.com/code/vaggelisarg13/phishing-emails-gan · From [committers.top Greece](https://committers.top/greece.html) (maintainer **Vaggelis-Arg**).
+
+  - title: beconnected
+    url: https://github.com/Vaggelis-Arg/beconnected
+    description: >
+      Full-Stack Implementation of a Professional Networking App with Spring Boot, MySQL and React · From [committers.top Greece](https://committers.top/greece.html) (maintainer **Vaggelis-Arg**).
+
+  - title: SnipServe
+    url: https://github.com/spkal01/SnipServe
+    description: >
+      A modern paste service made using react and flask · From [committers.top Greece](https://committers.top/greece.html) (maintainer **spkal01**).
+
+  - title: snipserve-cli
+    url: https://github.com/spkal01/snipserve-cli
+    description: >
+      A cli made in python that utilizes the api of the snipserve platform i have made · From [committers.top Greece](https://committers.top/greece.html) (maintainer **spkal01**).
+
+  - title: home-on-k8s
+    url: https://github.com/gsaslis/home-on-k8s
+    description: >
+      A privacy-focused smart home setup, on a k3s-powered raspberry pi cluster. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **gsaslis**).
+
+  - title: greek-names-in-software
+    url: https://github.com/gsaslis/greek-names-in-software
+    description: >
+      This is a repo aimed to keep a list of all the different kinds of software projects whose names have a Greek origin. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **gsaslis**).
+
+  - title: hmk
+    url: https://github.com/mboes/hmk
+    description: >
+      A pure Haskell implementation of Plan9's mk · From [committers.top Greece](https://committers.top/greece.html) (maintainer **mboes**).
+
+  - title: cassette
+    url: https://github.com/mboes/cassette
+    description: >
+      Define a parser. Play it in reverse to get a pretty printer. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **mboes**).
+
+  - title: terminals-are-sexy
+    url: https://github.com/k4m4/terminals-are-sexy
+    description: >
+      💥 A curated list of Terminal frameworks, plugins & resources for CLI lovers. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **k4m4**).
+
+  - title: movies-for-hackers
+    url: https://github.com/k4m4/movies-for-hackers
+    description: >
+      🎬 A curated list of movies every hacker & cyberpunk must watch. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **k4m4**).
+
+  - title: clj2nix
+    url: https://github.com/hlolli/clj2nix
+    description: >
+      Convert deps.edn to a nix expression · From [committers.top Greece](https://committers.top/greece.html) (maintainer **hlolli**).
+
+  - title: csound-mode
+    url: https://github.com/hlolli/csound-mode
+    description: >
+      Emacs major mode for coding in Csound · From [committers.top Greece](https://committers.top/greece.html) (maintainer **hlolli**).
+
+  - title: pyspodl
+    url: https://github.com/devlocalhost/pyspodl
+    description: >
+      pyspodl - a spotify downloader using librespot · From [committers.top Greece](https://committers.top/greece.html) (maintainer **devlocalhost**).
+
+  - title: sysmon
+    url: https://github.com/devlocalhost/sysmon
+    description: >
+      sysmon, a system monitor ready to use · From [committers.top Greece](https://committers.top/greece.html) (maintainer **devlocalhost**).
+
+  - title: mseg
+    url: https://github.com/kalxas/mseg
+    description: >
+      Mseg is a generic region-based multi-scale image segmentation algorithm designed with some optimizations for remote sensing imagery. The algorithm can be used as a low level processing part of an object-oriented image analysis system. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **kalxas**).
+
+  - title: cvAML
+    url: https://github.com/kalxas/cvAML
+    description: >
+      This library is an implementation of the Anisotropic Morphological Leveling algorithm for Remote Sensing Imagery using the OpenCV library. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **kalxas**).
+
+  - title: loukia-v2
+    url: https://github.com/Giannisduke/loukia-v2
+    description: >
+      Custom Wordpress theme based on Sage 8.6 · From [committers.top Greece](https://committers.top/greece.html) (maintainer **Giannisduke**).
+
+  - title: coolcars
+    url: https://github.com/Giannisduke/coolcars
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **Giannisduke**).
+
+  - title: checkstyle-android
+    url: https://github.com/hypest/checkstyle-android
+    description: >
+      Checkstyle config to match the Android code style guidelines · From [committers.top Greece](https://committers.top/greece.html) (maintainer **hypest**).
+
+  - title: ipcamAlarmPebble
+    url: https://github.com/hypest/ipcamAlarmPebble
+    description: >
+      Toggle the email alarm in your foscam ip camera. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **hypest**).
+
+  - title: ReleaseNotes
+    url: https://github.com/micbakos/ReleaseNotes
+    description: >
+      An automated script that compiles a list of release notes taken from pull requests and linking them with an issue tracker. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **micbakos**).
+
+  - title: FloatingMap
+    url: https://github.com/micbakos/FloatingMap
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **micbakos**).
+
+  - title: aislib
+    url: https://github.com/andmarios/aislib
+    description: >
+      A golang library to parse AIS sentences and decode AIS messages · From [committers.top Greece](https://committers.top/greece.html) (maintainer **andmarios**).
+
+  - title: bashistdb
+    url: https://github.com/andmarios/bashistdb
+    description: >
+      Bashistdb saves and retrieves your bash history into a local or remote SQLite database. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **andmarios**).
+
+  - title: essentials-for-spotify
+    url: https://github.com/ntanis-dev/essentials-for-spotify
+    description: >
+      Effortlessly control your Spotify through your Elgato Stream Deck. A Spotify Premium account is required to use this plugin. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **ntanis-dev**).
+
+  - title: terminal-slot
+    url: https://github.com/ntanis-dev/terminal-slot
+    description: >
+      A terminal adaptation of Amatic's "Hot Scatter" slot. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **ntanis-dev**).
+
+  - title: barcode-scanner
+    url: https://github.com/georapbox/barcode-scanner
+    description: >
+      A Progressive Web Application (PWA) that scans barcodes of various formats, using the Barcode Detection API. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **georapbox**).
+
+  - title: meme-generator
+    url: https://github.com/georapbox/meme-generator
+    description: >
+      A Progressive Web App (PWA) for creating memes. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **georapbox**).
+
+  - title: IPGeoLocation
+    url: https://github.com/maldevel/IPGeoLocation
+    description: >
+      Retrieve IP Geolocation information · From [committers.top Greece](https://committers.top/greece.html) (maintainer **maldevel**).
+
+  - title: EmailHarvester
+    url: https://github.com/maldevel/EmailHarvester
+    description: >
+      Email addresses harvester · From [committers.top Greece](https://committers.top/greece.html) (maintainer **maldevel**).
+
+  - title: cf step
+    url: https://github.com/dpoulopoulos/cf_step
+    description: >
+      Incremental learning for recommender systems · From [committers.top Greece](https://committers.top/greece.html) (maintainer **dpoulopoulos**).
+
+  - title: deep animator
+    url: https://github.com/dpoulopoulos/deep_animator
+    description: >
+      Image animation given a driving video sequence and a source image. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **dpoulopoulos**).
+
+  - title: PawnBit
+    url: https://github.com/PanagiotisIatrou/PawnBit
+    description: >
+      A bot for chess.com and lichess.org that automatically plays chess for you · From [committers.top Greece](https://committers.top/greece.html) (maintainer **PanagiotisIatrou**).
+
+  - title: VelociFlow
+    url: https://github.com/PanagiotisIatrou/VelociFlow
+    description: >
+      CFD solver for the 2D incompressible Navier-Stokes equations · From [committers.top Greece](https://committers.top/greece.html) (maintainer **PanagiotisIatrou**).
+
+  - title: personal-jekyll-theme
+    url: https://github.com/le4ker/personal-jekyll-theme
+    description: >
+      { Personal } Jekyll theme · From [committers.top Greece](https://committers.top/greece.html) (maintainer **le4ker**).
+
+  - title: linux-kernel-security-suite
+    url: https://github.com/le4ker/linux-kernel-security-suite
+    description: >
+      :penguin: A collection of linux kernel modules that harden the kernel · From [committers.top Greece](https://committers.top/greece.html) (maintainer **le4ker**).
+
+  - title: pick
+    url: https://github.com/moukoublen/pick
+    description: >
+      Go package for accessing (using dot and array notation) and converting any kind of data. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **moukoublen**).
+
+  - title: dotfiles
+    url: https://github.com/moukoublen/dotfiles
+    description: >
+      bash dotfiles and scripts · From [committers.top Greece](https://committers.top/greece.html) (maintainer **moukoublen**).
+
+  - title: a-minimum-viable-business-plan
+    url: https://github.com/ntemposd/a-minimum-viable-business-plan
+    description: >
+      📃 An example startup business plan. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **ntemposd**).
+
+  - title: professional-services-website
+    url: https://github.com/ntemposd/professional-services-website
+    description: >
+      Responsive Website for selling Professional Services · From [committers.top Greece](https://committers.top/greece.html) (maintainer **ntemposd**).
+
+  - title: aaaooo
+    url: https://github.com/martzoukos/aaaooo
+    description: >
+      A child's game where you just see what you type on the screen, in big type. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **martzoukos**).
+
+  - title: Pane3D
+    url: https://github.com/martzoukos/Pane3D
+    description: >
+      Pane3D is a jQuery plugin that creates a zoomable three dimensional interface from a simple HTML structure. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **martzoukos**).
+
+  - title: MiFlash-for-Mac
+    url: https://github.com/Somnius/MiFlash-for-Mac
+    description: >
+      MiFlash for Mac OS · From [committers.top Greece](https://committers.top/greece.html) (maintainer **Somnius**).
+
+  - title: virt-spinner
+    url: https://github.com/Somnius/virt-spinner
+    description: >
+      A TUI Libvirt VM Manager · From [committers.top Greece](https://committers.top/greece.html) (maintainer **Somnius**).
+
+  - title: MiKey
+    url: https://github.com/lvrach/MiKey
+    description: >
+      MiKey is a minimal and modular Linux keylogger. It provides a toolkit that monitors and records all activities performed on a computer. It makes use of the Xlib. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **lvrach**).
+
+  - title: mimid
+    url: https://github.com/lvrach/mimid
+    description: >
+      HTTP Mocking go library · From [committers.top Greece](https://committers.top/greece.html) (maintainer **lvrach**).
+
+  - title: QR-Code-componet--Frontend-Mentor-Challenge-FLEX
+    url: https://github.com/MichaelKanios/QR-Code-componet--Frontend-Mentor-Challenge-FLEX
+    description: >
+      Qr Code component · From [committers.top Greece](https://committers.top/greece.html) (maintainer **MichaelKanios**).
+
+  - title: Higher
+    url: https://github.com/palladin/Higher
+    description: >
+      A lightweight library of abstractions for Higher-kinded programming in F# · From [committers.top Greece](https://committers.top/greece.html) (maintainer **palladin**).
+
+  - title: Eff
+    url: https://github.com/palladin/Eff
+    description: >
+      A library for programming with Algebraic Effects in F# · From [committers.top Greece](https://committers.top/greece.html) (maintainer **palladin**).
+
+  - title: PL2
+    url: https://github.com/zoep/PL2
+    description: >
+      Course Material for "Programming Languages II" · From [committers.top Greece](https://committers.top/greece.html) (maintainer **zoep**).
+
+  - title: jebus
+    url: https://github.com/zoep/jebus
+    description: >
+      The Jebus Lambda Calculus Interpreter · From [committers.top Greece](https://committers.top/greece.html) (maintainer **zoep**).
+
+  - title: demo-percona-operator-mysql-opentaco
+    url: https://github.com/gkech/demo-percona-operator-mysql-opentaco
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **gkech**).
+
+  - title: A-Parallel-Algorithm-for-Tracking-Dynamic-Communities-Flink
+    url: https://github.com/gkech/A-Parallel-Algorithm-for-Tracking-Dynamic-Communities-Flink
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **gkech**).
+
+  - title: workout-tracker
+    url: https://github.com/edisleka/workout-tracker
+    description: >
+      AI Workout Tracker with React Native & EXPO, Nativewind, Expo API, Typescript, Clerk, Sanity and OpenAI · From [committers.top Greece](https://committers.top/greece.html) (maintainer **edisleka**).
+
+  - title: next14-navbar
+    url: https://github.com/edisleka/next14-navbar
+    description: >
+      Next.js navbar with active links using usePathname() hook. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **edisleka**).
+
+  - title: SwiftUIWebSockets
+    url: https://github.com/angelosstampoulisgithub/SwiftUIWebSockets
+    description: >
+      I made this simple iOS app in SwiftUI to show how someone can use websockets in SwiftUI app · From [committers.top Greece](https://committers.top/greece.html) (maintainer **angelosstampoulisgithub**).
+
+  - title: Objective-C-MachineLearningDemo
+    url: https://github.com/angelosstampoulisgithub/Objective-C-MachineLearningDemo
+    description: >
+      I made this simple iOS app in Objective C to show how someone can use Machine Learning in iOS app with Objective C · From [committers.top Greece](https://committers.top/greece.html) (maintainer **angelosstampoulisgithub**).
+
+  - title: linkerscript.tmbundle
+    url: https://github.com/VisualEhrmanntraut/linkerscript.tmbundle
+    description: >
+      TextMate bundle for GNU Linker Script · From [committers.top Greece](https://committers.top/greece.html) (maintainer **VisualEhrmanntraut**).
+
+  - title: AstroEmbedAutoimportError
+    url: https://github.com/VisualEhrmanntraut/AstroEmbedAutoimportError
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **VisualEhrmanntraut**).
+
+  - title: iOS-WiFi
+    url: https://github.com/ipinak/iOS-WiFi
+    description: >
+      This is library for utilizing the WiFi card of the iOS devices, for versions 4.x-5.x · From [committers.top Greece](https://committers.top/greece.html) (maintainer **ipinak**).
+
+  - title: awesome-podcasts
+    url: https://github.com/ipinak/awesome-podcasts
+    description: >
+      A curated list of podcasts for all kinds of subjects. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **ipinak**).
+
+  - title: replayer
+    url: https://github.com/kx0101/replayer
+    description: >
+      HTTP request replay and comparison tool in Rust. Replay real traffic, compare multiple environments, detect broken endpoints, generate HTML/JSON reports, and analyze latency · From [committers.top Greece](https://committers.top/greece.html) (maintainer **kx0101**).
+
+  - title: Job-Seeking
+    url: https://github.com/kx0101/Job-Seeking
+    description: >
+      React native simple application for learning purposes. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **kx0101**).
+
+  - title: javascript.gr
+    url: https://github.com/adreaskar/javascript.gr
+    description: >
+      🇬🇷 A greek guide for JavaScript · From [committers.top Greece](https://committers.top/greece.html) (maintainer **adreaskar**).
+
+  - title: covid19-tracker
+    url: https://github.com/adreaskar/covid19-tracker
+    description: >
+      🔬 A simple app that tracks Covid-19 stats for any given country. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **adreaskar**).
+
+  - title: 30-seconds-of-code
+    url: https://github.com/Chalarangelo/30-seconds-of-code
+    description: >
+      Coding articles to level up your development skills · From [committers.top Greece](https://committers.top/greece.html) (maintainer **Chalarangelo**).
+
+  - title: 30-seconds-of-css
+    url: https://github.com/Chalarangelo/30-seconds-of-css
+    description: >
+      Short CSS code snippets for all your development needs · From [committers.top Greece](https://committers.top/greece.html) (maintainer **Chalarangelo**).
+
+  - title: collectd transmission
+    url: https://github.com/akosiaris/collectd_transmission
+    description: >
+      A collectd python plugin for getting statistics from transmission · From [committers.top Greece](https://committers.top/greece.html) (maintainer **akosiaris**).
+
+  - title: packer-slackware
+    url: https://github.com/akosiaris/packer-slackware
+    description: >
+      A template for packing a slackware vagrant box using packer · From [committers.top Greece](https://committers.top/greece.html) (maintainer **akosiaris**).
+
+  - title: deep-audio-fingerprinting
+    url: https://github.com/ChrisNick92/deep-audio-fingerprinting
+    description: >
+      A repository for my MSc thesis in Data Science & Machine Learning @ NTUA. A deep learning approach to audio fingerprinting for recognizing songs on real time through the microphone. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **ChrisNick92**).
+
+  - title: Geospatial-Data
+    url: https://github.com/ChrisNick92/Geospatial-Data
+    description: >
+      Course in Geospatial Data Analysis - Labs · From [committers.top Greece](https://committers.top/greece.html) (maintainer **ChrisNick92**).
+
+  - title: flumina
+    url: https://github.com/angelhof/flumina
+    description: >
+      A parallel programming model for online applications with complex synchronization requirements. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **angelhof**).
+
+  - title: penn-cis673-hw-dafny
+    url: https://github.com/angelhof/penn-cis673-hw-dafny
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **angelhof**).
+
+  - title: devicons
+    url: https://github.com/vorillaz/devicons
+    description: >
+      Devicons - An iconic font made for developers · From [committers.top Greece](https://committers.top/greece.html) (maintainer **vorillaz**).
+
+  - title: raycast-page-speed
+    url: https://github.com/vorillaz/raycast-page-speed
+    description: >
+      A simple Raycast application to monitor PageSpeed Insights. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **vorillaz**).
+
+  - title: toxic spans
+    url: https://github.com/ipavlopoulos/toxic_spans
+    description: >
+      Detect toxic spans in toxic texts · From [committers.top Greece](https://committers.top/greece.html) (maintainer **ipavlopoulos**).
+
+  - title: context toxicity
+    url: https://github.com/ipavlopoulos/context_toxicity
+    description: >
+      Toxicity Detection in Context: Assuming that the comment exists in a thread and that the parent comment or/and the discussion topic are enough context provided to humans/systems detecting toxicity. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **ipavlopoulos**).
+
+  - title: GNU-poke
+    url: https://github.com/kchasialis/GNU-poke
+    description: >
+      GNU poke is an interactive, extensible editor for binary data. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **kchasialis**).
+
+  - title: QtMips-Di
+    url: https://github.com/kchasialis/QtMips-Di
+    description: >
+      Bachelor Thesis Project: Extended MIPS-Assembly Simulator with to include L1/L2 Caches and Branch Predictor · From [committers.top Greece](https://committers.top/greece.html) (maintainer **kchasialis**).
+
+  - title: cf7-react-intro
+    url: https://github.com/DamMarin/cf7-react-intro
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **DamMarin**).
+
+  - title: cf8-react-intro
+    url: https://github.com/DamMarin/cf8-react-intro
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **DamMarin**).
+
+  - title: EAPDocs
+    url: https://github.com/ikiranis/EAPDocs
+    description: >
+      Βοηθητικό Υλικό για την ΠΛΗ του Ελληνικού Ανοιχτού Πανεπιστήμιου · From [committers.top Greece](https://committers.top/greece.html) (maintainer **ikiranis**).
+
+  - title: blog-static
+    url: https://github.com/ikiranis/blog-static
+    description: >
+      Create a static blog page, using Vue/Gridsome (for frontend) and Wordress (for backend) · From [committers.top Greece](https://committers.top/greece.html) (maintainer **ikiranis**).
+
+  - title: computers-gp
+    url: https://github.com/astratakis/computers-gp
+    description: >
+      A web application for ticketing and management of computers · From [committers.top Greece](https://committers.top/greece.html) (maintainer **astratakis**).
+
+  - title: shors-algorithm
+    url: https://github.com/astratakis/shors-algorithm
+    description: >
+      🔓The implementation of Shor's algorithm for breaking RSA encryption · From [committers.top Greece](https://committers.top/greece.html) (maintainer **astratakis**).
+
+  - title: AUTh-authenticator
+    url: https://github.com/neron-png/AUTh-authenticator
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **neron-png**).
+
+  - title: CSD-AUTH-Java-project-my-booking
+    url: https://github.com/neron-png/CSD-AUTH-Java-project-my-booking
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **neron-png**).
+
+  - title: Panda3DS
+    url: https://github.com/wheremyfoodat/Panda3DS
+    description: >
+      HLE 3DS emulator · From [committers.top Greece](https://committers.top/greece.html) (maintainer **wheremyfoodat**).
+
+  - title: Gameboy-logs
+    url: https://github.com/wheremyfoodat/Gameboy-logs
+    description: >
+      Emulation logs of common beginner ROMs for the Gameboy. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **wheremyfoodat**).
+
+  - title: colab collection
+    url: https://github.com/fzantalis/colab_collection
+    description: >
+      A collection of google colab notebooks · From [committers.top Greece](https://committers.top/greece.html) (maintainer **fzantalis**).
+
+  - title: gpt-discord-bot
+    url: https://github.com/fzantalis/gpt-discord-bot
+    description: >
+      Python implementation of a discord bot powered by gpt models · From [committers.top Greece](https://committers.top/greece.html) (maintainer **fzantalis**).
+
+  - title: Blazor Eshop Application
+    url: https://github.com/EvangeliaBi/Blazor_Eshop_Application
+    description: >
+      Mini e-shop web application developed with Blazor Server, ASP.NET Core, Entity Framework Core and PostgreSQL. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **EvangeliaBi**).
+
+  - title: Development-of-a-Simulation-and-Fleet-Management-System-Trucks-in-Java
+    url: https://github.com/EvangeliaBi/Development-of-a-Simulation-and-Fleet-Management-System-Trucks-in-Java
+    description: >
+      Enterprise-style Java application for logistics route simulation and profit optimization using MVC architecture. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **EvangeliaBi**).
+
+  - title: jsCalendar
+    url: https://github.com/GramThanos/jsCalendar
+    description: >
+      Just a simple javascript calendar · From [committers.top Greece](https://committers.top/greece.html) (maintainer **GramThanos**).
+
+  - title: WakeOnLAN
+    url: https://github.com/GramThanos/WakeOnLAN
+    description: >
+      A simple C program that sends a magic packet · From [committers.top Greece](https://committers.top/greece.html) (maintainer **GramThanos**).
+
+  - title: SyncTool
+    url: https://github.com/neoaggelos/SyncTool
+    description: >
+      A minimal file sync utility for Windows, Linux and Mac OS X · From [committers.top Greece](https://committers.top/greece.html) (maintainer **neoaggelos**).
+
+  - title: noobcash
+    url: https://github.com/neoaggelos/noobcash
+    description: >
+      Blockchain system created for my NTUA ECE Distributed Systems 2018-2019 course · From [committers.top Greece](https://committers.top/greece.html) (maintainer **neoaggelos**).
+
+  - title: AspNetOdata
+    url: https://github.com/stevsharp/AspNetOdata
+    description: >
+      How to Create a Simple Odata Server and use Simple.Odata.Client · From [committers.top Greece](https://committers.top/greece.html) (maintainer **stevsharp**).
+
+  - title: BlazorGrpcApp
+    url: https://github.com/stevsharp/BlazorGrpcApp
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **stevsharp**).
+
+  - title: ZHMModSDK
+    url: https://github.com/OrfeasZ/ZHMModSDK
+    description: >
+      A modding SDK for Hitman 3 · From [committers.top Greece](https://committers.top/greece.html) (maintainer **OrfeasZ**).
+
+  - title: Statman
+    url: https://github.com/OrfeasZ/Statman
+    description: >
+      Live statistics tracking for games · From [committers.top Greece](https://committers.top/greece.html) (maintainer **OrfeasZ**).
+
+  - title: cpu-miners
+    url: https://github.com/mariosk/cpu-miners
+    description: >
+      Shiba Inu Miner · From [committers.top Greece](https://committers.top/greece.html) (maintainer **mariosk**).
+
+  - title: AquaLine
+    url: https://github.com/mariosk/AquaLine
+    description: >
+      Visual C# project to use SYMBOL barcode scanner · From [committers.top Greece](https://committers.top/greece.html) (maintainer **mariosk**).
+
+  - title: TAS
+    url: https://github.com/nijoe1/TAS
+    description: >
+      TablelandAttestationService · From [committers.top Greece](https://committers.top/greece.html) (maintainer **nijoe1**).
+
+  - title: super-attestations
+    url: https://github.com/nijoe1/super-attestations
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **nijoe1**).
+
+  - title: grgov-mobile-search
+    url: https://github.com/vbanos/grgov-mobile-search
+    description: >
+      GRGOV Mobile Search · From [committers.top Greece](https://committers.top/greece.html) (maintainer **vbanos**).
+
+  - title: blogforever
+    url: https://github.com/vbanos/blogforever
+    description: >
+      blogforever repository, moved from http://invenio-software.org/repo/blogforever/ · From [committers.top Greece](https://committers.top/greece.html) (maintainer **vbanos**).
+
+  - title: PortfolioV1
+    url: https://github.com/GiwrgosGln/PortfolioV1
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **GiwrgosGln**).
+
+  - title: ExpoFit
+    url: https://github.com/GiwrgosGln/ExpoFit
+    description: >
+      A React Native Expo app to track and log your workouts. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **GiwrgosGln**).
+
+  - title: KSafe
+    url: https://github.com/ioannisa/KSafe
+    description: >
+      Meet KSafe. An Effortless Enterprise-Grade Encrypted key-value storage for Kotlin Multiplatform and Native Android with Hardware-Backed Security. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **ioannisa**).
+
+  - title: CameraX-Composable-Demo
+    url: https://github.com/ioannisa/CameraX-Composable-Demo
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **ioannisa**).
+
+  - title: EDUFLEX
+    url: https://github.com/GDimitroulakos/EDUFLEX
+    description: >
+      Another lexical analyzer generator for educational purposes · From [committers.top Greece](https://committers.top/greece.html) (maintainer **GDimitroulakos**).
+
+  - title: GraphLibrary
+    url: https://github.com/GDimitroulakos/GraphLibrary
+    description: >
+      Another Graph Library (AGL) for directed and undirected graphs · From [committers.top Greece](https://committers.top/greece.html) (maintainer **GDimitroulakos**).
+
+  - title: galactica-bot
+    url: https://github.com/jebediah47/galactica-bot
+    description: >
+      An open-source Discord bot made with Typescript using the Discord.js v14 library. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **jebediah47**).
+
+  - title: galactica-bot-docs
+    url: https://github.com/jebediah47/galactica-bot-docs
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **jebediah47**).
+
+  - title: wtfiles
+    url: https://github.com/petrosagg/wtfiles
+    description: >
+      Files that make you go WTF! · From [committers.top Greece](https://committers.top/greece.html) (maintainer **petrosagg**).
+
+  - title: armv7hf-python-dockerhub
+    url: https://github.com/petrosagg/armv7hf-python-dockerhub
+    description: >
+      ARM docker image that builds python from source on dockerhub · From [committers.top Greece](https://committers.top/greece.html) (maintainer **petrosagg**).
+
+  - title: Kippo-ansible
+    url: https://github.com/Erethon/Kippo-ansible
+    description: >
+      An Ansible playbook to deploy Kippo on multiple hosts · From [committers.top Greece](https://committers.top/greece.html) (maintainer **Erethon**).
+
+  - title: reticulum-packet-rs
+    url: https://github.com/Erethon/reticulum-packet-rs
+    description: >
+      Library to parse Reticulum packets in Rust · From [committers.top Greece](https://committers.top/greece.html) (maintainer **Erethon**).
+
+  - title: femto
+    url: https://github.com/agorf/femto
+    description: >
+      A toy text editor with no dependencies written in Ruby · From [committers.top Greece](https://committers.top/greece.html) (maintainer **agorf**).
+
+  - title: jot
+    url: https://github.com/agorf/jot
+    description: >
+      Command-line note-taking for minimalists · From [committers.top Greece](https://committers.top/greece.html) (maintainer **agorf**).
+
+  - title: client
+    url: https://github.com/jafarimurtaza/client
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **jafarimurtaza**).
+
+  - title: Game
+    url: https://github.com/jafarimurtaza/Game
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **jafarimurtaza**).
+
+  - title: react-native-style-libraries-benchmark
+    url: https://github.com/efstathiosntonas/react-native-style-libraries-benchmark
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **efstathiosntonas**).
+
+  - title: react-native-nested-comments-with-lines
+    url: https://github.com/efstathiosntonas/react-native-nested-comments-with-lines
+    description: >
+      React Native Nested/Thread Comments with line indicators, collapse views with Reanimated 4 and draw lines with react-native-svg · From [committers.top Greece](https://committers.top/greece.html) (maintainer **efstathiosntonas**).
+
+  - title: gl3dv
+    url: https://github.com/glls/gl3dv
+    description: >
+      A 3D mesh viewer based on Coin3d · From [committers.top Greece](https://committers.top/greece.html) (maintainer **glls**).
+
+  - title: typhon
+    url: https://github.com/glls/typhon
+    description: >
+      Typhon - Interactive video to text converter · From [committers.top Greece](https://committers.top/greece.html) (maintainer **glls**).
+
+  - title: rock-paper-scissors
+    url: https://github.com/gprok/rock-paper-scissors
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **gprok**).
+
+  - title: game of life
+    url: https://github.com/gprok/game_of_life
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **gprok**).
+
+  - title: Tweety
+    url: https://github.com/tkouleris/Tweety
+    description: >
+      Completed: Twitter clone in Spring Boot. Allows user creation, user can follow another user, tweet and comment. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **tkouleris**).
+
+  - title: tkouleris
+    url: https://github.com/tkouleris/tkouleris
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **tkouleris**).
+
+  - title: bicep-docs
+    url: https://github.com/christosgalano/bicep-docs
+    description: >
+      bicep-docs is a command-line tool that generates documentation for Bicep templates. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **christosgalano**).
+
+  - title: sKaleQL
+    url: https://github.com/christosgalano/sKaleQL
+    description: >
+      sKaleQL is an opinionated template repository for managing, executing, and organizing Kusto Query Language (KQL) queries against Azure Log Analytics Workspaces. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **christosgalano**).
+
+  - title: PSXemu
+    url: https://github.com/raphaelthegreat/PSXemu
+    description: >
+      An experimental Playstation emulator · From [committers.top Greece](https://committers.top/greece.html) (maintainer **raphaelthegreat**).
+
+  - title: android device nokia nb1
+    url: https://github.com/raphaelthegreat/android_device_nokia_nb1
+    description: >
+      An attempt to make a functional Nokia 8 device tree for rom building · From [committers.top Greece](https://committers.top/greece.html) (maintainer **raphaelthegreat**).
+
+  - title: rickychilcott.github.io
+    url: https://github.com/rickychilcott/rickychilcott.github.io
+    description: >
+      rickychilcott.com · From [committers.top Greece](https://committers.top/greece.html) (maintainer **rickychilcott**).
+
+  - title: agribuddy-client
+    url: https://github.com/rickychilcott/agribuddy-client
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **rickychilcott**).
+
+  - title: bmak-tools
+    url: https://github.com/sneakykiwi/bmak-tools
+    description: >
+      Contains many helper functions to help you generate Akamai cookies, also includes challenge solver · From [committers.top Greece](https://committers.top/greece.html) (maintainer **sneakykiwi**).
+
+  - title: supreme-monitor
+    url: https://github.com/sneakykiwi/supreme-monitor
+    description: >
+      Made by Kiwi#4114 · From [committers.top Greece](https://committers.top/greece.html) (maintainer **sneakykiwi**).
+
+  - title: gowall
+    url: https://github.com/Achno/gowall
+    description: >
+      A tool to convert a Wallpaper's color scheme / palette, OCR with VLM's Traditional & Hybrid, Image Compression ,color palette extraction, image upsacling with Adversarial Networks and more image processing features. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **Achno**).
+
+  - title: gocheat
+    url: https://github.com/Achno/gocheat
+    description: >
+      A beautiful customizable TUI Cheatsheet for keybindings,hotkeys and more in the terminal · From [committers.top Greece](https://committers.top/greece.html) (maintainer **Achno**).
+
+  - title: django-generic-scaffold
+    url: https://github.com/spapas/django-generic-scaffold
+    description: >
+      Quick generation of CRUD generic views for django! · From [committers.top Greece](https://committers.top/greece.html) (maintainer **spapas**).
+
+  - title: pdf-sign-check
+    url: https://github.com/spapas/pdf-sign-check
+    description: >
+      A java / spring boot application to help you sign and check signed pdf documents · From [committers.top Greece](https://committers.top/greece.html) (maintainer **spapas**).
+
+  - title: awesome-var
+    url: https://github.com/kvasilopoulos/awesome-var
+    description: >
+      A curated list of Vector Autoregression resources · From [committers.top Greece](https://committers.top/greece.html) (maintainer **kvasilopoulos**).
+
+  - title: exuber
+    url: https://github.com/kvasilopoulos/exuber
+    description: >
+      Econometric Analysis of Explosive Time Series · From [committers.top Greece](https://committers.top/greece.html) (maintainer **kvasilopoulos**).
+
+  - title: irix-657m-src
+    url: https://github.com/calmsacibis995/irix-657m-src
+    description: >
+      The IRIX 6.5.7m source code. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **calmsacibis995**).
+
+  - title: svr4-src
+    url: https://github.com/calmsacibis995/svr4-src
+    description: >
+      The UNIX System V Release 4 source code (i386) · From [committers.top Greece](https://committers.top/greece.html) (maintainer **calmsacibis995**).
+
+  - title: xsdata
+    url: https://github.com/tefra/xsdata
+    description: >
+      Naive XML & JSON Bindings for python · From [committers.top Greece](https://committers.top/greece.html) (maintainer **tefra**).
+
+  - title: navgoco
+    url: https://github.com/tefra/navgoco
+    description: >
+      Multi-level slide navigation with session storage and accordion effect for JQuery · From [committers.top Greece](https://committers.top/greece.html) (maintainer **tefra**).
+
+  - title: kdk memcached object cache
+    url: https://github.com/fevangelou/kdk_memcached_object_cache
+    description: >
+      Object cache driver for Memcached in WordPress (based on Memcached Redux) · From [committers.top Greece](https://committers.top/greece.html) (maintainer **fevangelou**).
+
+  - title: kdk fill it up
+    url: https://github.com/fevangelou/kdk_fill_it_up
+    description: >
+      Use Fill It Up in WordPress to mass generate content & users. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **fevangelou**).
+
+  - title: move-zed-extension
+    url: https://github.com/Tzal3x/move-zed-extension
+    description: >
+      Extension to add Move-lang support for Zed. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **Tzal3x**).
+
+  - title: job-tracker
+    url: https://github.com/Tzal3x/job-tracker
+    description: >
+      A program that tracks applications while job hunting. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **Tzal3x**).
+
+  - title: vathmologio
+    url: https://github.com/meter-peter/vathmologio
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **meter-peter**).
+
+  - title: pasc320 parser-lexer
+    url: https://github.com/meter-peter/pasc320_parser-lexer
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **meter-peter**).
+
+  - title: squid-deb-proxy
+    url: https://github.com/pmoust/squid-deb-proxy
+    description: >
+      Docker image of a generic squid-deb-proxy server - Use in your local organisation / LAN · From [committers.top Greece](https://committers.top/greece.html) (maintainer **pmoust**).
+
+  - title: s3s3mirror-docker
+    url: https://github.com/pmoust/s3s3mirror-docker
+    description: >
+      A docker executable to mirror an S3 bucker to another. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **pmoust**).
+
+  - title: Satellite-Imagery-Datasets-Containing-Ships
+    url: https://github.com/jasonmanesis/Satellite-Imagery-Datasets-Containing-Ships
+    description: >
+      This repository provides a comprehensive list of radar and optical satellite datasets curated for ship detection, classification, semantic segmentation, and instance segmentation tasks. These datasets are ideal for applications in computer vision, machine learning, remote sensing, and maritime analysis. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **jasonmanesis**).
+
+  - title: Ship-Detection-on-Remote-Sensing-Synthetic-Aperture-Radar-Data
+    url: https://github.com/jasonmanesis/Ship-Detection-on-Remote-Sensing-Synthetic-Aperture-Radar-Data
+    description: >
+      Maritime vessel detection from remote sensing SAR data, based on the architectures of the Faster-RCNN and YOLOv5 networks. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **jasonmanesis**).
+
+  - title: notes
+    url: https://github.com/CSpyridakis/notes
+    description: >
+      A personal collection of notes/scripts, collected during the years, regarding different technologies and tools. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **CSpyridakis**).
+
+  - title: homelab
+    url: https://github.com/CSpyridakis/homelab
+    description: >
+      Homelab project is an on-premises infrastructure that accommodates the networks and devices I use for experimenting with new technologies or providing private and self-hosted services. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **CSpyridakis**).
+
+  - title: artie
+    url: https://github.com/milouk/artie
+    description: >
+      Art Scraper for Anbernic Devices · From [committers.top Greece](https://committers.top/greece.html) (maintainer **milouk**).
+
+  - title: docker-smb-opl
+    url: https://github.com/milouk/docker-smb-opl
+    description: >
+      This repo contains a Dockerized Samba Server for Open PlayStation Loader · From [committers.top Greece](https://committers.top/greece.html) (maintainer **milouk**).
+
+  - title: with
+    url: https://github.com/wallymathieu/with
+    description: >
+      Extensions and classes to make immutable c# easier to use. Obsolete with introduction of records in C# 9. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **wallymathieu**).
+
+  - title: isop
+    url: https://github.com/wallymathieu/isop
+    description: >
+      Isop is the swedish name for hyssop. Like any spice it is intended to give flavor to the development of command line apps. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **wallymathieu**).
+
+  - title: smpe
+    url: https://github.com/andreaskontogiannis/smpe
+    description: >
+      [ICML 2025] Official Code of SMPE: "Enhancing Cooperative Multi-Agent Reinforcement Learning with State Modelling and Adversarial Exploration" · From [committers.top Greece](https://committers.top/greece.html) (maintainer **andreaskontogiannis**).
+
+  - title: tres
+    url: https://github.com/andreaskontogiannis/tres
+    description: >
+      Official code implementation of "Tree-based Focused Web Crawling with Reinforcement Learning" and the TRES framework · From [committers.top Greece](https://committers.top/greece.html) (maintainer **andreaskontogiannis**).
+
+  - title: evm-bytecode-datasets
+    url: https://github.com/sifislag/evm-bytecode-datasets
+    description: >
+      A collection of EVM smartcontract datasets (in bytecode form) · From [committers.top Greece](https://committers.top/greece.html) (maintainer **sifislag**).
+
+  - title: doop-output-functor
+    url: https://github.com/sifislag/doop-output-functor
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **sifislag**).
+
+  - title: htaccess-rules
+    url: https://github.com/kanenas/htaccess-rules
+    description: >
+      Various .htaccess rules · From [committers.top Greece](https://committers.top/greece.html) (maintainer **kanenas**).
+
+  - title: web-page-password-protect
+    url: https://github.com/kanenas/web-page-password-protect
+    description: >
+      Web Page Password Protect · From [committers.top Greece](https://committers.top/greece.html) (maintainer **kanenas**).
+
+  - title: enet-keras
+    url: https://github.com/PavlosMelissinos/enet-keras
+    description: >
+      A keras implementation of ENet (abandoned for the foreseeable future) · From [committers.top Greece](https://committers.top/greece.html) (maintainer **PavlosMelissinos**).
+
+  - title: henry
+    url: https://github.com/PavlosMelissinos/henry
+    description: >
+      A declarative generator of task dependency graphs and gantt charts, written in Clojure. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **PavlosMelissinos**).
+
+  - title: sylphis3d
+    url: https://github.com/harkal/sylphis3d
+    description: >
+      The source code to the Sylphis3D game engine · From [committers.top Greece](https://committers.top/greece.html) (maintainer **harkal**).
+
+  - title: picovm
+    url: https://github.com/harkal/picovm
+    description: >
+      picoVM is a fully featured, minimal footprint, VM for embedded devices. Written in pure C for maximum efficiency and portability. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **harkal**).
+
+  - title: patron
+    url: https://github.com/mantzas/patron
+    description: >
+      Go microservice framework · From [committers.top Greece](https://committers.top/greece.html) (maintainer **mantzas**).
+
+  - title: incata
+    url: https://github.com/mantzas/incata
+    description: >
+      Event Sourcing Data Access Library · From [committers.top Greece](https://committers.top/greece.html) (maintainer **mantzas**).
+
+  - title: Auction-Website
+    url: https://github.com/themisvaltinos/Auction-Website
+    description: >
+      Full Stack e-commerce app built with Express, Node.js, MySQL and React · From [committers.top Greece](https://committers.top/greece.html) (maintainer **themisvaltinos**).
+
+  - title: Partitioned-Hash-Join
+    url: https://github.com/themisvaltinos/Partitioned-Hash-Join
+    description: >
+      Multithreaded implementation of the partitioned hash join algorithm for an in-memory columnar database · From [committers.top Greece](https://committers.top/greece.html) (maintainer **themisvaltinos**).
+
+  - title: nvsmi
+    url: https://github.com/pmav99/nvsmi
+    description: >
+      A (user-)friendly wrapper to nvdia-smi · From [committers.top Greece](https://committers.top/greece.html) (maintainer **pmav99**).
+
+  - title: interpolation
+    url: https://github.com/pmav99/interpolation
+    description: >
+      A python package containing classes for (linear and bilinear) interpolation · From [committers.top Greece](https://committers.top/greece.html) (maintainer **pmav99**).
+
+  - title: twrp device xiaomi cannon
+    url: https://github.com/LinkBoi00/twrp_device_xiaomi_cannon
+    description: >
+      TWRP device tree for the Redmi Note 9(T) 5G · From [committers.top Greece](https://committers.top/greece.html) (maintainer **LinkBoi00**).
+
+  - title: android vendor extra
+    url: https://github.com/LinkBoi00/android_vendor_extra
+    description: >
+      Personal extra bits for my LineageOS builds · From [committers.top Greece](https://committers.top/greece.html) (maintainer **LinkBoi00**).
+
+  - title: supply-tracer-parser
+    url: https://github.com/ziogaschr/supply-tracer-parser
+    description: >
+      Calculates total supply using geth's supply traces · From [committers.top Greece](https://committers.top/greece.html) (maintainer **ziogaschr**).
+
+  - title: bottle-memcache-decorator
+    url: https://github.com/ziogaschr/bottle-memcache-decorator
+    description: >
+      Adds a memcache decorator in your Bottle application. It automatically stores the route result to memcache for routes where the bottle-memcache plugin is enabled. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **ziogaschr**).
+
+  - title: CS-polito
+    url: https://github.com/NikosDelijohn/CS-polito
+    description: >
+      Solutions for the laboratory sessions of the first year undergraduate course "Computer Sciences" @ Politecnico di Torino · From [committers.top Greece](https://committers.top/greece.html) (maintainer **NikosDelijohn**).
+
+  - title: Tethorax
+    url: https://github.com/NikosDelijohn/Tethorax
+    description: >
+      RISC V 32 bit Base ISA Implementation. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **NikosDelijohn**).
+
+  - title: uLA
+    url: https://github.com/tsirif/uLA
+    description: >
+      Group Robust Classification Without Any Group Information · From [committers.top Greece](https://committers.top/greece.html) (maintainer **tsirif**).
+
+  - title: pandora-playground
+    url: https://github.com/tsirif/pandora-playground
+    description: >
+      Things concerning Pandora, but not very much :P · From [committers.top Greece](https://committers.top/greece.html) (maintainer **tsirif**).
+
+  - title: stream.js
+    url: https://github.com/dionyziz/stream.js
+    description: >
+      A tiny stand-alone Javascript library for streams · From [committers.top Greece](https://committers.top/greece.html) (maintainer **dionyziz**).
+
+  - title: canvas-tetris
+    url: https://github.com/dionyziz/canvas-tetris
+    description: >
+      A 2D tetris game in HTML5 canvas · From [committers.top Greece](https://committers.top/greece.html) (maintainer **dionyziz**).
+
+  - title: Jaidam
+    url: https://github.com/stasinopoulos/Jaidam
+    description: >
+      Jaidam is an open source penetration testing tool that would take as input a list of domain names, scan them, determine if wordpress or joomla platform was used and finally check them automatically, for web vulnerabilities using two well‐known open source tools, WPScan and Joomscan. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **stasinopoulos**).
+
+  - title: ZTExploit
+    url: https://github.com/stasinopoulos/ZTExploit
+    description: >
+      ZTE ZXV10 H108L Router with <= V1.0.01_WIND_A01 - Remote root RCE Exploit · From [committers.top Greece](https://committers.top/greece.html) (maintainer **stasinopoulos**).
+
+  - title: poc-zklogin
+    url: https://github.com/teohaik/poc-zklogin
+    description: >
+      App for demonstrating the zkLogin capabilities · From [committers.top Greece](https://committers.top/greece.html) (maintainer **teohaik**).
+
+  - title: move-typescript-sdk-examples
+    url: https://github.com/teohaik/move-typescript-sdk-examples
+    description: >
+      Examples of the sui move library for typescript · From [committers.top Greece](https://committers.top/greece.html) (maintainer **teohaik**).
+
+  - title: pg-workflows
+    url: https://github.com/SokratisVidros/pg-workflows
+    description: >
+      Postgres workflows. Durable execution built on pg-boss. Like Temporal, Inngest, or Trigger, powered by Postgres. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **SokratisVidros**).
+
+  - title: react-pencil
+    url: https://github.com/SokratisVidros/react-pencil
+    description: >
+      A delicate React component that enables single-line and multi-line in-place edits · From [committers.top Greece](https://committers.top/greece.html) (maintainer **SokratisVidros**).
+
+  - title: fastify-sentry
+    url: https://github.com/alex-ppg/fastify-sentry
+    description: >
+      A Fastify plugin for attaching Sentry to the framework · From [committers.top Greece](https://committers.top/greece.html) (maintainer **alex-ppg**).
+
+  - title: fastify-mongoose
+    url: https://github.com/alex-ppg/fastify-mongoose
+    description: >
+      A Fastify plugin to connect to a MongoDB instance via the Mongoose ODM · From [committers.top Greece](https://committers.top/greece.html) (maintainer **alex-ppg**).
+
+  - title: VL.SharedMemory
+    url: https://github.com/cnisidis/VL.SharedMemory
+    description: >
+      Shared Memory implementation for VL / vvvv exchange data · From [committers.top Greece](https://committers.top/greece.html) (maintainer **cnisidis**).
+
+  - title: VL.Orpheus
+    url: https://github.com/cnisidis/VL.Orpheus
+    description: >
+      Collection of tools for music theory and music concepts in vvvv · From [committers.top Greece](https://committers.top/greece.html) (maintainer **cnisidis**).
+
+  - title: The-Not-So-Simple-PHP-Command-Shell
+    url: https://github.com/kaotickj/The-Not-So-Simple-PHP-Command-Shell
+    description: >
+      This tool is intended to be used for on target enumeration to gather and exfiltrate information and then to upload tools such as netcat or msvenom payload for further access to the target. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **kaotickj**).
+
+  - title: Red-Team-Manual
+    url: https://github.com/kaotickj/Red-Team-Manual
+    description: >
+      This comprehensive guide aims to provide a standardized approach to ethical hacking and promote best practices within our red team. By following this guide, we can ensure a uniform and consistent methodology across the entire team. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **kaotickj**).
+
+  - title: rpsadvanced
+    url: https://github.com/stafot/rpsadvanced
+    description: >
+      Because rock paper scissors is too mainstream · From [committers.top Greece](https://committers.top/greece.html) (maintainer **stafot**).
+
+  - title: public key
+    url: https://github.com/stafot/public_key
+    description: >
+      Append my public key on a host · From [committers.top Greece](https://committers.top/greece.html) (maintainer **stafot**).
+
+  - title: mprokolo
+    url: https://github.com/pgpavlides/mprokolo
+    description: >
+      mprokolo · From [committers.top Greece](https://committers.top/greece.html) (maintainer **pgpavlides**).
+
+  - title: broccoli portfolio new
+    url: https://github.com/pgpavlides/broccoli_portfolio_new
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **pgpavlides**).
+
+  - title: stream-processing-with-apache-flink
+    url: https://github.com/polyzos/stream-processing-with-apache-flink
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **polyzos**).
+
+  - title: pulsar-flink-stateful-streams
+    url: https://github.com/polyzos/pulsar-flink-stateful-streams
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **polyzos**).
+
+  - title: compphysics-summer-tutorials
+    url: https://github.com/cdrischler/compphysics-summer-tutorials
+    description: >
+      Repository for the Summer Tutorials on Computational Physics at Ohio University · From [committers.top Greece](https://committers.top/greece.html) (maintainer **cdrischler**).
+
+  - title: nuclear saturation
+    url: https://github.com/cdrischler/nuclear_saturation
+    description: >
+      Study of the empirical saturation point in symmetric nuclear matter · From [committers.top Greece](https://committers.top/greece.html) (maintainer **cdrischler**).
+
+  - title: penelope
+    url: https://github.com/brightio/penelope
+    description: >
+      Penelope Shell Handler · From [committers.top Greece](https://committers.top/greece.html) (maintainer **brightio**).
+
+  - title: freedom
+    url: https://github.com/brightio/freedom
+    description: >
+      Terminal input autofiller · From [committers.top Greece](https://committers.top/greece.html) (maintainer **brightio**).
+
+  - title: thermos
+    url: https://github.com/pankgeorg/thermos
+    description: >
+      keeps your julia bind server warm 🔥 and cozy 🛋🧨🧯 · From [committers.top Greece](https://committers.top/greece.html) (maintainer **pankgeorg**).
+
+  - title: ninecat
+    url: https://github.com/pankgeorg/ninecat
+    description: >
+      nine cat shares a life with you · From [committers.top Greece](https://committers.top/greece.html) (maintainer **pankgeorg**).
+
+  - title: acestream-launcher
+    url: https://github.com/jonian/acestream-launcher
+    description: >
+      AceStream Launcher opens AceStream links with any Media Player · From [committers.top Greece](https://committers.top/greece.html) (maintainer **jonian**).
+
+  - title: kickoff-player
+    url: https://github.com/jonian/kickoff-player
+    description: >
+      GTK3 player with MPV, VLC and GStreamer backends, for streaming Ace Streams · From [committers.top Greece](https://committers.top/greece.html) (maintainer **jonian**).
+
+  - title: bababasic
+    url: https://github.com/ianatha/bababasic
+    description: >
+      QuickBASIC 4.5 revival on Android · From [committers.top Greece](https://committers.top/greece.html) (maintainer **ianatha**).
+
+  - title: IntelliJ-IDEA-Eclipse-on-Mac-Keymap
+    url: https://github.com/ianatha/IntelliJ-IDEA-Eclipse-on-Mac-Keymap
+    description: >
+      IntelliJ IDEA "Eclipse on Mac" Keymap · From [committers.top Greece](https://committers.top/greece.html) (maintainer **ianatha**).
+
+  - title: DINO-Foresight
+    url: https://github.com/Sta8is/DINO-Foresight
+    description: >
+      [NeurIPS 2025] Official Implementation of DINO-Foresight: Looking into the Future with DINO · From [committers.top Greece](https://committers.top/greece.html) (maintainer **Sta8is**).
+
+  - title: FUTURIST
+    url: https://github.com/Sta8is/FUTURIST
+    description: >
+      [CVPR 2025] Advancing Semantic Future Prediction through Multimodal Visual Sequence Transformers · From [committers.top Greece](https://committers.top/greece.html) (maintainer **Sta8is**).
+
+  - title: iris
+    url: https://github.com/kataras/iris
+    description: >
+      The fastest HTTP/2 Go Web Framework. New, modern and easy to learn. Fast development with Code you control. Unbeatable cost-performance ratio :rocket: · From [committers.top Greece](https://committers.top/greece.html) (maintainer **kataras**).
+
+  - title: neffos
+    url: https://github.com/kataras/neffos
+    description: >
+      A modern, fast and scalable websocket framework with elegant API written in Go · From [committers.top Greece](https://committers.top/greece.html) (maintainer **kataras**).
+
+  - title: go-mydata-aade
+    url: https://github.com/ppapapetrou76/go-mydata-aade
+    description: >
+      A go-sdk for the myData API provided by Greek government · From [committers.top Greece](https://committers.top/greece.html) (maintainer **ppapapetrou76**).
+
+  - title: go-data-gov-gr-sdk
+    url: https://github.com/ppapapetrou76/go-data-gov-gr-sdk
+    description: >
+      A go SDK for the data available via data.gov.gr · From [committers.top Greece](https://committers.top/greece.html) (maintainer **ppapapetrou76**).
+
+  - title: RPG-game
+    url: https://github.com/macnick/RPG-game
+    description: >
+      Dark Forest is an old school turn-based RPG video game. You have to navigate through the forest alive to save the city of Arcadia. Built with JavaScript and the Phaser 3 game engine. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **macnick**).
+
+  - title: filter-challenges
+    url: https://github.com/macnick/filter-challenges
+    description: >
+      Made for students of Microverse. Chrome extension to hide/show the completed challenges or projects from the lists. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **macnick**).
+
+  - title: prologjs
+    url: https://github.com/abresas/prologjs
+    description: >
+      Prolog interpreter for node.js · From [committers.top Greece](https://committers.top/greece.html) (maintainer **abresas**).
+
+  - title: docker-openwrt-arm
+    url: https://github.com/abresas/docker-openwrt-arm
+    description: >
+      Docker base image for OpenWRT on ARM-based devices. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **abresas**).
+
+  - title: mcp-git-commit-generator
+    url: https://github.com/theoklitosBam7/mcp-git-commit-generator
+    description: >
+      Generate conventional commit messages from your staged git changes using Model Context Protocol (MCP) · From [committers.top Greece](https://committers.top/greece.html) (maintainer **theoklitosBam7**).
+
+  - title: slide-presentation
+    url: https://github.com/theoklitosBam7/slide-presentation
+    description: >
+      A modern slide presentation system built with Next.js 15, React, and Tailwind CSS using pure TypeScript components with a powerful presentation registry system. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **theoklitosBam7**).
+
+  - title: vue-dataset
+    url: https://github.com/kouts/vue-dataset
+    description: >
+      A set of Vue.js components to display datasets (lists) with filtering, paging, and sorting capabilities! · From [committers.top Greece](https://committers.top/greece.html) (maintainer **kouts**).
+
+  - title: vue-modal
+    url: https://github.com/kouts/vue-modal
+    description: >
+      A customizable, stackable, and lightweight modal component for Vue. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **kouts**).
+
+  - title: jaxKAN
+    url: https://github.com/srigas/jaxKAN
+    description: >
+      Kolmogorov–Arnold Networks built on JAX · From [committers.top Greece](https://committers.top/greece.html) (maintainer **srigas**).
+
+  - title: CWRU Bearing NumPy
+    url: https://github.com/srigas/CWRU_Bearing_NumPy
+    description: >
+      A public repository containing the Case Western Reserve University's Bearing Dataset corrected and cleaned, in .npz format. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **srigas**).
+
+  - title: go-snaps
+    url: https://github.com/gkampitakis/go-snaps
+    description: >
+      Jest-like snapshot testing in Go 📸 · From [committers.top Greece](https://committers.top/greece.html) (maintainer **gkampitakis**).
+
+  - title: mortal-kombat-arcade
+    url: https://github.com/gkampitakis/mortal-kombat-arcade
+    description: >
+      Mortal Kombat Snes version implemented in C++ · From [committers.top Greece](https://committers.top/greece.html) (maintainer **gkampitakis**).
+
+  - title: koulis-js
+    url: https://github.com/fedonman/koulis-js
+    description: >
+      Replace your boring console.log with the awesome koulis.log · From [committers.top Greece](https://committers.top/greece.html) (maintainer **fedonman**).
+
+  - title: afdemp-coding-bootcamp-csharp
+    url: https://github.com/fedonman/afdemp-coding-bootcamp-csharp
+    description: >
+      C# Exercises for Alliance for Digital Employability Coding Bootcamp · From [committers.top Greece](https://committers.top/greece.html) (maintainer **fedonman**).
+
+  - title: Hibernate-Generic-Dao-Java
+    url: https://github.com/athanasiosem/Hibernate-Generic-Dao-Java
+    description: >
+      Sample project in Java that uses Hibernate and DAO pattern. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **athanasiosem**).
+
+  - title: getos.c
+    url: https://github.com/athanasiosem/getos.c
+    description: >
+      getos.c is an Open Source script that tries to fingerprint the operating system of a remote host using the default TTL reply of ping. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **athanasiosem**).
+
+  - title: codewars python solutions
+    url: https://github.com/hevalhazalkurt/codewars_python_solutions
+    description: >
+      My codewars solutions in Python. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **hevalhazalkurt**).
+
+  - title: Hackerrank Python Solutions
+    url: https://github.com/hevalhazalkurt/Hackerrank_Python_Solutions
+    description: >
+      HackerRank Python solutions and challenges. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **hevalhazalkurt**).
+
+  - title: python-CF7
+    url: https://github.com/pmoschos/python-CF7
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **pmoschos**).
+
+  - title: PythonScripts
+    url: https://github.com/pmoschos/PythonScripts
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **pmoschos**).
+
+  - title: scalapipes
+    url: https://github.com/loverdos/scalapipes
+    description: >
+      Scala with forward pipe operator, as in F# and OCaml. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **loverdos**).
+
+  - title: javac-openjdk7
+    url: https://github.com/loverdos/javac-openjdk7
+    description: >
+      Standalone java compiler from OpenJDK 7 · From [committers.top Greece](https://committers.top/greece.html) (maintainer **loverdos**).
+
+  - title: laravel-fuse
+    url: https://github.com/harris21/laravel-fuse
+    description: >
+      Circuit breaker for Laravel queue jobs · From [committers.top Greece](https://committers.top/greece.html) (maintainer **harris21**).
+
+  - title: laravel-herd-worktree
+    url: https://github.com/harris21/laravel-herd-worktree
+    description: >
+      A Claude Code skill that automates setting up git worktrees for Laravel projects served by Laravel Herd. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **harris21**).
+
+  - title: kristos80
+    url: https://github.com/kristos80/kristos80
+    description: >
+      No description on GitHub—see the repository README. · From [committers.top Greece](https://committers.top/greece.html) (maintainer **kristos80**).
+
+  - title: Opton
+    url: https://github.com/kristos80/Opton
+    description: >
+      A simple helper to easily grab an option from any pool of data · From [committers.top Greece](https://committers.top/greece.html) (maintainer **kristos80**).
+
+  - title: elisp
+    url: https://github.com/christosc/elisp
+    description: >
+      Various Emacs Lisp scripts · From [committers.top Greece](https://committers.top/greece.html) (maintainer **christosc**).
+
+  - title: Countdown
+    url: https://github.com/christosc/Countdown
+    description: >
+      A countdown timer for Mac OS X · From [committers.top Greece](https://committers.top/greece.html) (maintainer **christosc**).
+
+  - title: IPDS-Pattern-Processing
+    url: https://github.com/dsapalidis/IPDS-Pattern-Processing
+    description: >
+      Software and useful python tools for analyzing the STOE Image-plate Diffraction System (IPDS) diffraction patterns · From [committers.top Greece](https://committers.top/greece.html) (maintainer **dsapalidis**).
+
+  - title: SAXS-Data-Processing
+    url: https://github.com/dsapalidis/SAXS-Data-Processing
+    description: >
+      Python/Jupyter tools for Small-Angle X-ray Scattering data processing · From [committers.top Greece](https://committers.top/greece.html) (maintainer **dsapalidis**).
+
+  - title: fastapi-helm-chart
+    url: https://github.com/tsadimas/fastapi-helm-chart
+    description: >
+      Helm Chart for Fastapi Deployment · From [committers.top Greece](https://committers.top/greece.html) (maintainer **tsadimas**).
+
+  - title: ThemaGen
+    url: https://github.com/tsadimas/ThemaGen
+    description: >
+      Generator of random examination documents based on random categorized topics · From [committers.top Greece](https://committers.top/greece.html) (maintainer **tsadimas**).
+

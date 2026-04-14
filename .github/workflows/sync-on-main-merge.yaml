@@ -65,22 +65,22 @@ jobs:
           set -euo pipefail
 
           run_gen_index() {
-            just index
+            just index-all
           }
 
-          # Jekyll build → _site/ (HTML + assets). sitemap.xml / robots.txt from Python (just index).
+          # Jekyll build → _site/ (HTML + assets). sitemap.xml / robots.txt from Python (just index-all).
           # .nojekyll: GitHub Pages serves files as-is (no second Jekyll pass on `live`).
           deploy_live() {
             LIVE_MSG="$1"
             WORK="$(mktemp -d)"
             cp -a "${GITHUB_WORKSPACE}/jekyll-pages/." "${WORK}/"
             uv run python -m greek_software_ecosystem.jekyll_url_config > "${WORK}/_url.yml"
-            for f in index.html employers.html job-search.html resources.html podcasts.html workspaces.html; do
+            for f in index.html employers.html job-search.html resources.html podcasts.html workspaces.html open-source.html; do
               cp "${GITHUB_WORKSPACE}/${f}" "${WORK}/"
             done
             mkdir -p "${WORK}/assets/css" "${WORK}/assets/js"
             cp "${GITHUB_WORKSPACE}/assets/css/index.css" "${WORK}/assets/css/"
-            cp "${GITHUB_WORKSPACE}/assets/js/analytics-consent.js" "${GITHUB_WORKSPACE}/assets/js/index.js" "${GITHUB_WORKSPACE}/assets/js/site-chrome.js" "${GITHUB_WORKSPACE}/assets/js/tailwind-config.js" "${WORK}/assets/js/"
+            cp "${GITHUB_WORKSPACE}/assets/js/analytics-consent.js" "${GITHUB_WORKSPACE}/assets/js/index.js" "${GITHUB_WORKSPACE}/assets/js/open-source-search.js" "${GITHUB_WORKSPACE}/assets/js/site-chrome.js" "${GITHUB_WORKSPACE}/assets/js/tailwind-config.js" "${WORK}/assets/js/"
             cp "${GITHUB_WORKSPACE}/assets/og-image.png" "${GITHUB_WORKSPACE}/assets/hub-icon.svg" "${GITHUB_WORKSPACE}/assets/vectorized.svg" "${WORK}/assets/"
             (
               cd "${WORK}"

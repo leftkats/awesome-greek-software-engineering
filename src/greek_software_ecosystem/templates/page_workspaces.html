@@ -1,16 +1,15 @@
 {% extends "base.html" %}
 {% from "_macros_resources.html" import resource_details %}
 {% block main %}
-<section class="max-w-6xl mx-auto px-4 pt-8 pb-4" aria-labelledby="ws-heading">
+<section class="max-w-6xl mx-auto px-4 pt-6 pb-3" aria-labelledby="ws-heading">
     <div
-        class="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/70 shadow-soft dark:shadow-soft-dark p-6 sm:p-8">
+        class="agtj-hero-card rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/70 shadow-soft dark:shadow-soft-dark p-4 sm:p-5">
         <p class="text-[11px] font-mono uppercase tracking-widest text-cyan-700 dark:text-cyan-400">{{ page_kicker }}</p>
-        <h1 id="ws-heading" class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-2">
+        <h1 id="ws-heading" class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-1.5">
             {{ page_title }}</h1>
-        <p class="mt-3 max-w-3xl text-base sm:text-lg leading-relaxed text-slate-600 dark:text-slate-300">{{ page_subtitle }}</p>
-        <p class="mt-3 text-xs leading-relaxed text-slate-500 dark:text-slate-500 max-w-3xl">
-            Generated from <span class="font-mono text-cyan-700 dark:text-cyan-400">_data/cafe_resources.yaml</span> — run
-            <span class="font-mono">just generate</span> after edits.
+        <p class="mt-2 max-w-3xl text-sm sm:text-base leading-snug text-slate-600 dark:text-slate-300">{{ page_subtitle }}</p>
+        <p class="mt-2 text-[11px] leading-snug text-slate-500 dark:text-slate-500 max-w-3xl">
+            <span class="font-mono">just generate</span> after edits · same content as <span class="font-mono">docs/remote-cafe-resources.md</span>
         </p>
     </div>
 </section>

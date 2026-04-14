@@ -1,3 +1,5 @@
+/* Top-of-page hero cards: markup uses Tailwind + class ``agtj-hero-card`` for compact padding (p-4 sm:p-5). */
+
 /* Horizontal padding that never clips under iPhone notches / rounded corners */
 .agtj-site-px {
     padding-left: max(0.75rem, env(safe-area-inset-left, 0px));
@@ -63,6 +65,36 @@
 
 .dark .agtj-filter-panel::-webkit-scrollbar-thumb {
     background-color: rgb(71 85 105 / 0.7);
+}
+
+/* Long open-source table: defer off-screen row painting where supported (hundreds of rows). */
+.agtj-open-source-scroll tbody tr.agtj-osp-row {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 4rem;
+}
+
+/* Long open-source table: subtle scrollbars inside max-height region */
+.agtj-open-source-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(148 163 184 / 0.65) transparent;
+}
+
+.agtj-open-source-scroll::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.agtj-open-source-scroll::-webkit-scrollbar-thumb {
+    background-color: rgb(148 163 184 / 0.55);
+    border-radius: 999px;
+}
+
+.dark .agtj-open-source-scroll {
+    scrollbar-color: rgb(71 85 105 / 0.75) transparent;
+}
+
+.dark .agtj-open-source-scroll::-webkit-scrollbar-thumb {
+    background-color: rgb(71 85 105 / 0.65);
 }
 
 .policy-filter:focus-visible {

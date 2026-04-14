@@ -19,13 +19,31 @@ sync *ARGS:
 fetch:
 	uv run python -m greek_software_ecosystem.fetch_workable_counts
 
+# Fetch GitHub stars/forks for _data/open_source_projects.yaml → _data/open_source_github_stats.yaml (network).
+fetch-open-source-stats:
+	uv run python -m greek_software_ecosystem.fetch_open_source_github_stats
+
 # Regenerate docs/*.md (plus root README.md stub) from _data/readme.yaml, open_source_projects.yaml, and other YAML data.
 readme:
 	uv run python -m greek_software_ecosystem.generate_readme
 
-# Regenerate index.html for the static directory UI.
+# Regenerate static HTML (open-source stars/forks come from _data/open_source_github_stats.yaml).
+# Default on dev: sibling *.html + assets/ (python -m http.server). CI=true: Jekyll-style paths.
 index:
 	uv run python -m greek_software_ecosystem.generate_index
+
+# Refresh OSS GitHub stats YAML, then regenerate HTML (use in CI / before deploy).
+index-all:
+	just fetch-open-source-stats
+	uv run python -m greek_software_ecosystem.generate_index
+
+# Force local-style output (same as default on a dev machine; use if CI is set in your shell).
+index-local:
+	AGTJ_LOCAL=1 uv run python -m greek_software_ecosystem.generate_index
+
+# Force GitHub Pages / Jekyll-style output locally (dry-run deploy layout).
+index-gh-pages:
+	AGTJ_GH_PAGES=1 uv run python -m greek_software_ecosystem.generate_index
 
 # Regenerate generated markdown + index (no Workable fetch).
 generate: readme index
@@ -35,7 +53,7 @@ all:
 	just fetch
 	just generate
 
-# Same checks as PR validation: regenerate readme then index (run after `just sync`).
+# Same checks as PR validation: regenerate readme then index (fast; no OSS GitHub fan-out).
 check:
-	uv run python -m greek_software_ecosystem.generate_readme
-	uv run python -m greek_software_ecosystem.generate_index
+	just readme
+	just index

@@ -196,6 +196,7 @@ cython_debug/
 /resources.html
 /podcasts.html
 /workspaces.html
+/open-source.html
 /sitemap.xml
 /robots.txt
 
@@ -211,3 +212,6 @@ jekyll-pages/_url.yml
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
 .cursorindexingignore
+
+# macOS
+.DS_Store

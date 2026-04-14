@@ -2,19 +2,19 @@
 {% block body_scripts %}
 <script type="application/json" id="workable-job-snapshot">{{ workable_snapshot_json | safe }}</script>
 <script type="application/json" id="agtj-config">{{ agtj_config_json | safe }}</script>
-<script src="assets/js/analytics-consent.js"></script>
-<script src="assets/js/site-chrome.js"></script>
-<script src="assets/js/index.js"></script>
+<script src="{{ assets_base }}/js/analytics-consent.js"></script>
+<script src="{{ assets_base }}/js/site-chrome.js"></script>
+<script src="{{ assets_base }}/js/index.js"></script>
 {% endblock %}
 {% block main %}
-<section class="max-w-6xl mx-auto px-4 pt-8 pb-4" aria-labelledby="job-search-hub-heading">
+<section class="max-w-6xl mx-auto px-4 pt-6 pb-2" aria-labelledby="job-search-hub-heading">
     <div
-        class="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/70 shadow-soft dark:shadow-soft-dark p-6 sm:p-8">
+        class="agtj-hero-card rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/70 shadow-soft dark:shadow-soft-dark p-4 sm:p-5">
         <p class="text-[11px] font-mono uppercase tracking-widest text-cyan-700 dark:text-cyan-400">{{ page_kicker }}</p>
         <h1 id="job-search-hub-heading"
-            class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-2">{{ page_title }}</h1>
+            class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-1.5">{{ page_title }}</h1>
 
-        <div class="mt-5 space-y-2" role="region" aria-label="Site statistics">
+        <div class="mt-3 space-y-1" role="region" aria-label="Site statistics">
             <p
                 class="text-xs sm:text-sm font-mono text-slate-600 dark:text-slate-300 leading-relaxed flex flex-wrap gap-x-2 gap-y-1 items-center">
                 <span>Companies {{ stats.total_companies }}</span>
@@ -51,19 +51,18 @@
                 {% endif %}
             </p>
             {% if stats.workable_companies_count %}
-            <p class="text-xs text-slate-500 dark:text-slate-400" id="workableLiveSummary" role="status"
+            <p class="text-[11px] text-slate-500 dark:text-slate-400" id="workableLiveSummary" role="status"
                 aria-live="polite">
-                <span id="workableLiveExplainer">These numbers are fetched at build time, then embedded into
-                    this page.</span>
+                <span id="workableLiveExplainer">Build-time snapshot; embedded in this page.</span>
                 <span id="workableLiveSubline"></span>
             </p>
             {% endif %}
         </div>
+    </div>
 
-        <div class="mt-6 space-y-4" aria-labelledby="directory-toolbar-heading">
-            <h2 id="directory-toolbar-heading" class="sr-only">Search and filter companies</h2>
-            {% include "_index_directory_toolbar_inner.html" %}
-        </div>
+    <div class="mt-3 space-y-3" aria-labelledby="directory-toolbar-heading">
+        <h2 id="directory-toolbar-heading" class="sr-only">Search and filter companies</h2>
+        {% include "_index_directory_toolbar_inner.html" %}
     </div>
 </section>
 

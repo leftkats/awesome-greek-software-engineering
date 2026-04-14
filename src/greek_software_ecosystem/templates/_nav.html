@@ -5,7 +5,7 @@
     <div
         class="max-w-6xl mx-auto agtj-site-px py-2.5 sm:py-3 flex flex-col gap-2.5 sm:gap-3 md:flex-row md:items-center md:justify-between md:gap-3 lg:gap-4">
         <div class="flex items-center gap-2 sm:gap-3 min-w-0 md:contents">
-            <a href="index.html"
+            <a href="{{ nav.home }}"
                 class="group flex min-w-0 flex-1 items-center gap-2 rounded-xl pr-1 md:inline-flex md:order-1 md:max-w-none md:flex-initial md:pr-0 hover:bg-slate-100/80 dark:hover:bg-slate-800/80 md:hover:bg-transparent md:dark:hover:bg-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950"
                 aria-label="Home — Greek Software Ecosystem">
                 <span
@@ -28,16 +28,19 @@
         </div>
         <div
             class="agtj-nav-pills-scroll flex flex-nowrap md:flex-wrap items-stretch md:items-center gap-2 md:gap-x-2 lg:gap-x-2 overflow-x-auto md:overflow-visible md:order-2 md:flex-1 md:min-w-0 justify-start md:justify-center pb-0.5 md:pb-0 -mx-0.5 px-0.5 md:mx-0 md:px-0 text-xs sm:text-xs font-medium md:font-mono uppercase tracking-wide md:tracking-wide rounded-xl md:rounded-none bg-slate-100/90 dark:bg-slate-900/60 md:bg-transparent ring-1 ring-slate-200/80 dark:ring-slate-700/80 md:ring-0 p-1.5 md:p-0">
-            <a href="index.html"
+            <a href="{{ nav.home }}"
                 class="nav-pill shrink-0 min-h-[2.75rem] inline-flex items-center rounded-lg px-3 py-2 md:px-2.5 md:py-1.5 {% if current_page == 'home' %}bg-white dark:bg-slate-800 text-cyan-900 dark:text-cyan-200 shadow-sm ring-1 ring-cyan-300/60 dark:ring-cyan-600/50 md:bg-cyan-100/80 md:dark:bg-cyan-950/50 md:shadow-none{% else %}text-slate-700 dark:text-slate-200 hover:bg-white/80 dark:hover:bg-slate-800/80 md:text-slate-600 md:dark:text-slate-300 md:hover:bg-slate-100 md:dark:hover:bg-slate-800{% endif %}"
                 {% if current_page=='home' %}aria-current="page" {% endif %}>Home</a>
-            <a href="job-search.html"
+            <a href="{{ nav.job_search }}"
                 class="nav-pill shrink-0 min-h-[2.75rem] inline-flex items-center rounded-lg px-3 py-2 md:px-2.5 md:py-1.5 {% if current_page == 'job-search' %}bg-white dark:bg-slate-800 text-cyan-900 dark:text-cyan-200 shadow-sm ring-1 ring-cyan-300/60 dark:ring-cyan-600/50 md:bg-cyan-100/80 md:dark:bg-cyan-950/50 md:shadow-none{% else %}text-slate-700 dark:text-slate-200 hover:bg-white/80 dark:hover:bg-slate-800/80 md:text-slate-600 md:dark:text-slate-300 md:hover:bg-slate-100 md:dark:hover:bg-slate-800{% endif %}"
                 {% if current_page=='job-search' %}aria-current="page" {% endif %}>Job search</a>
-            <a href="resources.html"
+            <a href="{{ nav.resources }}"
                 class="nav-pill shrink-0 min-h-[2.75rem] inline-flex items-center rounded-lg px-3 py-2 md:px-2.5 md:py-1.5 {% if current_page == 'resources' %}bg-white dark:bg-slate-800 text-cyan-900 dark:text-cyan-200 shadow-sm ring-1 ring-cyan-300/60 dark:ring-cyan-600/50 md:bg-cyan-100/80 md:dark:bg-cyan-950/50 md:shadow-none{% else %}text-slate-700 dark:text-slate-200 hover:bg-white/80 dark:hover:bg-slate-800/80 md:text-slate-600 md:dark:text-slate-300 md:hover:bg-slate-100 md:dark:hover:bg-slate-800{% endif %}"
                 {% if current_page=='resources' %}aria-current="page" {% endif %}>Resources</a>
-            <a href="podcasts.html"
+            <a href="{{ nav.open_source }}"
+                class="nav-pill shrink-0 min-h-[2.75rem] inline-flex items-center rounded-lg px-3 py-2 md:px-2.5 md:py-1.5 {% if current_page == 'open-source' %}bg-white dark:bg-slate-800 text-cyan-900 dark:text-cyan-200 shadow-sm ring-1 ring-cyan-300/60 dark:ring-cyan-600/50 md:bg-cyan-100/80 md:dark:bg-cyan-950/50 md:shadow-none{% else %}text-slate-700 dark:text-slate-200 hover:bg-white/80 dark:hover:bg-slate-800/80 md:text-slate-600 md:dark:text-slate-300 md:hover:bg-slate-100 md:dark:hover:bg-slate-800{% endif %}"
+                {% if current_page=='open-source' %}aria-current="page" {% endif %}>Open source</a>
+            <a href="{{ nav.podcasts }}"
                 class="nav-pill shrink-0 min-h-[2.75rem] inline-flex items-center rounded-lg px-3 py-2 md:px-2.5 md:py-1.5 {% if current_page == 'podcasts' %}bg-white dark:bg-slate-800 text-cyan-900 dark:text-cyan-200 shadow-sm ring-1 ring-cyan-300/60 dark:ring-cyan-600/50 md:bg-cyan-100/80 md:dark:bg-cyan-950/50 md:shadow-none{% else %}text-slate-700 dark:text-slate-200 hover:bg-white/80 dark:hover:bg-slate-800/80 md:text-slate-600 md:dark:text-slate-300 md:hover:bg-slate-100 md:dark:hover:bg-slate-800{% endif %}"
                 {% if current_page=='podcasts' %}aria-current="page" {% endif %}>Podcasts</a>
         </div>

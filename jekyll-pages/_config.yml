@@ -2,3 +2,13 @@
 # and copied into `_site/` after `jekyll build`. `url` / `baseurl` come from _data/readme.yaml → _url.yml.
 
 title: Greek Software Ecosystem
+
+# Clean URLs: `page.html` → `/page/` (requires YAML front matter on each generated HTML file).
+permalink: /:basename/
+
+defaults:
+  - scope:
+      path: ""
+      type: pages
+    values:
+      permalink: /:basename/
