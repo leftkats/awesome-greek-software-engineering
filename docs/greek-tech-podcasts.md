@@ -21,6 +21,7 @@ Each **●** links to that show on the given platform (empty cells mean no URL l
 | **Innovative Greeks Talks** | — | [●](https://open.spotify.com/show/5pvJSeMYd6br7azlu6FOgc) | [●](https://www.youtube.com/playlist?list=PLKuwn5-s7Kfie1o1XyWefneA1Iwmme9R2) | [●](https://podcasts.apple.com/gr/podcast/innovative-greeks-talks/id1618931515) | — | [●](https://innovative-greeks-talks.simplecast.com/) | [●](https://podlist.gr/p/innovative-greeks-talks-433) |
 | **Innovation Talks (Greece)** | [●](https://innovationtalks.gr/) | [●](https://open.spotify.com/show/1fZKl6MNlctSu2UOjPumge) | — | [●](https://podcasts.apple.com/gr/podcast/innovation-talks-greece/id1589605573) | — | — | [●](https://podlist.gr/p/innovation-talks-greece-414) |
 | **Tech Leadership Podcast** | [●](https://mariosfakiolas.com/podcast/) | — | — | — | — | — | [●](https://podlist.gr/p/tech-leadership-podcast-410) |
+| **Deploy Να Τελειώνουμε** | — | [●](https://open.spotify.com/show/6dQTvtvRWwxylPPNDZD8o7) | [●](https://www.youtube.com/@deployNaTeleiwnoume) | — | — | — | — |
 
 ---
 
@@ -75,6 +76,12 @@ Each **●** links to that show on the given platform (empty cells mean no URL l
 ## Tech Leadership Podcast
 
 [**Tech Leadership Podcast**](https://mariosfakiolas.com/podcast/)—weekly episodes on **technology through leadership and management**, with host **Μάριος Φακιόλας** (*Marios Fakiolas*). **[Podlist.gr](https://podlist.gr/p/tech-leadership-podcast-410)** lists **Apple Podcasts** and **Spotify** alongside the site.
+
+---
+
+## Deploy Να Τελειώνουμε
+
+Ενα video podcast που θα μιλάμε για cloud, υποδομή και ό,τι άλλο ενδιαφέρoν απο τη καθημερινότητά μας!!
 
 ---
 
