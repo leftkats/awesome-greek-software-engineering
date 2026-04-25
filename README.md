@@ -6,10 +6,10 @@
 </p>
 
 <p align="center">
-  <a href="https://leftkats.github.io/greek-software-ecosystem/"><img src="https://img.shields.io/badge/Companies-252-2563eb?style=for-the-badge" alt="Companies" /></a>
+  <a href="https://leftkats.github.io/greek-software-ecosystem/"><img src="https://img.shields.io/badge/Companies-234-2563eb?style=for-the-badge" alt="Companies" /></a>
   <a href="https://leftkats.github.io/greek-software-ecosystem/?hire=1"><img src="https://img.shields.io/badge/Open%20Roles-1266-f59e0b?style=for-the-badge" alt="Open Roles" /></a>
   <a href="https://leftkats.github.io/greek-software-ecosystem/?pol=remote"><img src="https://img.shields.io/badge/Remote-50-16a34a?style=for-the-badge" alt="Remote" /></a>
-  <a href="https://leftkats.github.io/greek-software-ecosystem/?pol=hybrid"><img src="https://img.shields.io/badge/Hybrid-123-ca8a04?style=for-the-badge" alt="Hybrid" /></a>
+  <a href="https://leftkats.github.io/greek-software-ecosystem/?pol=hybrid"><img src="https://img.shields.io/badge/Hybrid-113-ca8a04?style=for-the-badge" alt="Hybrid" /></a>
   <a href="https://leftkats.github.io/greek-software-ecosystem/podcasts.html"><img src="https://img.shields.io/badge/Podcasts-12-9333ea?style=for-the-badge" alt="Podcasts" /></a>
   <!-- Set community.discord in _data/readme.yaml -->
   <a href="https://discord.gg/TywcYPMs"><img src="https://img.shields.io/badge/Discord-Community-5865F2?style=for-the-badge&amp;logo=discord&amp;logoColor=white" alt="Join us on Discord" /></a>
@@ -25,7 +25,7 @@
 **Greek Software Ecosystem** is a community-maintained collection for people exploring software and technology careers in Greece. Among other things, this repository holds a **sortable employer directory** (with weekly **Workable** open-role snapshots where applicable), **curated job-search links** and tips, pointers to **Greek tech podcasts**, and a short list of **remote café / laptop-friendly workspace** resources—linked from the overview below.
 
 
-Currently tracking **252** companies, with **Athens** as the leading hub (171 offices). **50** teams are fully remote, **123** hybrid, and **33** on-site. The most common sectors are **IT Services** (51), **AI** (34), **Software Development** (31), **Consulting** (25), **IT Consulting** (21).
+Currently tracking **234** companies, with **Athens** as the leading hub (159 offices). **50** teams are fully remote, **113** hybrid, and **33** on-site. The most common sectors are **IT Services** (51), **AI** (34), **Software Development** (31), **IT Consulting** (21), **Consulting** (21).
 
 
 **What’s in this repository**
