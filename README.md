@@ -1,5 +1,5 @@
 <p align="center">
-  The open-source pulse on IT and software jobs across Greece<br>
+  The open-source pulse on IT and software jobs across Greece<br><br>
   <a href="https://leftkats.github.io/greek-software-ecosystem/"><strong>Open the interactive directory</strong></a><br>
   <br>
   <br>
@@ -10,7 +10,7 @@
   <a href="https://leftkats.github.io/greek-software-ecosystem/?hire=1"><img src="https://img.shields.io/badge/Open%20Roles-1266-f59e0b?style=for-the-badge" alt="Open Roles" /></a>
   <a href="https://leftkats.github.io/greek-software-ecosystem/?pol=remote"><img src="https://img.shields.io/badge/Remote-50-16a34a?style=for-the-badge" alt="Remote" /></a>
   <a href="https://leftkats.github.io/greek-software-ecosystem/?pol=hybrid"><img src="https://img.shields.io/badge/Hybrid-113-ca8a04?style=for-the-badge" alt="Hybrid" /></a>
-  <a href="https://leftkats.github.io/greek-software-ecosystem/podcasts.html"><img src="https://img.shields.io/badge/Podcasts-12-9333ea?style=for-the-badge" alt="Podcasts" /></a>
+  <a href="https://leftkats.github.io/greek-software-ecosystem/podcasts"><img src="https://img.shields.io/badge/Podcasts-12-9333ea?style=for-the-badge" alt="Podcasts" /></a>
   <!-- Set community.discord in _data/readme.yaml -->
   <a href="https://discord.gg/TywcYPMs"><img src="https://img.shields.io/badge/Discord-Community-5865F2?style=for-the-badge&amp;logo=discord&amp;logoColor=white" alt="Join us on Discord" /></a>
 </p>
@@ -26,6 +26,9 @@
 
 
 Currently tracking **234** companies, with **Athens** as the leading hub (159 offices). **50** teams are fully remote, **113** hybrid, and **33** on-site. The most common sectors are **IT Services** (51), **AI** (34), **Software Development** (31), **IT Consulting** (21), **Consulting** (21).
+
+
+**Note:** Work policy labels (remote, hybrid, on-site) are community-maintained and may be incorrect or outdated. Always verify roles, locations, and policies on each employer's official website using the company and careers URLs in the directory.
 
 
 **What’s in this repository**
@@ -78,7 +81,8 @@ This project is for **community and educational purposes only**. All data is agg
 
 * **Accuracy:** Information is gathered from public sources.  Company
   policies and openings change frequently — always verify on the
-  official company website.
+  official company website. **Work policy** labels (remote, hybrid, on-site)
+  may be wrong; rely on each employer's own careers pages and URLs.
 
 * **Contributions:** Spotted an error?  PRs and issues are welcome.
 * **Liability:** As per the [MIT License](LICENSE), this information

@@ -1,12 +1,11 @@
 # Greek tech & startup podcasts
 
-← [readme.md](readme.md)
+← [README.md](../README.md)
 
 Hand-picked **video and audio shows** from Greece that often cover **technology, startups, product, and engineering**—useful listening next to the employer directory and job-search links in **[Job search & resources](search-queries-and-resources.md)**.
 
 ---
 
-## All shows at a glance
 
 Each **●** links to that show on the given platform (empty cells mean no URL listed in the data yet).
 

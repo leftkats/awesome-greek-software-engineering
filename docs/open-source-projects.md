@@ -1,6 +1,6 @@
 # Greek open source on GitHub
 
-← [readme.md](readme.md)
+← [README.md](../README.md)
 
 Curated **open source** repositories on GitHub that are especially relevant in Greece—APIs for public services,
 translations, and tooling—plus notable projects from **Greek maintainers** (DevOps, web, audio, and more). Many rows

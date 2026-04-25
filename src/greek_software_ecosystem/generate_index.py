@@ -50,7 +50,9 @@ from greek_software_ecosystem.industry_clusters import (
     industries_for_sectors,
     sort_industries_for_filter,
 )
-from greek_software_ecosystem.generate_readme import build_remote_cafe_resources_markdown
+from greek_software_ecosystem.generate_readme import (
+    build_remote_cafe_resources_markdown,
+)
 from greek_software_ecosystem.github_stars import (
     format_compact_github_count,
     load_open_source_github_stats_yaml,
@@ -78,7 +80,7 @@ OUTPUT_RESOURCES = "resources.html"
 OUTPUT_PODCASTS = "podcasts.html"
 OUTPUT_WORKSPACES = "workspaces.html"
 OUTPUT_OPEN_SOURCE = "open-source.html"
-ITEMS_PER_PAGE = 50
+ITEMS_PER_PAGE = 20
 WORKABLE_SNAPSHOT_PATH = WORKABLE_COUNTS_YAML
 PODCASTS_YAML = Path("_data/podcasts.yaml")
 CAFE_RESOURCES_YAML = Path("_data/cafe_resources.yaml")
@@ -90,10 +92,7 @@ OPEN_SOURCE_GITHUB_STATS_YAML = Path("_data/open_source_github_stats.yaml")
 FIRST_CARD_DESC_MAX = 130
 
 # ``open-source.html`` hero (YAML ``intro`` still feeds ``just readme`` / docs only).
-OSP_HERO_SUBTITLE = (
-    "Greek-related GitHub repos sorted by stars (counts at build). "
-    "YAML list + committers.top seeds."
-)
+OSP_HERO_SUBTITLE = "Greek-related GitHub repos sorted by stars (counts at build). "
 
 # Per-page ``meta name="keywords"`` (unique, topical; home keeps ``load_site_meta`` defaults).
 _SEO_KW_JOB = (
@@ -104,12 +103,8 @@ _SEO_KW_RES = (
     "Greek tech job boards, open data Greece, GitHub awesome lists, startup resources Greece, "
     "engineering links Greece"
 )
-_SEO_KW_POD = (
-    "Greek tech podcasts, startup podcast Greece, software engineering Greece, IT careers audio"
-)
-_SEO_KW_WS = (
-    "laptop friendly cafes Greece, remote work cafes Athens, coworking Greece, workspace YAML Greece"
-)
+_SEO_KW_POD = "Greek tech podcasts, startup podcast Greece, software engineering Greece, IT careers audio"
+_SEO_KW_WS = "laptop friendly cafes Greece, remote work cafes Athens, coworking Greece, workspace YAML Greece"
 _SEO_KW_OSP = (
     "Greek open source GitHub, Greece OSS repositories, Greek developers open source, "
     "committers.top Greece, civic tech Greece"
@@ -327,7 +322,9 @@ def build_schema_home_hub(
             },
         },
     ]
-    return json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False)
+    return json.dumps(
+        {"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False
+    )
 
 
 def build_schema_employers_directory(
@@ -399,7 +396,9 @@ def build_schema_employers_directory(
             ],
         ),
     ]
-    return json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False)
+    return json.dumps(
+        {"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False
+    )
 
 
 def _breadcrumb_list(
@@ -477,10 +476,14 @@ def build_schema_subpage(
                 "url": canonical_url,
             }
         )
-    return json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False)
+    return json.dumps(
+        {"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False
+    )
 
 
-def _page_breadcrumb_trail(origin: str, current_label: str, relpath: str) -> list[tuple[str, str]]:
+def _page_breadcrumb_trail(
+    origin: str, current_label: str, relpath: str
+) -> list[tuple[str, str]]:
     """Home + current page for JSON-LD ``BreadcrumbList`` (absolute URLs)."""
     o = origin.rstrip("/")
     return [("Home", f"{o}/"), (current_label, page_canonical_url(origin, relpath))]
@@ -498,7 +501,7 @@ def _logo_image_object(origin: str) -> dict:
 
 
 def load_readme_hero() -> tuple[str, str]:
-    """Tagline + short intro for the home hub (from ``_data/readme.yaml``)."""
+    """Tagline and short intro for the home hub (from ``_data/readme.yaml``)."""
     default_tag = "The open-source pulse on IT and software jobs across Greece"
     default_intro = (
         "Browse employers, job boards, curated lists, remote café guides, and "
@@ -628,9 +631,7 @@ def build_resources_table_rows(
                     "name": name,
                     "url": url,
                     "description_html": desc_html,
-                    "search_text": _resources_row_search_text(
-                        cat, name, url, desc_raw
-                    ),
+                    "search_text": _resources_row_search_text(cat, name, url, desc_raw),
                 }
             )
 
@@ -1051,7 +1052,11 @@ def run_generate_index(
     Set ``skip_github_stats=True`` to skip per-repo GitHub API calls (fast local iteration).
     """
     try:
-        print("generate_index: loading companies and rendering pages…", file=sys.stderr, flush=True)
+        print(
+            "generate_index: loading companies and rendering pages…",
+            file=sys.stderr,
+            flush=True,
+        )
         companies_data = load_companies()
 
         if not companies_data:
@@ -1205,7 +1210,9 @@ def run_generate_index(
             sectors=sorted_sectors,
             locations=sorted_locations,
             industries_for_dropdown=industries_for_dropdown,
-            agtj_config_json=json.dumps({"itemsPerPage": ITEMS_PER_PAGE}, ensure_ascii=False),
+            agtj_config_json=json.dumps(
+                {"itemsPerPage": ITEMS_PER_PAGE}, ensure_ascii=False
+            ),
             get_style=get_policy_style,
             stats=stats,
             workable_snapshot=_workable_snapshot,
@@ -1308,7 +1315,7 @@ def run_generate_index(
             page_kicker="Podcasts · Greek tech & startups",
             page_title="Greek tech & startup podcasts",
             page_subtitle=_truncate_first_card_description(
-                "Shows from Greece on tech, startups & engineering—curated list, same YAML as the repo."
+                "Shows from Greece on tech, startups & engineering-curated list."
             ),
             **pod_page,
             **pod_meta,

@@ -86,7 +86,7 @@ def podcast_summary_table_html(podcasts: list[dict]) -> str:
     parts: list[str] = [
         '<div class="overflow-x-auto -mx-1 px-1" role="region" aria-label="Podcasts by platform">',
         '<table class="w-full min-w-[40rem] text-sm border border-slate-200/90 dark:border-slate-700/90 rounded-xl overflow-hidden">',
-        '<thead><tr>',
+        "<thead><tr>",
         '<th scope="col" class="text-left font-semibold px-3 py-2.5 bg-slate-50/90 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100">Podcast</th>',
     ]
     for _, h in cols:
@@ -116,7 +116,7 @@ def podcast_summary_table_html(podcasts: list[dict]) -> str:
                     f'<td class="text-center px-2 py-2.5 align-middle">'
                     f'<a href="{escape(url)}" target="_blank" rel="noopener noreferrer" '
                     f'class="inline-flex h-8 min-w-[2rem] px-1.5 items-center justify-center rounded-lg '
-                    f'bg-cyan-50 dark:bg-cyan-950/50 text-cyan-800 dark:text-cyan-200 '
+                    f"bg-cyan-50 dark:bg-cyan-950/50 text-cyan-800 dark:text-cyan-200 "
                     f'hover:bg-cyan-100 dark:hover:bg-cyan-900/40 font-bold leading-none" '
                     f'title="{escape(aria)}" aria-label="{escape(aria)}">●</a></td>'
                 )

@@ -14,10 +14,9 @@ This repository organizes its data under the `_data` directory. Below is a descr
 
 ## Generated Markdown (do not edit by hand)
 
-These files are **overwritten** by **`src/greek_software_ecosystem/generate_readme.py`** when you run **`just readme`** or **`just generate`**. The repo root **`README.md`** is the same content as **`docs/readme.md`**, with links adjusted for paths from the repository root (so GitHub shows the full readme on the project home page).
+These files are **overwritten** by **`src/greek_software_ecosystem/generate_readme.py`** when you run **`just readme`** or **`just generate`**. The repo root **`README.md`** is generated with doc links prefixed by **`docs/`** so navigation works from the repository root (for example on GitHub).
 
 - **`README.md`** (root — what GitHub displays by default)
-- **`docs/readme.md`**
 - **`docs/engineering-hubs.md`**
 - **`docs/search-queries-and-resources.md`**
 - **`docs/greek-tech-podcasts.md`**

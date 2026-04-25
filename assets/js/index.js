@@ -1,6 +1,6 @@
 (function initAgtjConfigFromDom() {
     const el = document.getElementById("agtj-config");
-    let itemsPerPage = 50;
+    let itemsPerPage = 20;
     if (el?.textContent?.trim()) {
         try {
             const c = JSON.parse(el.textContent);
@@ -16,7 +16,7 @@
 })();
 
 let currentPage = 1;
-const itemsPerPage = Number(window.AGTJ_CONFIG?.itemsPerPage) || 50;
+const itemsPerPage = Number(window.AGTJ_CONFIG?.itemsPerPage) || 20;
 let activeSectors = [];
 let activeLocations = [];
 let activePolicies = [];

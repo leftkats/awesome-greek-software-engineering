@@ -1,6 +1,6 @@
-"""Generate ``docs/readme.md``, ``docs/search-queries-and-resources.md``,
-``docs/greek-tech-podcasts.md``, ``docs/open-source-projects.md``, ``docs/remote-cafe-resources.md``,
-``docs/development.md``, and ``docs/engineering-hubs.md`` from YAML.
+"""Generate ``docs/search-queries-and-resources.md``, ``docs/greek-tech-podcasts.md``,
+``docs/open-source-projects.md``, ``docs/remote-cafe-resources.md``, ``docs/development.md``,
+and ``docs/engineering-hubs.md`` from YAML, plus the repo root ``README.md``.
 
 **Do not edit these output ``*.md`` files by hand.** Change ``_data/readme.yaml``, ``_data/queries.yaml``,
 ``_data/podcasts.yaml``, ``_data/open_source_projects.yaml``, ``_data/open_source_github_stats.yaml`` (via
@@ -35,16 +35,24 @@ README_YAML = Path("_data/readme.yaml")
 DOCS_MD_DIR = Path("docs")
 ROOT_README = Path("README.md")
 
+# Fallback when ``work_policy_notice`` is missing from ``_data/readme.yaml`` (also used by ``generate_index``).
+DEFAULT_WORK_POLICY_NOTICE = (
+    "**Note:** Work policy labels (remote, hybrid, on-site) are community-maintained and "
+    "may be incorrect or outdated. Always verify roles, locations, and policies on each "
+    "employer's official website using the company and careers URLs in the directory."
+)
+
 SEARCH_QUERIES_MD = "search-queries-and-resources.md"
 GREEK_TECH_PODCASTS_MD = "greek-tech-podcasts.md"
 OPEN_SOURCE_PROJECTS_MD = "open-source-projects.md"
 ENGINEERING_HUBS_MD = "engineering-hubs.md"
-README_MD = "readme.md"
 PODCASTS_YAML = Path("_data/podcasts.yaml")
 OPEN_SOURCE_PROJECTS_YAML = Path("_data/open_source_projects.yaml")
 REMOTE_CAFE_RESOURCES_MD = "remote-cafe-resources.md"
 CAFE_RESOURCES_YAML = Path("_data/cafe_resources.yaml")
 DEVELOPMENT_MD = "development.md"
+# Back-link line on generated pages under ``docs/`` → repository root readme.
+README_BACKLINK_MD = "← [README.md](../README.md)"
 
 # Fallbacks when ``_data/readme.yaml`` → ``generated_markdown`` omits a key.
 _DEFAULT_SEARCH_QUERIES_INTRO = (
@@ -89,10 +97,13 @@ _DEFAULT_README_COMMUNITY_DISCORD = (
 
 
 def _readme_markdown_for_repository_root(generated_readme_body: str) -> str:
-    """Rewrite links written for ``docs/readme.md`` so they work from the repo root ``README.md``."""
+    """Rewrite relative doc links so they work from the repo root ``README.md``."""
     replacements: tuple[tuple[str, str], ...] = (
         ("](engineering-hubs.md)", "](docs/engineering-hubs.md)"),
-        ("](search-queries-and-resources.md)", "](docs/search-queries-and-resources.md)"),
+        (
+            "](search-queries-and-resources.md)",
+            "](docs/search-queries-and-resources.md)",
+        ),
         ("](greek-tech-podcasts.md)", "](docs/greek-tech-podcasts.md)"),
         ("](open-source-projects.md)", "](docs/open-source-projects.md)"),
         ("](development.md)", "](docs/development.md)"),
@@ -105,13 +116,9 @@ def _readme_markdown_for_repository_root(generated_readme_body: str) -> str:
     return out
 
 
-def _engineering_hubs_disclaimer_text(
-    readme_data: dict, issue_chooser: str
-) -> str:
+def _engineering_hubs_disclaimer_text(readme_data: dict, issue_chooser: str) -> str:
     """Non-empty disclaimer paragraph for ``engineering-hubs.md`` (always written on each run)."""
-    gm_eh = (readme_data.get("generated_markdown") or {}).get(
-        "engineering_hubs"
-    ) or {}
+    gm_eh = (readme_data.get("generated_markdown") or {}).get("engineering_hubs") or {}
     raw = gm_eh.get("disclaimer")
     if raw is None or not str(raw).strip():
         tmpl = _DEFAULT_EH_DISCLAIMER
@@ -169,7 +176,7 @@ def build_search_queries_markdown(
     body: list[str] = [
         "# Search queries & resources",
         "",
-        "← [readme.md](readme.md)",
+        README_BACKLINK_MD,
         "",
         intro_text,
         "",
@@ -218,7 +225,7 @@ def build_greek_tech_podcasts_markdown(podcasts_data: dict | None) -> str:
     body: list[str] = [
         "# Greek tech & startup podcasts",
         "",
-        "← [readme.md](readme.md)",
+        README_BACKLINK_MD,
         "",
     ]
     if intro:
@@ -228,7 +235,6 @@ def build_greek_tech_podcasts_markdown(podcasts_data: dict | None) -> str:
         body.append("")
 
     if valid_items:
-        body.append("## All shows at a glance")
         body.append("")
         body.append(
             "Each **●** links to that show on the given platform (empty cells mean "
@@ -278,7 +284,7 @@ def build_open_source_projects_markdown(data: dict | None) -> str:
     lines: list[str] = [
         "# Greek open source on GitHub",
         "",
-        "← [readme.md](readme.md)",
+        README_BACKLINK_MD,
         "",
     ]
     if intro:
@@ -390,7 +396,7 @@ def build_remote_cafe_resources_markdown(
         lines = [
             "# Remote café & laptop-friendly workspaces",
             "",
-            "← [readme.md](readme.md)",
+            README_BACKLINK_MD,
             "",
         ]
     intro = (data.get("intro") or "").strip()
@@ -440,9 +446,7 @@ def build_remote_cafe_resources_markdown(
             lines.append("| :--- | :--- |")
             for k, v in details.items():
                 label = _cafe_detail_label(str(k))
-                lines.append(
-                    f"| **{label}** | {_cafe_cell_markdown(v)} |"
-                )
+                lines.append(f"| **{label}** | {_cafe_cell_markdown(v)} |")
             lines.append("")
         elif isinstance(details, str) and details.strip():
             lines.append(details.strip())
@@ -487,7 +491,7 @@ def build_development_markdown(readme_data: dict) -> str:
     lines: list[str] = [
         "# Development",
         "",
-        "← [readme.md](readme.md)",
+        README_BACKLINK_MD,
         "",
     ]
     intro = (dev.get("intro") or "").strip()
@@ -505,9 +509,7 @@ def build_development_markdown(readme_data: dict) -> str:
         if isinstance(commands, str):
             cmd_text = commands.rstrip()
         else:
-            cmd_text = "\n".join(
-                str(c).rstrip() for c in commands if str(c).strip()
-            )
+            cmd_text = "\n".join(str(c).rstrip() for c in commands if str(c).strip())
         if not cmd_text:
             continue
         lines.append(f"## {title}")
@@ -568,15 +570,11 @@ def generate() -> None:
             if isinstance(plist, list):
                 podcast_count = len(plist)
 
-    all_companies = sorted(
-        companies_data, key=lambda x: x["name"].lower()
-    )
+    all_companies = sorted(companies_data, key=lambda x: x["name"].lower())
 
     seen: set[str] = set()
     duplicates = [
-        c["name"]
-        for c in all_companies
-        if c["name"] in seen or seen.add(c["name"])
+        c["name"] for c in all_companies if c["name"] in seen or seen.add(c["name"])
     ]
     if duplicates:
         names = ", ".join(set(duplicates))
@@ -584,35 +582,23 @@ def generate() -> None:
 
     total = len(all_companies)
     loc_counts = Counter(
-        loc.strip().title()
-        for c in all_companies
-        for loc in c.get("locations", [])
+        loc.strip().title() for c in all_companies for loc in c.get("locations", [])
     )
-    top_loc, top_n = (
-        loc_counts.most_common(1)[0] if loc_counts else ("N/A", 0)
-    )
+    top_loc, top_n = loc_counts.most_common(1)[0] if loc_counts else ("N/A", 0)
 
     policy_counts = Counter(
-        c.get("work_policy", "N/A").strip().title()
-        for c in all_companies
+        c.get("work_policy", "N/A").strip().title() for c in all_companies
     )
     remote = policy_counts.get("Remote", 0)
     hybrid = policy_counts.get("Hybrid", 0)
-    onsite = (
-        policy_counts.get("On-Site", 0)
-        + policy_counts.get("Onsite", 0)
-    )
+    onsite = policy_counts.get("On-Site", 0) + policy_counts.get("Onsite", 0)
 
     sector_counts = Counter(
-        s.strip()
-        for c in all_companies
-        for s in c.get("sectors", [])
+        s.strip() for c in all_companies for s in c.get("sectors", [])
     )
     top_sectors = sector_counts.most_common(5)
 
-    repo = readme_data.get(
-        "repo", "leftkats/greek-software-ecosystem"
-    )
+    repo = readme_data.get("repo", "leftkats/greek-software-ecosystem")
     live_url = readme_data.get("live_url", "")
     branding = readme_data.get("branding", {}) or {}
     _default_intro_line_2 = (
@@ -645,7 +631,7 @@ def generate() -> None:
 
     tagline = readme_data.get("tagline", "")
     lines.append('<p align="center">')
-    lines.append(f"  {tagline}<br>")
+    lines.append(f"  {tagline}<br><br>")
     if live_url:
         cta = (readme_data.get("live_directory_cta") or "").strip()
         if not cta:
@@ -668,44 +654,44 @@ def generate() -> None:
     hybrid_href = f"{live_url}?pol=hybrid" if live_url else companies_href
     if live_url:
         base = live_url.rstrip("/")
-        podcasts_href = f"{base}/podcasts.html"
+        podcasts_href = f"{base}/podcasts"
     else:
         podcasts_href = (
             f"https://github.com/{repo}/blob/main/docs/{GREEK_TECH_PODCASTS_MD}"
         )
     lines.append(
         "  "
-        f"<a href=\"{companies_href}\">"
-        f"<img src=\"https://img.shields.io/badge/Companies-{total}-{companies_color}?style={stats_style}\" alt=\"Companies\" /></a>"
+        f'<a href="{companies_href}">'
+        f'<img src="https://img.shields.io/badge/Companies-{total}-{companies_color}?style={stats_style}" alt="Companies" /></a>'
     )
     lines.append(
         "  "
-        f"<a href=\"{open_roles_href}\">"
-        f"<img src=\"https://img.shields.io/badge/Open%20Roles-{open_roles}-{open_roles_color}?style={stats_style}\" alt=\"Open Roles\" /></a>"
+        f'<a href="{open_roles_href}">'
+        f'<img src="https://img.shields.io/badge/Open%20Roles-{open_roles}-{open_roles_color}?style={stats_style}" alt="Open Roles" /></a>'
     )
     lines.append(
         "  "
-        f"<a href=\"{remote_href}\">"
-        f"<img src=\"https://img.shields.io/badge/Remote-{remote}-{remote_color}?style={stats_style}\" alt=\"Remote\" /></a>"
+        f'<a href="{remote_href}">'
+        f'<img src="https://img.shields.io/badge/Remote-{remote}-{remote_color}?style={stats_style}" alt="Remote" /></a>'
     )
     lines.append(
         "  "
-        f"<a href=\"{hybrid_href}\">"
-        f"<img src=\"https://img.shields.io/badge/Hybrid-{hybrid}-{hybrid_color}?style={stats_style}\" alt=\"Hybrid\" /></a>"
+        f'<a href="{hybrid_href}">'
+        f'<img src="https://img.shields.io/badge/Hybrid-{hybrid}-{hybrid_color}?style={stats_style}" alt="Hybrid" /></a>'
     )
     lines.append(
         "  "
-        f"<a href=\"{podcasts_href}\">"
-        f"<img src=\"https://img.shields.io/badge/Podcasts-{podcast_count}-{podcasts_color}?style={stats_style}\" alt=\"Podcasts\" /></a>"
+        f'<a href="{podcasts_href}">'
+        f'<img src="https://img.shields.io/badge/Podcasts-{podcast_count}-{podcasts_color}?style={stats_style}" alt="Podcasts" /></a>'
     )
     community_cfg = (readme_data.get("community") or {}).get("discord") or {}
     raw_inv = community_cfg.get("invite")
     discord_invite = str(raw_inv).strip() if raw_inv is not None else ""
     discord_href = ""
     if discord_invite:
-        discord_badge_lbl = str(
-            community_cfg.get("badge_label") or "Community"
-        ).strip() or "Community"
+        discord_badge_lbl = (
+            str(community_cfg.get("badge_label") or "Community").strip() or "Community"
+        )
         d_right = discord_badge_lbl.replace(" ", "%20")
         discord_color = str(community_cfg.get("color") or "5865F2").strip()
         # Static “Discord” label + configurable second segment (e.g. Community) + blurple.
@@ -719,9 +705,9 @@ def generate() -> None:
         lines.append("  <!-- Set community.discord in _data/readme.yaml -->")
         lines.append(
             "  "
-            f"<a href=\"{escape(discord_href, quote=True)}\">"
-            f"<img src=\"{escape(discord_badge_url, quote=True)}\" "
-            f"alt=\"Join us on Discord\" /></a>"
+            f'<a href="{escape(discord_href, quote=True)}">'
+            f'<img src="{escape(discord_badge_url, quote=True)}" '
+            f'alt="Join us on Discord" /></a>'
         )
     lines.append("</p>")
     lines.append("")
@@ -729,17 +715,17 @@ def generate() -> None:
     meta_badges: list[str] = []
     if show_ci:
         meta_badges.append(
-            f"<a href=\"https://github.com/{repo}/actions/workflows/{ci_workflow}\">"
-            f"<img src=\"https://img.shields.io/github/actions/workflow/status/{repo}/{ci_workflow}?branch=main&logo=githubactions&label=CI\" alt=\"CI\" /></a>"
+            f'<a href="https://github.com/{repo}/actions/workflows/{ci_workflow}">'
+            f'<img src="https://img.shields.io/github/actions/workflow/status/{repo}/{ci_workflow}?branch=main&logo=githubactions&label=CI" alt="CI" /></a>'
         )
     if show_license:
         meta_badges.append(
-            f"<a href=\"https://github.com/{repo}/blob/main/LICENSE\">"
-            f"<img src=\"https://img.shields.io/github/license/{repo}?logo=github&label=License\" alt=\"License\" /></a>"
+            f'<a href="https://github.com/{repo}/blob/main/LICENSE">'
+            f'<img src="https://img.shields.io/github/license/{repo}?logo=github&label=License" alt="License" /></a>'
         )
     if show_last_commit:
         meta_badges.append(
-            f"<img src=\"https://img.shields.io/github/last-commit/{repo}?logo=github&label=Last%20Commit\" alt=\"Last Commit\" />"
+            f'<img src="https://img.shields.io/github/last-commit/{repo}?logo=github&label=Last%20Commit" alt="Last Commit" />'
         )
     if meta_badges:
         lines.append('<p align="center">')
@@ -755,9 +741,7 @@ def generate() -> None:
     sec_str = ""
     if top_sectors:
         parts = [f"**{s}** ({n})" for s, n in top_sectors]
-        sec_str = (
-            f" The most common sectors are {', '.join(parts)}."
-        )
+        sec_str = f" The most common sectors are {', '.join(parts)}."
 
     lines.append(
         f"Currently tracking **{total}** companies, "
@@ -768,6 +752,11 @@ def generate() -> None:
         f"**{onsite}** on-site."
         f"{sec_str}\n"
     )
+    lines.append("")
+    wpn = (
+        readme_data.get("work_policy_notice") or ""
+    ).strip() or DEFAULT_WORK_POLICY_NOTICE
+    lines.append(f"{wpn}\n")
     lines.append("")
     gm_readme = (readme_data.get("generated_markdown") or {}).get("readme") or {}
     overview_links = (
@@ -816,10 +805,7 @@ def generate() -> None:
     if readme_data.get("disclaimer"):
         lines.append(f"{readme_data['disclaimer'].strip()}\n")
 
-    readme_out = DOCS_MD_DIR / README_MD
     readme_text = "\n".join(lines) + "\n"
-    with readme_out.open("w", encoding="utf-8") as f:
-        f.write(readme_text)
     ROOT_README.write_text(
         _readme_markdown_for_repository_root(readme_text),
         encoding="utf-8",
@@ -834,9 +820,7 @@ def generate() -> None:
             loaded = yaml.safe_load(f)
             if isinstance(loaded, dict):
                 podcasts_data = loaded
-    with (DOCS_MD_DIR / GREEK_TECH_PODCASTS_MD).open(
-        "w", encoding="utf-8"
-    ) as f:
+    with (DOCS_MD_DIR / GREEK_TECH_PODCASTS_MD).open("w", encoding="utf-8") as f:
         f.write(build_greek_tech_podcasts_markdown(podcasts_data))
 
     osp_data: dict = {}
@@ -845,9 +829,7 @@ def generate() -> None:
             loaded = yaml.safe_load(f)
             if isinstance(loaded, dict):
                 osp_data = loaded
-    with (DOCS_MD_DIR / OPEN_SOURCE_PROJECTS_MD).open(
-        "w", encoding="utf-8"
-    ) as f:
+    with (DOCS_MD_DIR / OPEN_SOURCE_PROJECTS_MD).open("w", encoding="utf-8") as f:
         f.write(build_open_source_projects_markdown(osp_data))
 
     cafe_resources_data: dict = {}
@@ -856,15 +838,11 @@ def generate() -> None:
             loaded_cafe = yaml.safe_load(f)
             if isinstance(loaded_cafe, dict):
                 cafe_resources_data = loaded_cafe
-    with (DOCS_MD_DIR / REMOTE_CAFE_RESOURCES_MD).open(
-        "w", encoding="utf-8"
-    ) as f:
+    with (DOCS_MD_DIR / REMOTE_CAFE_RESOURCES_MD).open("w", encoding="utf-8") as f:
         f.write(build_remote_cafe_resources_markdown(cafe_resources_data))
 
     if dev_md_body:
-        with (DOCS_MD_DIR / DEVELOPMENT_MD).open(
-            "w", encoding="utf-8"
-        ) as f:
+        with (DOCS_MD_DIR / DEVELOPMENT_MD).open("w", encoding="utf-8") as f:
             f.write(dev_md_body)
 
     # ── Build engineering-hubs.md ───────────────────────────
@@ -872,9 +850,7 @@ def generate() -> None:
     gm_eh = (readme_data.get("generated_markdown") or {}).get("engineering_hubs") or {}
     eh_title = (gm_eh.get("title") or _DEFAULT_EH_TITLE).strip()
     eh_intro = (gm_eh.get("intro") or _DEFAULT_EH_INTRO).strip()
-    eh_disclaimer = _engineering_hubs_disclaimer_text(
-        readme_data, issue_chooser
-    )
+    eh_disclaimer = _engineering_hubs_disclaimer_text(readme_data, issue_chooser)
     hubs: list[str] = [
         f"# {eh_title}\n",
         "\n",
@@ -882,8 +858,7 @@ def generate() -> None:
         "\n",
         f"{eh_disclaimer}\n",
         "\n",
-        "| # | Organization | Focus Sectors "
-        "| Policy | Talent Portals |\n",
+        "| # | Organization | Focus Sectors | Policy | Talent Portals |\n",
         "| :--- | :--- | :--- | :--- | :--- |\n",
     ]
 
@@ -895,57 +870,30 @@ def generate() -> None:
     }
 
     for idx, c in enumerate(all_companies, start=1):
-        name_md = (
-            f"[{c['name']}]({c['url']})"
-            if c.get("url")
-            else c["name"]
-        )
+        name_md = f"[{c['name']}]({c['url']})" if c.get("url") else c["name"]
 
-        raw = (
-            c.get("work_policy", "N/A")
-            .strip()
-            .lower()
-            .replace("-", "")
-        )
+        raw = c.get("work_policy", "N/A").strip().lower().replace("-", "")
         color = p_colors.get(raw, "lightgrey")
-        pbadge = (
-            "![](https://img.shields.io/badge/"
-            f"-{raw}-{color}?style=flat-square)"
-        )
+        pbadge = f"![](https://img.shields.io/badge/-{raw}-{color}?style=flat-square)"
 
-        careers = (
-            f"[Careers]({c['careers_url']})"
-            if c.get("careers_url")
-            else "—"
-        )
+        careers = f"[Careers]({c['careers_url']})" if c.get("careers_url") else "—"
         lid = c.get("linkedin_company_id", "")
-        li = (
-            "[LinkedIn]"
-            f"(https://www.linkedin.com/company/{lid})"
-            if lid
-            else "—"
-        )
+        li = f"[LinkedIn](https://www.linkedin.com/company/{lid})" if lid else "—"
 
-        sectors = ", ".join(
-            f"`{s}`" for s in c.get("sectors", [])
-        )
+        sectors = ", ".join(f"`{s}`" for s in c.get("sectors", []))
 
         hubs.append(
-            f"| {idx:02} | **{name_md}** "
-            f"| {sectors} | {pbadge} "
-            f"| {careers} · {li} |\n"
+            f"| {idx:02} | **{name_md}** | {sectors} | {pbadge} | {careers} · {li} |\n"
         )
 
-    with (DOCS_MD_DIR / ENGINEERING_HUBS_MD).open(
-        "w", encoding="utf-8"
-    ) as f:
+    with (DOCS_MD_DIR / ENGINEERING_HUBS_MD).open("w", encoding="utf-8") as f:
         f.writelines(hubs)
 
 
 if __name__ == "__main__":
     generate()
     print(
-        "README.md (repo root), docs/readme.md, docs/search-queries-and-resources.md, "
+        "README.md (repo root), docs/search-queries-and-resources.md, "
         "docs/greek-tech-podcasts.md, docs/open-source-projects.md, "
         "docs/remote-cafe-resources.md, docs/development.md, and "
         "docs/engineering-hubs.md written successfully!"

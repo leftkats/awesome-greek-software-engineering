@@ -8,6 +8,12 @@ description: >
   and tips, pointers to **Greek tech podcasts**, and a short list of **remote
   café / laptop-friendly workspace** resources—linked from the overview below.
 
+# Shown on the README overview, the site home hero, and the job-search page (Markdown; ``generate_index`` renders HTML).
+work_policy_notice: >
+  **Note:** Work policy labels (remote, hybrid, on-site) are community-maintained and may
+  be incorrect or outdated. Always verify roles, locations, and policies on each employer's
+  official website using the company and careers URLs in the directory.
+
 live_url: "https://leftkats.github.io/greek-software-ecosystem/"
 # Shown as the centered link under the badges (readme header).
 live_directory_cta: "Open the interactive directory"
@@ -29,8 +35,10 @@ generated_markdown:
       Curated organizations, focus sectors, work policy, and talent links.
     disclaimer: >
       **Disclaimer:** This list is community-maintained. Information may be
-      incomplete, outdated, or incorrect. If you notice an error or want an
-      update, please [open a GitHub issue]({issue_chooser_url}) (pick the template that fits).
+      incomplete, outdated, or incorrect—including **work policy** tags (remote, hybrid, on-site),
+      which are not verified with employers. Always confirm policies and openings on each
+      company's official site. If you notice an error or want an update, please
+      [open a GitHub issue]({issue_chooser_url}) (pick the template that fits).
   readme:
     overview_links_paragraph: |
       **What’s in this repository**
@@ -94,7 +102,8 @@ disclaimer: >
 
   * **Accuracy:** Information is gathered from public sources.  Company
     policies and openings change frequently — always verify on the
-    official company website.
+    official company website. **Work policy** labels (remote, hybrid, on-site)
+    may be wrong; rely on each employer's own careers pages and URLs.
 
   * **Contributions:** Spotted an error?  PRs and issues are welcome.
 

@@ -2,7 +2,7 @@
 
 Curated organizations, focus sectors, work policy, and talent links.
 
-**Disclaimer:** This list is community-maintained. Information may be incomplete, outdated, or incorrect. If you notice an error or want an update, please [open a GitHub issue](https://github.com/leftkats/greek-software-ecosystem/issues/new/choose) (pick the template that fits).
+**Disclaimer:** This list is community-maintained. Information may be incomplete, outdated, or incorrect—including **work policy** tags (remote, hybrid, on-site), which are not verified with employers. Always confirm policies and openings on each company's official site. If you notice an error or want an update, please [open a GitHub issue](https://github.com/leftkats/greek-software-ecosystem/issues/new/choose) (pick the template that fits).
 
 | # | Organization | Focus Sectors | Policy | Talent Portals |
 | :--- | :--- | :--- | :--- | :--- |
