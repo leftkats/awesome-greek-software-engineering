@@ -12,6 +12,7 @@ Each **●** links to that show on the given platform (empty cells mean no URL l
 
 | Podcast | Web | Spotify | YouTube | Apple | Google | Simplecast | Podlist |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Θέματα περί ανάλυσης** | [●](https://www.alexandra-athanasakou.gr/greek-data-analytics-podcast/) | [●](https://open.spotify.com/show/3hBzOM5XNy3UdHuJkTwiaM) | [●](https://www.youtube.com/playlist?list=PLXabVLMBjSRSo1GYG2dbuykBZAeBLve8B) | [●](https://podcasts.apple.com/us/podcast/%CE%B8%CE%AD%CE%BC%CE%B1%CF%84%CE%B1-%CF%80%CE%B5%CF%81%CE%AF-%CE%B1%CE%BD%CE%AC%CE%BB%CF%85%CF%83%CE%B7%CF%82/id1759045921) | — | — | [●](https://podlist.gr/p/themata-peri-analysis-850) |
 | **42 Minutes of SaaS** | [●](https://42minutesofsaas.com/) | [●](https://open.spotify.com/show/03VRVmquUJsznQgfT5kzmf) | [●](https://www.youtube.com/@42MinutesOfSaaS) | [●](https://podcasts.apple.com/gr/podcast/42-minutes-of-saas/id1777907426?l=el) | — | — | [●](https://podlist.gr/p/42-minutes-of-saas-805) |
 | **Μικρή Κουβέντα (Mikri Kouventa)** | [●](https://mikrikouventa.fm/) | [●](https://open.spotify.com/show/2jYxcClL09OtszEqIYyjPD) | [●](https://www.youtube.com/@mikrikouventa) | [●](https://podcasts.apple.com/gr/podcast/%CE%BC%CE%B9%CE%BA%CF%81%CE%AE-%CE%BA%CE%BF%CF%85%CE%B2%CE%AD%CE%BD%CF%84%CE%B1/id1490436652) | — | — | — |
 | **Hustle Hours** | [●](https://www.hustlehours.com/) | [●](https://open.spotify.com/show/05k6BivafotwATAW0Icggc) | [●](https://www.youtube.com/@HustleHoursPodcast) | — | — | — | — |
@@ -23,6 +24,17 @@ Each **●** links to that show on the given platform (empty cells mean no URL l
 | **Innovation Talks (Greece)** | [●](https://innovationtalks.gr/) | [●](https://open.spotify.com/show/1fZKl6MNlctSu2UOjPumge) | — | [●](https://podcasts.apple.com/gr/podcast/innovation-talks-greece/id1589605573) | — | — | [●](https://podlist.gr/p/innovation-talks-greece-414) |
 | **Tech Leadership Podcast** | [●](https://mariosfakiolas.com/podcast/) | — | — | — | — | — | [●](https://podlist.gr/p/tech-leadership-podcast-410) |
 | **Deploy Να Τελειώνουμε** | — | [●](https://open.spotify.com/show/6dQTvtvRWwxylPPNDZD8o7) | [●](https://www.youtube.com/@deployNaTeleiwnoume) | — | — | — | — |
+
+---
+
+## Θέματα περί ανάλυσης
+
+Κάθε μήνα και ημέρα Τρίτη υπάρχουν θέματα προς ανάλυση... Με καλεσμένους ή και μεταξύ μας.
+Ο κλάδος των δεδομένων είναι πολύ μεγάλος και αυτό το podcast κάνει τα σύνθετα απλά μέσα
+από επαγγελματίες του χώρου οι οποίοι μοιράζονται την πορεία τους, αλλά και την πραγματικότητα
+που ζουν μέσα από τον ρόλο τους. Μαζί, συζητάμε πράγματα που μας απασχολούν επαγγελματικά
+για τον κλάδο της δεδομένων... και άλλα πολλά! Για εσένα που ενδιαφέρεσαι για την
+τεχνολογία και ιδιαίτερα για την αξιοποίηση των δεδομένων, αυτό το podcast είναι για εσένα!
 
 ---
 
